@@ -39,3 +39,5 @@ class Inventory():
     def print_inventory(cls):
         print("You have " + str(cls.food_amount) + " food")
         print("You have " + str(cls.wood_amount) + " wood")
+        print("You have " + str(cls.stone_amount) + " stone")
+        print("You have " + str(cls.temporary_food_amount) + " buckets of milk")

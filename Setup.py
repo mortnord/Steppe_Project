@@ -42,18 +42,26 @@ def run_Game(next_map):
 
     background_info(next_map)
     while running:
+        Commands.check_local_area()
+        print(
+            "What do you want to do? Write 0 to skip a turn and graze, write 1 to look over the herd of sheeps, "
+            "or 2 to look over the humans and "
+            "inventory management, or 3 to check the local area for resources and potentional actions, press 4 to "
+            "migrate")
 
-        print("What do you want to do? Write 1 to look over the herd of sheeps, or 2 to look over the humans and inventory, or 3 to check the local area for resources, press 4 to migrate")
-        
+
         player_command = str(input())
-        if player_command == "1":
+        if player_command == "0":
+            take_Action()
+        elif player_command == "1":
             Commands.look_over_sheeps(Static_Data.get_list_of_sheeps())
         elif player_command == "2":
             Commands.look_over_humans_and_inventory(Static_Data.get_list_of_people())
+            Commands.conserve_food()
         elif player_command == "3":
-            if Commands.check_local_area():
-                Commands.harvest_local_area()
-
+            Commands.harvest_local_area()
+        elif player_command == "4":
+            Commands.migrate(next_map_generation())
 
 
 def background_info(next_map):
@@ -61,13 +69,20 @@ def background_info(next_map):
 
     print("You have " + str(Static_Data.get_Actions_Available()) + " actions available due to grass")
 
+
 def take_Action():
     Static_Data.get_current_map().amount_of_grass -= Static_Data.get_Amount_of_Grass_eating_per_action()
     Static_Data.use_Actions_available(1)
     for x in range(len(Static_Data.get_list_of_sheeps())):
         if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Ewe:
             Inventory.set_temporary_food_amount(1)
+    for x in range(len(Static_Data.get_list_of_people())):
+        if Inventory.get_temporary_food_amount() > 0:
+            Inventory.set_temporary_food_amount((-1))
+        else:
+            Inventory.set_food_amount(-1)
     print("You have " + str(Inventory.get_temporary_food_amount()) + " buckets of milk")
+
 
 def setup():
     list_of_people, list_of_sheeps = initial_Creation(2, 2, 5, 3, 3)  # Humans, male sheeps, female sheeps, lambs

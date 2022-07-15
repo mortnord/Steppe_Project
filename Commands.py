@@ -48,16 +48,11 @@ def calculate_grass(current_map, list_of_sheeps):
 
 
 def check_local_area():
-    resources = False
     print("There is " + str(Static_Data.get_current_map().amount_of_grass) + " grass available")
     if Static_Data.get_current_map().amount_of_wood > 0:
         print("There is " + str(Static_Data.get_current_map().amount_of_wood) + " wood available")
-        resources = True
-
     if Static_Data.get_current_map().amount_of_stone > 0:
         print("There is " + str(Static_Data.get_current_map().amount_of_stone) + " stone available")
-        resources = True
-    return resources
 
 
 def handle_input(handle_input):
@@ -77,6 +72,7 @@ def harvest_local_area():
     elif resource_to_gather == "stone" or resource_to_gather == "rocks" or resource_to_gather == "stones" or resource_to_gather == "rock":
         Harvest_stone(amount_harvester)
 
+
 def Harvest_wood(amount_harvester):
     if Static_Data.get_current_map().amount_of_wood > amount_harvester:
         Static_Data.get_current_map().amount_of_wood -= amount_harvester
@@ -93,6 +89,7 @@ def Harvest_wood(amount_harvester):
     print("You have in total " + str(Inventory.wood_amount) + " wood")
     print("You have " + str(Static_Data.get_Actions_Available()) + " actions available due to grass")
 
+
 def Harvest_stone(amount_harvester):
     if Static_Data.get_current_map().amount_of_stone > amount_harvester:
         Static_Data.get_current_map().amount_of_stone -= amount_harvester
@@ -108,3 +105,21 @@ def Harvest_stone(amount_harvester):
     print(str(amount_harvested) + " stone harvested")
     print("You have in total " + str(Inventory.stone_amount) + " stone")
     print("You have " + str(Static_Data.get_Actions_Available()) + " actions available due to grass")
+
+
+def migrate(next_map):
+    Inventory.set_temporary_food_amount(-Inventory.get_temporary_food_amount())
+    Static_Data.set_current_map(next_map)
+    print(Static_Data.get_current_map().type_of_landscape)
+
+
+
+def conserve_food():
+    print(
+        "Do you want to use an action to conserve temporary food (buckets of milk) into cheese? 3 buckets gives 1 cheese. Y/N")
+    answer = input()
+    if answer == "Y":
+        buckets_conserved = math.floor((int(Inventory.get_temporary_food_amount()) / 3))
+        Inventory.set_food_amount(buckets_conserved)
+        Inventory.set_temporary_food_amount(-buckets_conserved * 3)
+    Inventory.print_inventory()
