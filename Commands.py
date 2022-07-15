@@ -1,4 +1,5 @@
 import math
+import random
 
 import Enumerators
 import Setup
@@ -48,11 +49,13 @@ def calculate_grass(current_map, list_of_sheeps):
 
 
 def check_local_area():
-    print("There is " + str(Static_Data.get_current_map().amount_of_grass) + " grass available")
+    print("There is " + str(Static_Data.get_current_map().amount_of_grass) + " grass available and this gives you " + str(Static_Data.get_Actions_Available()) + " turns remaining")
     if Static_Data.get_current_map().amount_of_wood > 0:
         print("There is " + str(Static_Data.get_current_map().amount_of_wood) + " wood available")
     if Static_Data.get_current_map().amount_of_stone > 0:
         print("There is " + str(Static_Data.get_current_map().amount_of_stone) + " stone available")
+    if Static_Data.get_current_map().has_river:
+        print("There is a river here")
 
 
 def handle_input(handle_input):
@@ -61,19 +64,28 @@ def handle_input(handle_input):
     return handle_input
 
 
+def fish_in_river():
+    for x in range(len(Static_Data.get_list_of_people())):
+        fish_chance = random.randint(1,3)
+        if fish_chance == 1:
+            print("caught fish!")
+            Inventory.set_food_amount(1)
+    Setup.take_Action()
+
 def harvest_local_area():
     print("What do you want to harvest?")
     amount_harvester = len(Static_Data.get_list_of_people())
     resource_to_gather = input()
     resource_to_gather = handle_input(resource_to_gather)
     if resource_to_gather == "wood" or resource_to_gather == "tree" or resource_to_gather == "trees":
-        Harvest_wood(amount_harvester)
-
+        harvest_wood(amount_harvester)
     elif resource_to_gather == "stone" or resource_to_gather == "rocks" or resource_to_gather == "stones" or resource_to_gather == "rock":
-        Harvest_stone(amount_harvester)
+        harvest_stone(amount_harvester)
+    elif resource_to_gather == "fish" or resource_to_gather == "river":
+        fish_in_river()
 
 
-def Harvest_wood(amount_harvester):
+def harvest_wood(amount_harvester):
     if Static_Data.get_current_map().amount_of_wood > amount_harvester:
         Static_Data.get_current_map().amount_of_wood -= amount_harvester
         amount_harvested = amount_harvester
@@ -90,7 +102,7 @@ def Harvest_wood(amount_harvester):
     print("You have " + str(Static_Data.get_Actions_Available()) + " actions available due to grass")
 
 
-def Harvest_stone(amount_harvester):
+def harvest_stone(amount_harvester):
     if Static_Data.get_current_map().amount_of_stone > amount_harvester:
         Static_Data.get_current_map().amount_of_stone -= amount_harvester
         amount_harvested = amount_harvester
@@ -110,6 +122,7 @@ def Harvest_stone(amount_harvester):
 def migrate(next_map):
     Inventory.set_temporary_food_amount(-Inventory.get_temporary_food_amount())
     Static_Data.set_current_map(next_map)
+    Setup.background_info(next_map)
     print(Static_Data.get_current_map().type_of_landscape)
 
 
@@ -119,7 +132,8 @@ def conserve_food():
         "Do you want to use an action to conserve temporary food (buckets of milk) into cheese? 3 buckets gives 1 cheese. Y/N")
     answer = input()
     if answer == "Y":
+        Setup.take_Action()
         buckets_conserved = math.floor((int(Inventory.get_temporary_food_amount()) / 3))
         Inventory.set_food_amount(buckets_conserved)
-        Inventory.set_temporary_food_amount(-buckets_conserved * 3)
+        Inventory.set_temporary_food_amount(-(buckets_conserved * 3))
     Inventory.print_inventory()

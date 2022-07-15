@@ -39,7 +39,6 @@ def next_map_generation():
 
 def run_Game(next_map):
     running = True
-
     background_info(next_map)
     while running:
         Commands.check_local_area()
@@ -48,7 +47,6 @@ def run_Game(next_map):
             "or 2 to look over the humans and "
             "inventory management, or 3 to check the local area for resources and potentional actions, press 4 to "
             "migrate")
-
 
         player_command = str(input())
         if player_command == "0":
@@ -67,7 +65,7 @@ def run_Game(next_map):
 def background_info(next_map):
     Commands.calculate_grass(Static_Data.get_current_map(), Static_Data.get_list_of_sheeps())
 
-    print("You have " + str(Static_Data.get_Actions_Available()) + " actions available due to grass")
+
 
 
 def take_Action():
@@ -76,12 +74,14 @@ def take_Action():
     for x in range(len(Static_Data.get_list_of_sheeps())):
         if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Ewe:
             Inventory.set_temporary_food_amount(1)
+
+    print("You have " + str(Inventory.get_temporary_food_amount()) + " buckets of milk after milking")
     for x in range(len(Static_Data.get_list_of_people())):
         if Inventory.get_temporary_food_amount() > 0:
             Inventory.set_temporary_food_amount((-1))
         else:
             Inventory.set_food_amount(-1)
-    print("You have " + str(Inventory.get_temporary_food_amount()) + " buckets of milk")
+    print("You have " + str(Inventory.get_temporary_food_amount()) + " buckets of milk after drinking")
 
 
 def setup():
