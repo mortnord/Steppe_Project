@@ -59,7 +59,8 @@ def run_Game(next_map):
         elif player_command == "3":
             Commands.harvest_local_area()
         elif player_command == "4":
-            Commands.migrate(next_map_generation())
+            Commands.migrate(Commands.create_next_areas())
+            print("You are now in a " + Static_Data.current_map.type_of_landscape.name + " region")
 
 
 def background_info(next_map):

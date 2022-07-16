@@ -66,10 +66,14 @@ def handle_input(handle_input):
 
 def fish_in_river():
     for x in range(len(Static_Data.get_list_of_people())):
-        fish_chance = random.randint(1,3)
+        fish_chance = random.randint(1,5)
         if fish_chance == 1:
             print("caught fish!")
             Inventory.set_food_amount(1)
+        elif fish_chance == 3:
+            Inventory.set_food_amount(1)
+        elif fish_chance == 5:
+            Inventory.set_food_amount(3)
     Setup.take_Action()
 
 def harvest_local_area():
@@ -123,7 +127,6 @@ def migrate(next_map):
     Inventory.set_temporary_food_amount(-Inventory.get_temporary_food_amount())
     Static_Data.set_current_map(next_map)
     Setup.background_info(next_map)
-    print(Static_Data.get_current_map().type_of_landscape)
 
 
 
@@ -137,3 +140,22 @@ def conserve_food():
         Inventory.set_food_amount(buckets_conserved)
         Inventory.set_temporary_food_amount(-(buckets_conserved * 3))
     Inventory.print_inventory()
+
+
+def create_next_areas():
+    possible_areas = []
+    for x in range(3):
+        possible_areas.append(Setup.next_map_generation())
+    for x in range(len(possible_areas)):
+        if possible_areas[x].has_river:
+            print("You can migrate to a " + possible_areas[x].type_of_landscape.name + " region with a river")
+        else:
+            print("You can migrate to a " + possible_areas[x].type_of_landscape.name + " region")
+    print("Write 1 2 or 3 to migrate to that region")
+    choice = input()
+    if choice == "1":
+        return possible_areas[0]
+    elif choice == "2":
+        return possible_areas[1]
+    elif choice == "3":
+        return possible_areas[2]
