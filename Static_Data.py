@@ -1,4 +1,4 @@
-import Commands
+import Commands_Dirc
 
 
 class Static_Data():
@@ -9,6 +9,7 @@ class Static_Data():
     list_of_people = []
     list_of_sheeps = []
     current_map = 0
+    growing_time = 0
 
     @classmethod
     def get_ID(cls):
@@ -64,3 +65,10 @@ class Static_Data():
     def get_current_map(cls):
         return cls.current_map
 
+    @classmethod
+    def get_growing_time(cls):
+        return cls.growing_time
+
+    @classmethod
+    def set_growing_time(cls, growing_time_input):
+        cls.growing_time += growing_time_input

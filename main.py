@@ -10,4 +10,5 @@ print("You can conserve milk into cheese to keep it with you, but migrating will
 
 print("Currently you can harvest wood and stone, but it has no use")
 print("You can fish, but that is a random chance to get food")
+print("")
 Setup.setup()
