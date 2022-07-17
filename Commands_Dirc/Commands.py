@@ -48,6 +48,12 @@ def harvest_local_area():
 def migrate(next_map):
     Inventory.set_temporary_food_amount(-Inventory.get_temporary_food_amount())
     Static_Data.set_current_map(next_map)
+
+    Static_Data.set_growing_time(1)
+    if Static_Data.get_growing_time() > 3:
+        print(Static_Data.get_growing_time())
+        Static_Data.set_growing_time(-Static_Data.get_growing_time())
+        Setup.grow_and_handle_sheep()
     Setup.background_info(next_map)
 
 

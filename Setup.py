@@ -65,8 +65,29 @@ def background_info(next_map):
     Commands.calculate_grass(Static_Data.get_current_map(), Static_Data.get_list_of_sheeps())
 
 
-def take_Action():
+def grow_and_handle_sheep():
+    for x in range(len(Static_Data.get_list_of_sheeps())):
+        if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Male_Lamb or \
+                Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Female_Lamb:
+            Static_Data.get_list_of_sheeps()[x].age += 1
+    for x in range(len(Static_Data.get_list_of_sheeps())):
+        if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Ewe:
+            lamb = random.randint(1, 2)
+            if lamb == 1:
+                Static_Data.get_list_of_sheeps().append(Sheeps.SheepMaleLamb())
+            if lamb == 2:
+                Static_Data.get_list_of_sheeps().append(Sheeps.SheepFemaleLamb())
+    for x in range(len(Static_Data.get_list_of_sheeps())):
+        if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Male_Lamb:
+            if Static_Data.get_list_of_sheeps()[x].age >= 3:
+                Static_Data.get_list_of_sheeps()[x] = Sheeps.SheepMale()
 
+        if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Female_Lamb:
+            if Static_Data.get_list_of_sheeps()[x].age >= 3:
+                Static_Data.get_list_of_sheeps()[x] = Sheeps.SheepFemale()
+
+
+def take_Action():
     Static_Data.get_current_map().amount_of_grass -= Static_Data.get_Amount_of_Grass_eating_per_action()
     Static_Data.use_Actions_available(1)
 
@@ -82,11 +103,6 @@ def take_Action():
     print("You have " + str(Inventory.get_temporary_food_amount()) + " buckets of milk after drinking")
 
     print("Some time passes, the sheep graze and you have 1 less action")
-
-    Static_Data.set_growing_time(1)
-    if Static_Data.get_growing_time() > 3:
-        Static_Data.set_growing_time(-Static_Data.get_growing_time())
-
 
 
 def setup():

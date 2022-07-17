@@ -2,6 +2,7 @@ import math
 
 import Enumerators
 import Setup
+from Commands_Dirc import Commands
 from Inventory import Inventory
 from Static_Data import Static_Data
 
@@ -16,6 +17,31 @@ def conserve_food():
         Inventory.set_food_amount(buckets_conserved)
         Inventory.set_temporary_food_amount(-(buckets_conserved * 3))
     Inventory.print_inventory()
+
+
+def slaughter_sheep(sheep, number):
+    temp_list = []
+    for x in range(len(Static_Data.get_list_of_sheeps())):
+        if Static_Data.get_list_of_sheeps()[x].type_of_sheep == sheep:
+            temp_list.append(Static_Data.get_list_of_sheeps()[x])
+            Inventory.set_food_amount(Static_Data.get_list_of_sheeps()[x].meat_amount)
+            if len(temp_list) == number:
+                break
+    for x in range(len(temp_list)):
+        Static_Data.get_list_of_sheeps().remove(temp_list[x])
+
+
+def slaughter_Sheep_choice():
+    print("Do you want to slaughter rams or ewes?")
+
+    resource_to_gather = input()
+    print("How many?")
+    number = int(input())
+    resource_to_gather = Commands.handle_input(resource_to_gather)
+    if resource_to_gather == "ram" or resource_to_gather == "rams":
+        slaughter_sheep(Enumerators.TypeOfSheep.Ram, number)
+    elif resource_to_gather == "ewe" or resource_to_gather == "ewes":
+        slaughter_sheep(Enumerators.TypeOfSheep.Ewe, number)
 
 
 def look_over_sheeps(list_of_sheeps):
@@ -42,6 +68,11 @@ def look_over_sheeps(list_of_sheeps):
     print("You have " + str(female_lambs) + " young ewes")
 
     print("You have " + str(len(list_of_sheeps)) + " sheep in total")
+
+    print("Do you want to slaughter some sheep? Y/N")
+    player_command = str(input())
+    if player_command == "Y":
+        slaughter_Sheep_choice()
 
 
 def look_over_humans_and_inventory(list_of_people):

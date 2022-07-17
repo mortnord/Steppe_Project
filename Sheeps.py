@@ -14,6 +14,7 @@ class SheepFemale(Sheep):
         super().__init__()
         self.eat_amount = float(1)
         self.type_of_sheep = Enumerators.TypeOfSheep.Ewe
+        self.meat_amount = 3
 
 
 class SheepMaleLamb(Sheep):
@@ -21,6 +22,7 @@ class SheepMaleLamb(Sheep):
         super().__init__()
         self.eat_amount = 0.5
         self.type_of_sheep = Enumerators.TypeOfSheep.Male_Lamb
+        self.age = 0
 
 
 class SheepFemaleLamb(Sheep):
@@ -28,6 +30,7 @@ class SheepFemaleLamb(Sheep):
         super().__init__()
         self.eat_amount = 0.5
         self.type_of_sheep = Enumerators.TypeOfSheep.Female_Lamb
+        self.age = 0
 
 
 class SheepMale(Sheep):
@@ -35,3 +38,4 @@ class SheepMale(Sheep):
         super().__init__()
         self.eat_amount = 1.5
         self.type_of_sheep = Enumerators.TypeOfSheep.Ram
+        self.meat_amount = 4
