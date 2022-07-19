@@ -11,3 +11,6 @@ class Landscapes(Enum):
     Wooded = "Wooded"
     Hills = "Hills"
     Rocky = "Rocky"
+
+class TypeOfBuilding(Enum):
+    Silo = "Silo"

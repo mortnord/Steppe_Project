@@ -4,12 +4,14 @@ import Commands_Dirc
 class Static_Data():
     ID = 0
     Landscape_ID = 0
+    Building_ID = 0
     Actions_Available = 0
     Amount_of_Grass_eating_per_action = 0
     list_of_people = []
     list_of_sheeps = []
     current_map = 0
     growing_time = 0
+    max_amount_of_buildings = 0
 
     @classmethod
     def get_ID(cls):
@@ -20,6 +22,11 @@ class Static_Data():
     def get_Landscape_ID(cls):
         cls.Landscape_ID += 1
         return cls.Landscape_ID
+
+    @classmethod
+    def get_Building_ID(cls):
+        cls.Building_ID += 1
+        return cls.Building_ID
 
     @classmethod
     def get_Actions_Available(cls):
@@ -72,3 +79,11 @@ class Static_Data():
     @classmethod
     def set_growing_time(cls, growing_time_input):
         cls.growing_time += growing_time_input
+
+    @classmethod
+    def set_max_amount_of_buildings(cls, max_amount_of_buildings_input):
+        cls.max_amount_of_buildings = max_amount_of_buildings_input
+
+    @classmethod
+    def get_max_amount_of_buildings(cls):
+        return cls.max_amount_of_buildings

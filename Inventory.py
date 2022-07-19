@@ -3,6 +3,7 @@ class Inventory():
     temporary_food_amount = 0
     wood_amount = 0
     stone_amount = 0
+    buildings = []
     @classmethod
     def get_food_amount(cls):
         return cls.food_amount
@@ -34,6 +35,14 @@ class Inventory():
     @classmethod
     def set_stone_amount(cls, stone_input):
         cls.stone_amount += stone_input
+
+    @classmethod
+    def set_buildings(cls, buildings_input):
+        cls.buildings.append(buildings_input)
+
+    @classmethod
+    def get_buildings(cls):
+        return cls.buildings
 
     @classmethod
     def print_inventory(cls):

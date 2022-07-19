@@ -5,14 +5,6 @@ from Inventory import Inventory
 from Static_Data import Static_Data
 
 
-def calculate_grass(current_map, list_of_sheeps):
-    grass_needed = 0
-    for x in range(len(list_of_sheeps)):
-        grass_needed += list_of_sheeps[x].eat_amount
-    actions_available = math.floor((int(current_map.amount_of_grass) / int(grass_needed)))
-    Static_Data.set_Actions_Available(actions_available)
-    Static_Data.set_Amount_of_Grass_eating_per_action(grass_needed)
-
 
 def check_local_area():
     print(

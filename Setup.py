@@ -1,6 +1,6 @@
 import random
 
-import Commands_Dirc.Harvest_Commands as Harvest_Commands
+import Background_Calculations
 import Commands_Dirc.Commands as Commands
 import Commands_Dirc.Inventory_and_herd_management as Inventory_and_herd_management
 import Enumerators
@@ -47,7 +47,7 @@ def run_Game(next_map):
         print(
             "What do you want to do? Write 0 to skip a turn and graze, write 1 to look over the herd of sheeps or manage your inventory, "
             "or 2 to check the local area for resources and potentional actions, press 3 to "
-            "migrate")
+            "migrate, press 4 to ")
 
         player_command = str(input())
         if player_command == "0":
@@ -62,7 +62,9 @@ def run_Game(next_map):
 
 
 def background_info(next_map):
-    Commands.calculate_grass(Static_Data.get_current_map(), Static_Data.get_list_of_sheeps())
+    Background_Calculations.calculate_grass()
+    Background_Calculations.calculate_max_buildings()
+    Background_Calculations.has_buildings()
 
 
 def grow_and_handle_sheep():
