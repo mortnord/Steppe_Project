@@ -41,12 +41,13 @@ def next_map_generation():
 
 def run_Game(next_map):
     running = True
-    background_info(next_map)
     while running:
+
+        background_info(next_map)
         Commands.check_local_area()
         print(
-            "What do you want to do? Write 0 to skip a turn and graze, write 1 to look over the herd of sheeps or manage your inventory, "
-            "or 2 to check the local area for resources and potentional actions, press 3 to "
+            "What do you want to do? Write 0 to skip a turn and graze, write 1 to look over the herd of sheeps or manage your inventory or build, "
+            "or 2 to check the local area for resources and potential actions, press 3 to "
             "migrate, press 4 to ")
 
         player_command = str(input())
@@ -59,12 +60,15 @@ def run_Game(next_map):
         elif player_command == "3":
             Commands.migrate(Commands.create_next_areas())
             print("You are now in a " + Static_Data.current_map.type_of_landscape.name + " region")
+        else:
+            print("Invalid command, prøv igjen")
 
 
 def background_info(next_map):
     Background_Calculations.calculate_grass()
     Background_Calculations.calculate_max_buildings()
     Background_Calculations.has_buildings()
+    Background_Calculations.calculate_max_storage()
 
 
 def grow_and_handle_sheep():
@@ -81,16 +85,23 @@ def grow_and_handle_sheep():
                 Static_Data.get_list_of_sheeps().append(Sheeps.SheepFemaleLamb())
     for x in range(len(Static_Data.get_list_of_sheeps())):
         if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Male_Lamb:
-            if Static_Data.get_list_of_sheeps()[x].age >= 3:
+            if Static_Data.get_list_of_sheeps()[x].age >= 1:
                 Static_Data.get_list_of_sheeps()[x] = Sheeps.SheepMale()
 
         if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Female_Lamb:
-            if Static_Data.get_list_of_sheeps()[x].age >= 3:
+            if Static_Data.get_list_of_sheeps()[x].age >= 1:
                 Static_Data.get_list_of_sheeps()[x] = Sheeps.SheepFemale()
 
 
-def take_Action():
+def graze():
     Static_Data.get_current_map().amount_of_grass -= Static_Data.get_Amount_of_Grass_eating_per_action()
+    if Static_Data.get_current_map().amount_of_grass < 0:
+        Inventory.set_grass_amount(-Static_Data.get_current_map().amount_of_grass)
+        Static_Data.get_current_map().amount_of_grass = 0
+        print("Your sheeps could not graze due to lack of grass, and had to eat your stored grass")
+
+def take_Action():
+
     Static_Data.use_Actions_available(1)
 
     for x in range(len(Static_Data.get_list_of_sheeps())):
@@ -104,11 +115,13 @@ def take_Action():
             Inventory.set_food_amount(-1)
     print("You have " + str(Inventory.get_temporary_food_amount()) + " buckets of milk after drinking")
 
+    graze()
     print("Some time passes, the sheep graze and you have 1 less action")
 
 
 def setup():
-    list_of_people, list_of_sheeps = initial_Creation(2, 2, 5, 3, 3)  # Humans, male sheeps, female sheeps, lambs
+    list_of_people, list_of_sheeps = initial_Creation(2, 2, 5, 3,
+                                                      3)  # Humans, male sheeps, female sheeps, male lambs, female lambs
     Static_Data.set_list_of_people(list_of_people)
     Static_Data.set_list_of_sheeps(list_of_sheeps)
     Static_Data.set_current_map(next_map_generation())

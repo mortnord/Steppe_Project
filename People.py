@@ -8,3 +8,4 @@ class Person:
     def __init__(self):
         self.eat_amount = float(1)
         self.ID = Static_Data.get_ID()
+

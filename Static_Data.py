@@ -12,6 +12,7 @@ class Static_Data():
     current_map = 0
     growing_time = 0
     max_amount_of_buildings = 0
+    current_amount_of_buildings = 0
 
     @classmethod
     def get_ID(cls):
@@ -87,3 +88,11 @@ class Static_Data():
     @classmethod
     def get_max_amount_of_buildings(cls):
         return cls.max_amount_of_buildings
+
+    @classmethod
+    def set_current_amount_of_buildings(cls, current_amount_of_buildings_input):
+        cls.current_amount_of_buildings += current_amount_of_buildings_input
+
+    @classmethod
+    def get_current_amount_of_buildings(cls):
+        return cls.current_amount_of_buildings

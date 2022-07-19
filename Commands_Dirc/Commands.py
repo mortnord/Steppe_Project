@@ -5,11 +5,10 @@ from Inventory import Inventory
 from Static_Data import Static_Data
 
 
-
 def check_local_area():
-    print(
-        "There is " + str(Static_Data.get_current_map().amount_of_grass) + " grass available and this gives you " + str(
-            Static_Data.get_Actions_Available()) + " turns remaining")
+    print("There is " + str(Static_Data.get_current_map().amount_of_grass) + " grass remaining in this region")
+    print("You have " + str(Inventory.get_grass_amount()) + " grass stored")
+    print("This gives you " + str(Static_Data.get_Actions_Available()) + " actions left")
     if Static_Data.get_current_map().amount_of_wood > 0:
         print("There is " + str(Static_Data.get_current_map().amount_of_wood) + " wood available")
     if Static_Data.get_current_map().amount_of_stone > 0:
@@ -33,8 +32,13 @@ def harvest_local_area():
         Harvest_Commands.harvest_wood(amount_harvester)
     elif resource_to_gather == "stone" or resource_to_gather == "rocks" or resource_to_gather == "stones" or resource_to_gather == "rock":
         Harvest_Commands.harvest_stone(amount_harvester)
+    elif resource_to_gather == "grass":
+        Harvest_Commands.harvest_grass(amount_harvester)
     elif resource_to_gather == "fish" or resource_to_gather == "river":
         Harvest_Commands.fish_in_river()
+    else:
+        print("Invalid command")
+        harvest_local_area()
 
 
 def migrate(next_map):
@@ -46,7 +50,6 @@ def migrate(next_map):
         print(Static_Data.get_growing_time())
         Static_Data.set_growing_time(-Static_Data.get_growing_time())
         Setup.grow_and_handle_sheep()
-    Setup.background_info(next_map)
 
 
 def create_next_areas():

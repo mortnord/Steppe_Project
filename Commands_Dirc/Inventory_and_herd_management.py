@@ -1,5 +1,7 @@
 import math
 
+import Background_Calculations
+import Buildings
 import Enumerators
 import Setup
 from Commands_Dirc import Commands
@@ -9,7 +11,8 @@ from Static_Data import Static_Data
 
 def conserve_food():
     print(
-        "Do you want to use an action to conserve temporary food (buckets of milk) into cheese? 3 buckets gives 1 cheese. Y/N")
+        "Do you want to use an action to conserve temporary food (buckets of milk) into cheese? 3 buckets gives 1 "
+        "cheese. Y/N")
     answer = input()
     if answer == "Y":
         Setup.take_Action()
@@ -81,8 +84,28 @@ def look_over_humans_and_inventory(list_of_people):
     Inventory.print_inventory()
 
 
+def build_building(type_building):
+    if Static_Data.get_max_amount_of_buildings() > Static_Data.get_current_amount_of_buildings():
+        if Inventory.get_wood_amount() >= type_building.cost_to_build_wood and Inventory.get_stone_amount() >= type_building.cost_to_build_stone:
+            print("Built building")
+            Inventory.buildings.append(type_building)
+        else:
+            print("Not enough resources")
+    else:
+        print("Not enough building slots")
+
+def build_options():
+    print("What do you want to build? Options are")
+    for type_building in Enumerators.TypeOfBuilding:
+        print(type_building.value)
+    building_choice = input()
+    building_choice = Commands.handle_input(building_choice)
+    if building_choice == "silo":
+        build_building(Buildings.Silo())
+
+
 def inventory_and_herd_management():
-    print("Press 1 to check the sheep herd, or 2 to check the inventory, press 3 to conserve food in inventory")
+    print("Press 1 to check the sheep herd, or 2 to check the inventory, press 3 to conserve food in inventory, press 4 to enter build option")
     player_command = str(input())
     if player_command == "1":
         look_over_sheeps(Static_Data.get_list_of_sheeps())
@@ -90,3 +113,5 @@ def inventory_and_herd_management():
         look_over_humans_and_inventory(Static_Data.get_list_of_people())
     elif player_command == "3":
         conserve_food()
+    elif player_command == "4":
+        build_options()
