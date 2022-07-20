@@ -14,3 +14,5 @@ class Landscapes(Enum):
 
 class TypeOfBuilding(Enum):
     Silo = "Silo"
+    Wagon = "Wagon"
+    Cheesery = "Cheesery"

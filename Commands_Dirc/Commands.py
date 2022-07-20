@@ -1,26 +1,8 @@
-import math
-import Setup
+import Turn_And_Background_Actions.Grow_Sheep
+from Background_Calculations import handle_input
 from Commands_Dirc import Harvest_Commands
 from Inventory import Inventory
 from Static_Data import Static_Data
-
-
-def check_local_area():
-    print("There is " + str(Static_Data.get_current_map().amount_of_grass) + " grass remaining in this region")
-    print("You have " + str(Inventory.get_grass_amount()) + " grass stored")
-    print("This gives you " + str(Static_Data.get_Actions_Available()) + " actions left")
-    if Static_Data.get_current_map().amount_of_wood > 0:
-        print("There is " + str(Static_Data.get_current_map().amount_of_wood) + " wood available")
-    if Static_Data.get_current_map().amount_of_stone > 0:
-        print("There is " + str(Static_Data.get_current_map().amount_of_stone) + " stone available")
-    if Static_Data.get_current_map().has_river:
-        print("There is a river here")
-
-
-def handle_input(handle_input):
-    handle_input = handle_input.lower()
-    handle_input = handle_input.strip()
-    return handle_input
 
 
 def harvest_local_area():
@@ -49,23 +31,4 @@ def migrate(next_map):
     if Static_Data.get_growing_time() > 3:
         print(Static_Data.get_growing_time())
         Static_Data.set_growing_time(-Static_Data.get_growing_time())
-        Setup.grow_and_handle_sheep()
-
-
-def create_next_areas():
-    possible_areas = []
-    for x in range(3):
-        possible_areas.append(Setup.next_map_generation())
-    for x in range(len(possible_areas)):
-        if possible_areas[x].has_river:
-            print("You can migrate to a " + possible_areas[x].type_of_landscape.name + " region with a river")
-        else:
-            print("You can migrate to a " + possible_areas[x].type_of_landscape.name + " region")
-    print("Write 1 2 or 3 to migrate to that region")
-    choice = input()
-    if choice == "1":
-        return possible_areas[0]
-    elif choice == "2":
-        return possible_areas[1]
-    elif choice == "3":
-        return possible_areas[2]
+        Turn_And_Background_Actions.Grow_Sheep.grow_and_handle_sheep()

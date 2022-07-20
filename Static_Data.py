@@ -10,6 +10,7 @@ class Static_Data():
     list_of_people = []
     list_of_sheeps = []
     current_map = 0
+    next_map = 0
     growing_time = 0
     max_amount_of_buildings = 0
     current_amount_of_buildings = 0
@@ -72,6 +73,14 @@ class Static_Data():
     @classmethod
     def get_current_map(cls):
         return cls.current_map
+
+    @classmethod
+    def set_next_map(cls, next_map_input):
+        cls.next_map = next_map_input
+
+    @classmethod
+    def get_next_map(cls):
+        return cls.next_map
 
     @classmethod
     def get_growing_time(cls):

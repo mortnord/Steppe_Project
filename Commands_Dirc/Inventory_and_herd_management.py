@@ -3,24 +3,26 @@ import math
 import Background_Calculations
 import Buildings
 import Enumerators
-import Setup
-from Commands_Dirc import Commands
+import Turn_And_Background_Actions.turn_action
 from Inventory import Inventory
 from Static_Data import Static_Data
+from Static_Data_Bools import Static_Data_Bools
 
 
 def conserve_food():
-    print(
-        "Do you want to use an action to conserve temporary food (buckets of milk) into cheese? 3 buckets gives 1 "
-        "cheese. Y/N")
-    answer = input()
-    if answer == "Y":
-        Setup.take_Action()
-        buckets_conserved = math.floor((int(Inventory.get_temporary_food_amount()) / 3))
-        Inventory.set_food_amount(buckets_conserved)
-        Inventory.set_temporary_food_amount(-(buckets_conserved * 3))
-    Inventory.print_inventory()
-
+    if Static_Data_Bools.get_Cheesery_bool():
+        print(
+            "Do you want to use an action to conserve temporary food (buckets of milk) into cheese? 3 buckets gives 1 "
+            "cheese. Y/N")
+        answer = input()
+        if answer == "Y":
+            Turn_And_Background_Actions.turn_action.take_Action()
+            buckets_conserved = math.floor((int(Inventory.get_temporary_food_amount()) / 3))
+            Inventory.set_food_amount(buckets_conserved)
+            Inventory.set_temporary_food_amount(-(buckets_conserved * 3))
+        Inventory.print_inventory()
+    else:
+        print("You have no way to conserve the food")
 
 def slaughter_sheep(sheep, number):
     temp_list = []
@@ -40,7 +42,7 @@ def slaughter_Sheep_choice():
     resource_to_gather = input()
     print("How many?")
     number = int(input())
-    resource_to_gather = Commands.handle_input(resource_to_gather)
+    resource_to_gather = Background_Calculations.handle_input(resource_to_gather)
     if resource_to_gather == "ram" or resource_to_gather == "rams":
         slaughter_sheep(Enumerators.TypeOfSheep.Ram, number)
     elif resource_to_gather == "ewe" or resource_to_gather == "ewes":
@@ -89,23 +91,31 @@ def build_building(type_building):
         if Inventory.get_wood_amount() >= type_building.cost_to_build_wood and Inventory.get_stone_amount() >= type_building.cost_to_build_stone:
             print("Built building")
             Inventory.buildings.append(type_building)
+            Inventory.set_wood_amount(-type_building.cost_to_build_wood)
+            Inventory.set_stone_amount((-type_building.cost_to_build_stone))
         else:
             print("Not enough resources")
     else:
         print("Not enough building slots")
+
 
 def build_options():
     print("What do you want to build? Options are")
     for type_building in Enumerators.TypeOfBuilding:
         print(type_building.value)
     building_choice = input()
-    building_choice = Commands.handle_input(building_choice)
+    building_choice = Background_Calculations.handle_input(building_choice)
     if building_choice == "silo":
         build_building(Buildings.Silo())
+    if building_choice == "wagon":
+        build_building(Buildings.Wagon())
+    if building_choice == "cheesery":
+        build_building(Buildings.Cheesery())
 
 
 def inventory_and_herd_management():
-    print("Press 1 to check the sheep herd, or 2 to check the inventory, press 3 to conserve food in inventory, press 4 to enter build option")
+    print(
+        "Press 1 to check the sheep herd, or 2 to check the inventory, press 3 to conserve food in inventory, press 4 to enter build option")
     player_command = str(input())
     if player_command == "1":
         look_over_sheeps(Static_Data.get_list_of_sheeps())
