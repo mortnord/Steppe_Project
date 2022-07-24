@@ -14,6 +14,15 @@ class Static_Data():
     growing_time = 0
     max_amount_of_buildings = 0
     current_amount_of_buildings = 0
+    deck_list = 0
+
+    @classmethod
+    def get_deck_list(cls):
+        return cls.deck_list
+
+    @classmethod
+    def set_deck_list(cls, deck_list_input):
+        cls.deck_list = deck_list_input
 
     @classmethod
     def get_ID(cls):

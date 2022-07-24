@@ -37,6 +37,9 @@ class Hills(Landscape):
         self.amount_of_stone = 5 + random.randint(3, 10)
         self.type_of_landscape = Enumerators.Landscapes.Hills
 
+class City(Landscape):
+    def __init__(self):
+        super().__init__()
 
 def river_generation():
     river_chance = random.randint(1, 5)

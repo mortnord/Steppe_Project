@@ -2,6 +2,7 @@ import Background_Calculations
 import Commands_Dirc.Commands as Commands
 import Commands_Dirc.Inventory_and_herd_management as Inventory_and_herd_management
 import Commands_Dirc.Migration
+import Commands_Dirc.Deck_management
 import Generation.Initial_Generation
 import Turn_And_Background_Actions.turn_action
 
@@ -29,6 +30,8 @@ def run_Game():
         elif player_command == "3":
             Commands.migrate(Commands_Dirc.Migration.create_next_areas())
             print("You are now in a " + Static_Data.current_map.type_of_landscape.name + " region")
+        elif player_command == "4":
+            Commands_Dirc.Deck_management.print_deck()
         else:
             print("Invalid command, prøv igjen")
 
