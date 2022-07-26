@@ -25,7 +25,6 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
     for x in range(5):
         deck_list.content.append(Cards.Attack.Attack())
         deck_list.content.append(Cards.Defend.Defend())
-        deck_list.deck_amount = len(deck_list.content)
 
     for x in range(dwarfs):
         list_of_people.append(Dwarfs_And_Deck.Dwarfs.Dwarf())

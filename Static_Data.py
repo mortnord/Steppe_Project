@@ -16,6 +16,15 @@ class Static_Data():
     current_amount_of_buildings = 0
     deck_list = 0
 
+    enemies_to_defeat = []
+
+    @classmethod
+    def get_enemies_to_defeat(cls):
+        return cls.enemies_to_defeat
+
+    @classmethod
+    def set_enemies_to_defeat(cls, enemies_to_defeat_input):
+        cls.enemies_to_defeat = enemies_to_defeat_input
     @classmethod
     def get_deck_list(cls):
         return cls.deck_list

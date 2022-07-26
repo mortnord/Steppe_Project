@@ -22,3 +22,7 @@ class TypeOfCard(Enum):
     Attack = "Attack"
     Defend = "Defend"
     Attack_and_defend = "Attack and defend"
+
+class TypeOfPlannedAttack(Enum):
+    Attack = "Attack"
+    Defend = "Defend"
