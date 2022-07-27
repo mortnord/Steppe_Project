@@ -10,7 +10,7 @@ class Goblin(BasicEnemy):
         super().__init__()
 
     def plan_attack(self):
-        chance = random.randint(1, 4)
+        chance = random.randint(3, 3)
         if chance == 3:
             self.value_attack = 2
             self.type_of_planned_attack = Enumerators.TypeOfPlannedAttack.Attack
@@ -32,10 +32,13 @@ class Goblin(BasicEnemy):
             self.defend += self.value_defend
 
     def take_damage(self, value_damage):
-        if(self.defend > 0):
+        if self.defend > 0:
             self.defend = self.defend - value_damage
-            if(self.defend < 0):
+            if self.defend < 0:
                 self.health -= self.defend
                 self.defend = 0
         else:
             self.health -= value_damage
+
+    def on_death(self):
+        print("The goblin dies!")

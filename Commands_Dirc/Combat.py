@@ -46,14 +46,27 @@ def do_defend(value, card_nr):
     Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
 
 
-def player_use_card_round():
+def check_for_deaths():
+    for x in range(len(Static_Data.get_list_of_people())):
+        if Static_Data.get_list_of_people()[x].health <= 0:
+            Static_Data.get_list_of_people().remove(Static_Data.get_list_of_people()[x])
+            break
 
+    for x in range(len(Static_Data.get_enemies_to_defeat())):
+        if Static_Data.get_enemies_to_defeat()[x].health <= 0:
+            Static_Data.get_enemies_to_defeat()[x].on_death()
+            Static_Data.get_enemies_to_defeat().remove(Static_Data.get_enemies_to_defeat()[x])
+            break
+
+
+def player_use_card_round():
     for x in range(len(Static_Data.get_list_of_people())):
         Static_Data.get_list_of_people()[x].defend = 0
     print("You have " + str(len(Static_Data.get_list_of_people())) + " combat-trained dwarves, and can use " + str(
         len(Static_Data.get_list_of_people())) + " cards this round")
     for x in range(len(Static_Data.get_list_of_people())):
-        print("Dwarf " + str(x + 1) + " is ID " + str(Static_Data.get_list_of_people()[x].ID) + " with health " + str(Static_Data.get_list_of_people()[x].health))
+        print("Dwarf " + str(x + 1) + " is ID " + str(Static_Data.get_list_of_people()[x].ID) + " with health " + str(
+            Static_Data.get_list_of_people()[x].health))
     Deck_management.draw_cards_until_full()
     for x in range(len(Static_Data.get_list_of_people())):
 
@@ -68,11 +81,15 @@ def player_use_card_round():
             do_damage(value, use_card_nr)
         if type_of_card == Enumerators.TypeOfCard.Defend:
             do_defend(value, use_card_nr)
+        check_for_deaths()
     Deck_management.discard_hand()
+
 
 def enemy_use_indication_round():
     for x in range(len(Static_Data.get_enemies_to_defeat())):
         Static_Data.get_enemies_to_defeat()[x].usage()
+        if len(Static_Data.get_enemies_to_defeat()) > 0:
+            check_for_deaths()
 
 
 def end_turn_step():
