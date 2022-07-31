@@ -4,3 +4,4 @@ class Deck:
         self.discard_pile = []
         self.hand_max_amount = 3
         self.hand = []
+        self.one_time_used_cards = []

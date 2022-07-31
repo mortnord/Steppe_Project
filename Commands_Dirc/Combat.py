@@ -24,28 +24,6 @@ def enemy_indication_round():
                   str(Static_Data.get_enemies_to_defeat()[x].value_defend))
 
 
-def do_damage(value, card_nr):
-    print("Choose target enemy")
-    nr_enemy_to_target = input()
-    nr_enemy_to_target = Background_Calculations.handle_input(nr_enemy_to_target)
-    nr_enemy_to_target = int(nr_enemy_to_target)
-    nr_enemy_to_target = nr_enemy_to_target - 1
-    Static_Data.get_enemies_to_defeat()[nr_enemy_to_target].take_damage(value)
-    print("The goblin has " + str(Static_Data.get_enemies_to_defeat()[nr_enemy_to_target].health) + " health left")
-    Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
-
-
-def do_defend(value, card_nr):
-    print("Choose target dwarf")
-    nr_enemy_to_target = input()
-    nr_enemy_to_target = Background_Calculations.handle_input(nr_enemy_to_target)
-    nr_enemy_to_target = int(nr_enemy_to_target)
-    nr_enemy_to_target = nr_enemy_to_target - 1
-    Static_Data.get_list_of_people()[nr_enemy_to_target].defend += value
-    print("The dwarf has " + str(Static_Data.get_list_of_people()[nr_enemy_to_target].defend) + " armor now")
-    Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
-
-
 def check_for_deaths():
     for x in range(len(Static_Data.get_list_of_people())):
         if Static_Data.get_list_of_people()[x].health <= 0:
@@ -60,28 +38,27 @@ def check_for_deaths():
 
 
 def player_use_card_round():
+    Static_Data.reset_which_dwarf_to_attack()
     for x in range(len(Static_Data.get_list_of_people())):
         Static_Data.get_list_of_people()[x].defend = 0
-    print("You have " + str(len(Static_Data.get_list_of_people())) + " combat-trained dwarves, and can use " + str(
-        len(Static_Data.get_list_of_people())) + " cards this round")
     for x in range(len(Static_Data.get_list_of_people())):
         print("Dwarf " + str(x + 1) + " is ID " + str(Static_Data.get_list_of_people()[x].ID) + " with health " + str(
             Static_Data.get_list_of_people()[x].health))
     Deck_management.draw_cards_until_full()
-    for x in range(len(Static_Data.get_list_of_people())):
-
+    while Static_Data.get_which_dwarf_to_attack() < len(Static_Data.get_list_of_people()):
+        print("You have " + str((
+                                            len(Static_Data.get_list_of_people()) - Static_Data.get_which_dwarf_to_attack())) + " dwarfs remaining to use")
         Deck_management.print_deck()
         print("Write number of card to use")
         use_card_nr = input()
         use_card_nr = Background_Calculations.handle_input(use_card_nr)
         use_card_nr = int(use_card_nr)
         use_card_nr -= 1
-        value, type_of_card = Static_Data.get_deck_list().hand[use_card_nr].usage()
-        if type_of_card == Enumerators.TypeOfCard.Attack:
-            do_damage(value, use_card_nr)
-        if type_of_card == Enumerators.TypeOfCard.Defend:
-            do_defend(value, use_card_nr)
+        if (len(Static_Data.get_list_of_people()) - Static_Data.get_which_dwarf_to_attack()) >= \
+                Static_Data.get_deck_list().hand[use_card_nr].dwarfs_required:
+            Static_Data.get_deck_list().hand[use_card_nr].usage(use_card_nr, Static_Data.get_which_dwarf_to_attack())
         check_for_deaths()
+
     Deck_management.discard_hand()
 
 

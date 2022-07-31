@@ -22,7 +22,10 @@ class TypeOfCard(Enum):
     Attack = "Attack"
     Defend = "Defend"
     Attack_and_defend = "Attack and defend"
+    Quick_Attack = "Quick Attack"
+    Heavy_Attack = "Heavy Attack"
 
 class TypeOfPlannedAttack(Enum):
     Attack = "Attack"
     Defend = "Defend"
+

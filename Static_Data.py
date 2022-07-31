@@ -15,8 +15,21 @@ class Static_Data():
     max_amount_of_buildings = 0
     current_amount_of_buildings = 0
     deck_list = 0
+    which_dwarf_to_attack = 0
 
     enemies_to_defeat = []
+
+    @classmethod
+    def reset_which_dwarf_to_attack(cls):
+        cls.which_dwarf_to_attack = 0
+
+    @classmethod
+    def get_which_dwarf_to_attack(cls):
+        return cls.which_dwarf_to_attack
+
+    @classmethod
+    def set_which_dwarf_to_attack(cls, input):
+        cls.which_dwarf_to_attack += input
 
     @classmethod
     def get_enemies_to_defeat(cls):

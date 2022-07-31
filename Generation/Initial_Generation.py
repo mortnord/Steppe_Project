@@ -1,6 +1,6 @@
 import random
+from Cards import Attack, Quick_Attack, Defend, Heavy_Attack
 
-import Cards.Attack, Cards.Defend
 import Commands_Dirc.Deck_management
 import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
 import Sheeps
@@ -23,9 +23,12 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
     list_of_sheeps = []
     deck_list = Dwarfs_And_Deck.Deck.Deck()
     for x in range(5):
-        deck_list.content.append(Cards.Attack.Attack())
-        deck_list.content.append(Cards.Defend.Defend())
+        deck_list.content.append(Attack.Attack())
+        deck_list.content.append(Defend.Defend())
 
+    for x in range(2):
+        deck_list.content.append(Quick_Attack.Quick_Attack())
+    deck_list.content.append(Heavy_Attack.Heavy_Attack())
     for x in range(dwarfs):
         list_of_people.append(Dwarfs_And_Deck.Dwarfs.Dwarf())
     for x in range(male_sheeps):
