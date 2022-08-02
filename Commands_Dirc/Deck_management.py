@@ -34,6 +34,7 @@ def discard_hand():
     while len(Static_Data.get_deck_list().hand) > 0:
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop())
 
+
 def reset_deck():
     discard_hand()
     while len(Static_Data.get_deck_list().one_time_used_cards > 0):

@@ -10,7 +10,7 @@ class Goblin(BasicEnemy):
         super().__init__()
 
     def plan_attack(self):
-        chance = random.randint(3, 3)
+        chance = random.randint(1, 3)
         if chance == 3:
             self.value_attack = 2
             self.type_of_planned_attack = Enumerators.TypeOfPlannedAttack.Attack
