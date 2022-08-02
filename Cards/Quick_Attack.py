@@ -9,7 +9,7 @@ class Quick_Attack(Card):
         super().__init__()
         self.value = 1
         self.type_of_card = Enumerators.TypeOfCard.Quick_Attack
-        self.dwarfs_required = 1
+        self.dwarfs_required = 0
 
     def usage(self, card_nr, x):
         print("Choose target enemy")
@@ -21,7 +21,6 @@ class Quick_Attack(Card):
         Static_Data.get_enemies_to_defeat()[nr_enemy_to_target].take_damage(self.value)
         print("The goblin has " + str(
             Static_Data.get_enemies_to_defeat()[nr_enemy_to_target].health) + " health left")
-        Static_Data.set_which_dwarf_to_attack(-1)
         Static_Data.set_which_dwarf_to_attack(self.dwarfs_required)
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
 

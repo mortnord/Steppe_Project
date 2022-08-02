@@ -1,4 +1,8 @@
 import random
+
+import arcade
+
+from GUI import GUI
 from Cards import Attack, Quick_Attack, Defend, Heavy_Attack
 
 import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
@@ -45,6 +49,10 @@ def initial_map_generation():
     Map.map_generation()
     map_to_return = Static_Data.get_map_with_regions()[0]
     Static_Data.set_current_map(map_to_return)
+
+    window = GUI.MapWindowTest()
+    window.setup()
+    arcade.run()
 
 
 # Temporary
