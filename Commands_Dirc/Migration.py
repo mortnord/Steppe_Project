@@ -6,14 +6,15 @@ def create_next_areas():
     possible_areas = []
 
     for x in range(len(Static_Data.get_current_map().connections)):
-        possible_areas.append(
-            Static_Data.get_map_with_regions()[Static_Data.get_current_map().connections[x].nr_region])
+        possible_areas.append(Static_Data.get_map_with_regions()[Static_Data.get_current_map().connections[x].nr_region])
+
     for x in range(len(Static_Data.get_map_with_regions())):
         for y in range(len(Static_Data.get_map_with_regions()[x].connections)):
             if Static_Data.get_map_with_regions()[x].connections[y].nr_region == Static_Data.get_current_map().landscape.Landscapes_ID:
-                possible_areas.append(
-                    Static_Data.get_map_with_regions()[Static_Data.get_map_with_regions()[x].connections[y].nr_region])
+                possible_areas.append(Static_Data.get_map_with_regions()[Static_Data.get_map_with_regions()[x].connections[y].nr_region])
                 print("This area links back to this")
+                print(Static_Data.get_map_with_regions()[x].connections[y].nr_region)
+
     for x in range(len(possible_areas)):
         if possible_areas[x].landscape.has_river:
             print("You can migrate to a " + possible_areas[x].landscape.type_of_landscape.name + " region with a river")
