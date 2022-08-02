@@ -17,7 +17,18 @@ class Static_Data():
     deck_list = 0
     which_dwarf_to_attack = 0
 
+    map_with_regions = []
+
     enemies_to_defeat = []
+
+
+    @classmethod
+    def set_map_with_regions(cls, map_with_regions_input):
+        cls.map_with_regions = map_with_regions_input
+
+    @classmethod
+    def get_map_with_regions(cls):
+        return cls.map_with_regions
 
     @classmethod
     def reset_which_dwarf_to_attack(cls):

@@ -1,16 +1,15 @@
 import random
 from Cards import Attack, Quick_Attack, Defend, Heavy_Attack
 
-import Commands_Dirc.Deck_management
 import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
 import Sheeps
-import Landscape
+from Map_Dirc import Landscape, Map
 from Static_Data import Static_Data
 
 
 def start_initial_creation():
     list_of_people, list_of_sheeps, deck_list = initial_Creation(2, 2, 5, 3,
-                                                      3)  # Humans, male sheeps, female sheeps, male lambs, female lambs
+                                                                 3)  # Humans, male sheeps, female sheeps, male lambs, female lambs
     Static_Data.set_list_of_people(list_of_people)
     Static_Data.set_list_of_sheeps(list_of_sheeps)
     Static_Data.set_deck_list(deck_list)
@@ -43,7 +42,8 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
 
 
 def initial_map_generation():
-    map_to_return = Landscape.City()
+    Map.map_generation()
+    map_to_return = Static_Data.get_map_with_regions()[0]
     Static_Data.set_current_map(map_to_return)
 
 

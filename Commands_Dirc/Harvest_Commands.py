@@ -8,15 +8,15 @@ from Static_Data import Static_Data
 def harvest_grass(amount_harvester):
     amount_harvester = amount_harvester * 5
     if Inventory.get_grass_amount() < Inventory.get_max_grass_amount():
-        if Static_Data.get_current_map().amount_of_grass > amount_harvester:
-            Static_Data.get_current_map().amount_of_grass -= amount_harvester
+        if Static_Data.get_current_map().landscape.amount_of_grass > amount_harvester:
+            Static_Data.get_current_map().landscape.amount_of_grass -= amount_harvester
             amount_harvested = amount_harvester
-        elif Static_Data.get_current_map().amount_of_grass == 0:
+        elif Static_Data.get_current_map().landscape.amount_of_grass == 0:
             amount_harvested = 0
             print("Region is out of grass")
         else:
-            amount_harvested = Static_Data.get_current_map().amount_of_grass
-            Static_Data.get_current_map().amount_of_grass = 0
+            amount_harvested = Static_Data.get_current_map().landscape.amount_of_grass
+            Static_Data.get_current_map().landscape.amount_of_grass = 0
     else:
         amount_harvested = 0
         print("You dont have enough space")
@@ -27,15 +27,15 @@ def harvest_grass(amount_harvester):
     print("You have in total " + str(Inventory.grass_amount) + " grass")
 def harvest_stone(amount_harvester):
     if Inventory.get_stone_amount() < Inventory.get_max_stone_amount():
-        if Static_Data.get_current_map().amount_of_stone > amount_harvester:
-            Static_Data.get_current_map().amount_of_stone -= amount_harvester
+        if Static_Data.get_current_map().landscape.amount_of_stone > amount_harvester:
+            Static_Data.get_current_map().landscape.amount_of_stone -= amount_harvester
             amount_harvested = amount_harvester
-        elif Static_Data.get_current_map().amount_of_stone == 0:
+        elif Static_Data.get_current_map().landscape.amount_of_stone == 0:
             amount_harvested = 0
             print("Region is out of stone")
         else:
-            amount_harvested = Static_Data.get_current_map().amount_of_stone
-            Static_Data.get_current_map().amount_of_stone = 0
+            amount_harvested = Static_Data.get_current_map().landscape.amount_of_stone
+            Static_Data.get_current_map().landscape.amount_of_stone = 0
     else:
         amount_harvested = 0
         print("You dont have enough space")
@@ -49,15 +49,15 @@ def harvest_stone(amount_harvester):
 
 def harvest_wood(amount_harvester):
     if Inventory.get_wood_amount() < Inventory.get_max_wood_amount():
-        if Static_Data.get_current_map().amount_of_wood > amount_harvester:
-            Static_Data.get_current_map().amount_of_wood -= amount_harvester
+        if Static_Data.get_current_map().landscape.amount_of_wood > amount_harvester:
+            Static_Data.get_current_map().landscape.amount_of_wood -= amount_harvester
             amount_harvested = amount_harvester
-        elif Static_Data.get_current_map().amount_of_wood == 0:
+        elif Static_Data.get_current_map().landscape.amount_of_wood == 0:
             amount_harvested = 0
             print("Region is out of wood")
         else:
-            amount_harvested = Static_Data.get_current_map().amount_of_wood
-            Static_Data.get_current_map().amount_of_wood = 0
+            amount_harvested = Static_Data.get_current_map().landscape.amount_of_wood
+            Static_Data.get_current_map().landscape.amount_of_wood = 0
     else:
         amount_harvested = 0
         print("You dont have enough space")

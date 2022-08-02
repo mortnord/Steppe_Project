@@ -25,10 +25,10 @@ def milk():
 
 
 def graze():
-    Static_Data.get_current_map().amount_of_grass -= Static_Data.get_Amount_of_Grass_eating_per_action()
-    if Static_Data.get_current_map().amount_of_grass < 0:
-        Inventory.set_grass_amount(Static_Data.get_current_map().amount_of_grass)
-        Static_Data.get_current_map().amount_of_grass = 0
+    Static_Data.get_current_map().landscape.amount_of_grass -= Static_Data.get_Amount_of_Grass_eating_per_action()
+    if Static_Data.get_current_map().landscape.amount_of_grass < 0:
+        Inventory.set_grass_amount(Static_Data.get_current_map().landscape.amount_of_grass)
+        Static_Data.get_current_map().landscape.amount_of_grass = 0
         print("Your sheeps could not graze due to lack of grass, and had to eat your stored grass to graze, and you have 1 less action")
     else:
         print("Some time passes, the sheep graze and you have 1 less action")

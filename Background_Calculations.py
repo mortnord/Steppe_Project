@@ -11,7 +11,7 @@ def calculate_grass():
     for x in range(len(Static_Data.get_list_of_sheeps())):
         grass_needed += Static_Data.get_list_of_sheeps()[x].eat_amount
     actions_available = math.floor(
-        ((int(Static_Data.get_current_map().amount_of_grass) + int(Inventory.get_grass_amount())) / int(grass_needed)))
+        ((int(Static_Data.get_current_map().landscape.amount_of_grass) + int(Inventory.get_grass_amount())) / int(grass_needed)))
     Static_Data.set_Actions_Available(actions_available)
     Static_Data.set_Amount_of_Grass_eating_per_action(grass_needed)
 
@@ -64,12 +64,12 @@ def handle_input(handle_input):
 
 
 def check_local_area():
-    print("There is " + str(Static_Data.get_current_map().amount_of_grass) + " grass remaining in this region")
+    print("There is " + str(Static_Data.get_current_map().landscape.amount_of_grass) + " grass remaining in this region")
     print("You have " + str(Inventory.get_grass_amount()) + " grass stored")
     print("This gives you " + str(Static_Data.get_Actions_Available()) + " actions left")
-    if Static_Data.get_current_map().amount_of_wood > 0:
-        print("There is " + str(Static_Data.get_current_map().amount_of_wood) + " wood available")
-    if Static_Data.get_current_map().amount_of_stone > 0:
-        print("There is " + str(Static_Data.get_current_map().amount_of_stone) + " stone available")
-    if Static_Data.get_current_map().has_river:
+    if Static_Data.get_current_map().landscape.amount_of_wood > 0:
+        print("There is " + str(Static_Data.get_current_map().landscape.amount_of_wood) + " wood available")
+    if Static_Data.get_current_map().landscape.amount_of_stone > 0:
+        print("There is " + str(Static_Data.get_current_map().landscape.amount_of_stone) + " stone available")
+    if Static_Data.get_current_map().landscape.has_river:
         print("There is a river here")

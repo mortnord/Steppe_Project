@@ -27,7 +27,7 @@ def run_Game():
             Commands.harvest_local_area()
         elif player_command == "3":
             Commands.migrate(Migration.create_next_areas())
-            print("You are now in a " + Static_Data.current_map.type_of_landscape.name + " region")
+            print("You are now in a " + Static_Data.current_map.landscape.type_of_landscape.name + " region")
         elif player_command == "4":
             Deck_management.print_deck()
         else:
