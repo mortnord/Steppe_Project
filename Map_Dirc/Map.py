@@ -1,5 +1,4 @@
 import random
-import math
 
 import arcade
 
@@ -33,7 +32,8 @@ def find_connections():
 
 
 def map_generation():
-    zoom_multiplier = 40
+    zoom_multiplier = 30
+
     list_of_regions = []
     list_of_regions.append(Map_Region.Region(-7 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))
 
