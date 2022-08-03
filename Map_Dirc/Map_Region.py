@@ -4,7 +4,7 @@ from Generation import Initial_Generation
 from Static_Data import Static_Data
 
 
-class Region:
+class Region: #Map-objektet som alle kartene består av, ett landskap, posisjoner og connections.
     def __init__(self, x_pos, y_pos, landscape):
         self.landscape = landscape
         self.x_position = x_pos

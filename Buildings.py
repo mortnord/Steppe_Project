@@ -2,7 +2,7 @@ import Enumerators
 from Static_Data import Static_Data
 
 
-class Building:
+class Building: #Data om diverse buildings, kostnader osv
     Building_ID = None
     cost_to_build_wood = 0
     cost_to_build_stone = 0

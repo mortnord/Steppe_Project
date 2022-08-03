@@ -6,12 +6,12 @@ from Commands_Dirc import Commands, Harvest_Commands, Inventory_and_herd_managem
 from Static_Data import Static_Data
 
 
-def run_Game():
+def run_Game(): #Hoved-delen av backend koden.
     running = True
     while running:
 
-        Random_Event.handle_event()
-        background_info()
+        Random_Event.handle_event() #Random event
+        background_info() #Background info som actions osv
         Background_Calculations.check_local_area()
         print(
             "What do you want to do? Write 0 to skip a turn and graze, write 1 to look over the herd of sheeps or manage your inventory or build, "
@@ -19,7 +19,7 @@ def run_Game():
             "migrate, press 4 to ")
         player_command = str(input())
         player_command = Background_Calculations.handle_input(player_command)
-        if player_command == "0":
+        if player_command == "0":#Hva vi skal gjøre
             turn_action.take_Action()
         elif player_command == "1":
             Inventory_and_herd_management.inventory_and_herd_management()
@@ -34,7 +34,7 @@ def run_Game():
             print("Invalid command, prøv igjen")
 
 
-def background_info():
+def background_info(): #beregn de forskjellige bakgrunnsinfoene
     Background_Calculations.calculate_grass()
     Background_Calculations.calculate_max_buildings()
     Background_Calculations.has_buildings()

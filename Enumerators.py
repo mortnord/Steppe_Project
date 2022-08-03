@@ -1,5 +1,6 @@
 from enum import Enum
 
+#Enumeratorer er en egen definert variabel, som man kan bruke for å sammenligne og sjekke ting, f.eks at TypeOfSheep = Ram osv.
 class TypeOfSheep(Enum):
     Ram = "Ram"
     Ewe = "Ewe"

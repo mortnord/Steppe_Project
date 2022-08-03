@@ -9,7 +9,7 @@ class Sheep:
         self.ID = Static_Data.get_ID()
 
 
-class SheepFemale(Sheep):
+class SheepFemale(Sheep): #Info om sauer og typer av de
     def __init__(self):
         super().__init__()
         self.eat_amount = float(1)

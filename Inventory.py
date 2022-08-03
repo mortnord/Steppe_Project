@@ -3,7 +3,7 @@ def print_buildings():
         for x in range(len(Inventory.get_buildings())):
             print(Inventory.get_buildings()[x].type_of_building.value)
 
-
+#Get/Set-metoder for inventory, henter og legger in data.
 class Inventory:
     grass_amount = 0
     max_grass_amount = 0

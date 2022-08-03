@@ -5,19 +5,19 @@ import Sheeps
 from Static_Data import Static_Data
 
 
-def grow_and_handle_sheep():
-    for x in range(len(Static_Data.get_list_of_sheeps())):
+def grow_and_handle_sheep(): #Komplisert metode som får sau til å formere seg og vokse
+    for x in range(len(Static_Data.get_list_of_sheeps())): #først, alle eksisterende lam blir 1 år gamle.
         if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Male_Lamb or \
                 Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Female_Lamb:
             Static_Data.get_list_of_sheeps()[x].age += 1
-    for x in range(len(Static_Data.get_list_of_sheeps())):
+    for x in range(len(Static_Data.get_list_of_sheeps())): #så, får man enten ett værlam eller ett saulam per søya. Kanskje burde fått mellom 1-3?
         if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Ewe:
             lamb = random.randint(1, 2)
             if lamb == 1:
                 Static_Data.get_list_of_sheeps().append(Sheeps.SheepMaleLamb())
             if lamb == 2:
                 Static_Data.get_list_of_sheeps().append(Sheeps.SheepFemaleLamb())
-    for x in range(len(Static_Data.get_list_of_sheeps())):
+    for x in range(len(Static_Data.get_list_of_sheeps())): #så, alle lammene som er 1 år eller eldre blir erstattet med en voksen sau
         if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Male_Lamb:
             if Static_Data.get_list_of_sheeps()[x].age >= 1:
                 Static_Data.get_list_of_sheeps()[x] = Sheeps.SheepMale()

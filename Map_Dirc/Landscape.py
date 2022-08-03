@@ -4,15 +4,15 @@ import Enumerators
 from Static_Data import Static_Data
 
 
-class Landscape:
+class Landscape: #Landskapsobjekter med initialiseringsverdi
     Landscapes_ID = None
     amount_of_grass = 0
     amount_of_wood = 0
     amount_of_stone = 0
 
     def __init__(self):
-        self.Landscapes_ID = Static_Data.get_Landscape_ID()
-        self.has_river = river_generation()
+        self.Landscapes_ID = Static_Data.get_Landscape_ID() #ID-nr, auto-increment
+        self.has_river = river_generation() #sjangse på river, sjekk implementation for detaljer
 
 
 class Steppes(Landscape):
