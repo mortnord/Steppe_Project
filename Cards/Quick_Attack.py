@@ -9,12 +9,12 @@ class Quick_Attack(Card):
         super().__init__()
         self.value = 1
         self.type_of_card = Enumerators.TypeOfCard.Quick_Attack
-        self.dwarfs_required = 0
+        self.dwarfs_required = 0 #Forskjellen er at dette kortet er gratis å bruke
 
     def usage(self, card_nr, x):
         print("Choose target enemy")
 
-        nr_enemy_to_target = input()
+        nr_enemy_to_target = input() #Sjekk attack kort
         nr_enemy_to_target = Background_Calculations.handle_input(nr_enemy_to_target)
         nr_enemy_to_target = int(nr_enemy_to_target)
         nr_enemy_to_target = nr_enemy_to_target - 1

@@ -10,11 +10,12 @@ class Heavy_Attack(Card):
         self.value = 5
         self.type_of_card = Enumerators.TypeOfCard.Heavy_Attack
         self.dwarfs_required = 2
+        self.one_time = True #Dette kortet er engangsbruk per kamp
 
     def usage(self, card_nr, x):
         print("Choose target enemy")
 
-        nr_enemy_to_target = input()
+        nr_enemy_to_target = input() #Se attack kort
         nr_enemy_to_target = Background_Calculations.handle_input(nr_enemy_to_target)
         nr_enemy_to_target = int(nr_enemy_to_target)
         nr_enemy_to_target = nr_enemy_to_target - 1
@@ -23,6 +24,11 @@ class Heavy_Attack(Card):
             Static_Data.get_enemies_to_defeat()[nr_enemy_to_target].health) + " health left")
 
         Static_Data.set_which_dwarf_to_attack(self.dwarfs_required)
-        Static_Data.get_deck_list().one_time_used_cards.append(Static_Data.get_deck_list().hand.pop(card_nr))
+        if self.one_time:        #Vis kortet fortsatt er engangsbruk, legg det i en annen bunke som ikke blir stokket inn
+                                #når man er tom for kort
+            Static_Data.get_deck_list().one_time_used_cards.append(Static_Data.get_deck_list().hand.pop(card_nr))
+        else: #Vis man av en eller annen grunn har gjort kortet ikke engangs, legg det i discard-bunka som normalt
+            Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(
+                card_nr))
 
 

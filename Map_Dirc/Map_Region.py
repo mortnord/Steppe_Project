@@ -15,8 +15,8 @@ class Region:
         print(x_pos, y_pos)
 
     def scramble(self):
-        self.x_position += random.randint(-10, 10)
-        self.y_position += random.randint(-10, 10)
+        self.x_position += random.randint(-20, 20)
+        self.y_position += random.randint(-20, 20)
         for x in range(len(self.connections)):
             self.connections[x].own_x = self.x_position
             self.connections[x].own_y = self.y_position

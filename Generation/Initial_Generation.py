@@ -11,30 +11,30 @@ from Map_Dirc import Landscape, Map
 from Static_Data import Static_Data
 
 
-def start_initial_creation():
+def start_initial_creation(): #Her lager vi oppsettet av objekter
     list_of_people, list_of_sheeps, deck_list = initial_Creation(2, 2, 5, 3,
                                                                  3)  # Humans, male sheeps, female sheeps, male lambs, female lambs
-    Static_Data.set_list_of_people(list_of_people)
-    Static_Data.set_list_of_sheeps(list_of_sheeps)
-    Static_Data.set_deck_list(deck_list)
+    Static_Data.set_list_of_people(list_of_people) #Dwarfs i dwarfs lista
+    Static_Data.set_list_of_sheeps(list_of_sheeps) #sauer i sauelista
+    Static_Data.set_deck_list(deck_list) #kort i kortstokken
 
-    initial_map_generation()
+    initial_map_generation() #Lag map
 
 
 def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lambs):
     list_of_people = []
     list_of_sheeps = []
-    deck_list = Dwarfs_And_Deck.Deck.Deck()
-    for x in range(5):
+    deck_list = Dwarfs_And_Deck.Deck.Deck() #Lag ett nytt deck-objekt
+    for x in range(5): #Legg til 5 av hver attack og defend
         deck_list.content.append(Attack.Attack())
         deck_list.content.append(Defend.Defend())
 
-    for x in range(2):
+    for x in range(2): #2 Quick attacks
         deck_list.content.append(Quick_Attack.Quick_Attack())
-    deck_list.content.append(Heavy_Attack.Heavy_Attack())
-    for x in range(dwarfs):
+    deck_list.content.append(Heavy_Attack.Heavy_Attack()) #Og en heavy attack
+    for x in range(dwarfs): #legg til ønsket mengde dwarfs
         list_of_people.append(Dwarfs_And_Deck.Dwarfs.Dwarf())
-    for x in range(male_sheeps):
+    for x in range(male_sheeps): #Ønsket mengde sauer og sauetyper
         list_of_sheeps.append(Sheeps.SheepMale())
     for x in range(female_sheeps):
         list_of_sheeps.append(Sheeps.SheepFemale())
@@ -42,22 +42,23 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
         list_of_sheeps.append(Sheeps.SheepMaleLamb())
     for x in range(female_lambs):
         list_of_sheeps.append(Sheeps.SheepFemaleLamb())
-    return list_of_people, list_of_sheeps, deck_list
+    return list_of_people, list_of_sheeps, deck_list #returner alt dette
 
 
 def initial_map_generation():
-    Map.map_generation()
-    map_to_return = Static_Data.get_map_with_regions()[0]
-    Static_Data.set_current_map(map_to_return)
+    Map.map_generation() #lag selve mappet, sjekk implementation for detaljer
 
-    window = GUI.MapWindowTest()
+     #Finn første punktet (alså byen man starter i)
+    Static_Data.set_current_map(Static_Data.get_map_with_regions()[0])
+
+    window = GUI.MapWindowTest() #Grafisk stuff,
     window.setup()
     arcade.run()
 
 
 # Temporary
 def next_map_generation():
-    map_type = random.randint(1, 3)
+    map_type = random.randint(1, 3) #Tilfeldig generert hva landskap det blir
     map_to_return = 0
     if map_type == 1:
         map_to_return = Landscape.Steppes()

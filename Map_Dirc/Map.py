@@ -31,6 +31,8 @@ def find_connections():
 
     for x in range(len(Static_Data.get_map_with_regions())):
         Static_Data.get_map_with_regions()[x].connections.sort(key=lambda z: z.distance)
+
+
         while (len(Static_Data.get_map_with_regions()[x].connections)) > 3:
             Static_Data.get_map_with_regions()[x].connections.pop()
             print("Vi fjerner stuff")
@@ -38,19 +40,21 @@ def find_connections():
 
 
 def map_generation():
-    zoom_multiplier = 40
+    zoom_multiplier = 70
 
     list_of_regions = []
-    list_of_regions.append(Map_Region.Region(-7 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))
+    list_of_regions.append(Map_Region.Region(-3 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))
 
-    for x in range(-6, 6):
-        for y in range(-4, 4):
-            rand_nr = random.randint(1, 5)
-            if rand_nr == 1:
+    for x in range(-3, 3):
+        for y in range(-2, 2):
+            chance_to_generate = random.randint(1,20)
+            if chance_to_generate == 1:
+                pass
+            else:
                 list_of_regions.append(Map_Region.Region((x + 1) * zoom_multiplier, y * zoom_multiplier,
                                                          Initial_Generation.next_map_generation()))
 
-    list_of_regions.append(Map_Region.Region(7 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))
+    list_of_regions.append(Map_Region.Region(4 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))
 
     Static_Data.set_map_with_regions(list_of_regions)
     find_connections()
