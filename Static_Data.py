@@ -21,6 +21,15 @@ class Static_Data():
 
     enemies_to_defeat = []
 
+    window = 0
+
+    @classmethod
+    def set_window(cls, window_input):
+        cls.window = window_input
+
+    @classmethod
+    def get_window(cls):
+        return cls.window
 
     @classmethod
     def set_map_with_regions(cls, map_with_regions_input):
@@ -65,7 +74,7 @@ class Static_Data():
     @classmethod
     def get_Landscape_ID(cls):
         cls.Landscape_ID += 1
-        return cls.Landscape_ID
+        return cls.Landscape_ID-1
 
     @classmethod
     def get_Building_ID(cls):

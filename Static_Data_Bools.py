@@ -2,6 +2,17 @@ class Static_Data_Bools:
     Silo = False
     Wagon = False
     Cheesery = False
+
+    Combat = False
+
+    @classmethod
+    def set_combat(cls, input):
+        cls.Combat = input
+
+    @classmethod
+    def get_combat(cls):
+        return cls.Combat
+
     @classmethod
     def set_Silo_bool(cls, input):
         cls.Silo = input

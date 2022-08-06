@@ -5,9 +5,9 @@ import Setup
 from Static_Data import Static_Data
 
 
-class MapWindowTest(arcade.Window):
+class MapWindowTest(arcade.View):
     def __init__(self):
-        super().__init__(600, 600, "Test", resizable=True)
+        super().__init__()
         self.coin_list = None
         self.arrow_list = None
 
@@ -23,21 +23,21 @@ class MapWindowTest(arcade.Window):
         arrow.center_y = Static_Data.get_current_map().y_position + 30
         self.arrow_list.append(arrow)
         # Create the coins
-        for i in range(len(Static_Data.get_map_with_regions())):
+        for x in range(len(Static_Data.get_map_with_regions())):
             # Create the coin instance
             # Coin image from kenney.nl
             coin = arcade.Sprite("Assets/coinGold_ul.png",
                                  0.25)
 
             # Position the coin
-            coin.center_x = Static_Data.get_map_with_regions()[i].x_position
-            coin.center_y = Static_Data.get_map_with_regions()[i].y_position
+            coin.center_x = Static_Data.get_map_with_regions()[x].x_position
+            coin.center_y = Static_Data.get_map_with_regions()[x].y_position
             # Add the coin to the lists
             self.coin_list.append(coin)
 
+
         position = Vec2(-300, -300)
         self.camera_sprites.move_to(position, 1)
-
 
     def draw_connections(self):
         for x in range(len(Static_Data.get_map_with_regions())):
@@ -46,6 +46,10 @@ class MapWindowTest(arcade.Window):
                                  Static_Data.get_map_with_regions()[x].connections[y].own_y,
                                  Static_Data.get_map_with_regions()[x].connections[y].target_x,
                                  Static_Data.get_map_with_regions()[x].connections[y].target_y, arcade.color.BLACK, 3)
+            arcade.draw_text(str(Static_Data.get_map_with_regions()[x].nr_region),
+                             Static_Data.get_map_with_regions()[x].x_position,
+                             Static_Data.get_map_with_regions()[x].y_position,
+                             arcade.color.GREEN, 40, 80, 'left')
 
     def on_draw(self):
         self.clear()
@@ -57,8 +61,9 @@ class MapWindowTest(arcade.Window):
         arcade.finish_render()
 
     def on_update(self, delta_time: float):
-        self.coin_list.update()
+
         self.arrow_list[0].center_x = Static_Data.get_current_map().x_position - 10
         self.arrow_list[0].center_y = Static_Data.get_current_map().y_position + 30
         self.camera_sprites.set_projection()
         Setup.run_Game()
+

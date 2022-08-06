@@ -2,7 +2,7 @@ import random
 
 import arcade
 
-from GUI import GUI
+from GUI_Dirc import GUI
 from Cards import Attack, Quick_Attack, Defend, Heavy_Attack
 
 import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
@@ -51,8 +51,11 @@ def initial_map_generation():
      #Finn første punktet (alså byen man starter i)
     Static_Data.set_current_map(Static_Data.get_map_with_regions()[0])
 
-    window = GUI.MapWindowTest() #Grafisk stuff,
-    window.setup()
+    window = arcade.Window(600, 600, "TEST")
+    Static_Data.set_window(window)
+    map_view = GUI.MapWindowTest()
+    Static_Data.get_window().show_view(map_view)
+    map_view.setup()
     arcade.run()
 
 

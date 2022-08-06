@@ -1,5 +1,6 @@
 import random
 
+import Background_Calculations
 import Enumerators
 from Enemies.BasicEnemy import BasicEnemy
 from Static_Data import Static_Data
@@ -9,6 +10,7 @@ class Goblin(BasicEnemy): #Goblins arver masse info fra enemies
     def __init__(self):
         super().__init__()
         self.health = 5 #Goblins har 5 liv, og ikke 1
+        self.sprite = Enumerators.Sprites.Goblin.value
 
     def plan_attack(self): #AIen til goblin, den er tilfeldig hva den velger å gjøre, med en overvekt på defend
         chance = random.randint(1, 3)

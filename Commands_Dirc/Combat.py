@@ -2,6 +2,7 @@ import Background_Calculations
 import Enumerators
 from Commands_Dirc import Deck_management
 from Static_Data import Static_Data
+from Static_Data_Bools import Static_Data_Bools
 
 
 def enemy_indication_round(): #Del 1 av kamp, fienden indikerer og planlegger hva de har tenkt å gjøre
@@ -76,9 +77,11 @@ def end_turn_step(): #Her kan vi legge til effekter som skjer på slutten av en 
 
 
 def start_combat(): #Kamp-loopen.
-    while len(Static_Data.get_enemies_to_defeat()) > 0: #Så lenge vi har fiender igjen å sloss mot
+    if len(Static_Data.get_enemies_to_defeat()) > 0: #Så lenge vi har fiender igjen å sloss mot
         print("You have " + str(len(Static_Data.get_enemies_to_defeat())) + " enemies left")
         enemy_indication_round() ##Første del, Sjekk hver enkel implementation for detaljer.
         player_use_card_round() ##andre del
         enemy_use_indication_round() ##tredje del
         end_turn_step() #end-step.
+    else:
+        Static_Data_Bools.set_combat(False)

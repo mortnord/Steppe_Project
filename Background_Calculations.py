@@ -74,3 +74,4 @@ def check_local_area(): #print info om landskapet du er i
         print("There is " + str(Static_Data.get_current_map().landscape.amount_of_stone) + " stone available")
     if Static_Data.get_current_map().landscape.has_river:
         print("There is a river here")
+

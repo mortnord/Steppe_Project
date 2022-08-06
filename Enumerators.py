@@ -30,3 +30,5 @@ class TypeOfPlannedAttack(Enum):
     Attack = "Attack"
     Defend = "Defend"
 
+class Sprites(Enum):
+    Goblin = "Assets/Goblin.png"
