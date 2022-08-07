@@ -21,3 +21,9 @@ class Healing(Card):
         print("The dwarf has " + str(Static_Data.get_list_of_people()[nr_dwarf_to_target].health) + " health now")
         Static_Data.set_which_dwarf_to_attack(self.dwarfs_required)
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
+        if self.one_time:        #Vis kortet fortsatt er engangsbruk, legg det i en annen bunke som ikke blir stokket inn
+                                #når man er tom for kort
+            Static_Data.get_deck_list().one_time_used_cards.append(Static_Data.get_deck_list().hand.pop(card_nr))
+        else: #Vis man av en eller annen grunn har gjort kortet ikke engangs, legg det i discard-bunka som normalt
+            Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(
+                card_nr))
