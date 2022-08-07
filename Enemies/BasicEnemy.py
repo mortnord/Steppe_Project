@@ -6,9 +6,9 @@ from Static_Data import Static_Data
 class BasicEnemy():
     def __init__(self): #Basis-klasse for fiende
         self.health = 1
-        self.value_attack = 0
-        self.value_defend = 0
+        self.value = 0
         self.type_of_planned_attack = 0
+        self.type_of_planned_attack_sprite = None
         self.defend = 0
         self.target = 0
 

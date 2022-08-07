@@ -11,7 +11,7 @@ from Static_Data import Static_Data
 def run_Game(): #Hoved-delen av backend koden.
 
     if Static_Data_Bools.get_combat():
-        Combat.start_combat() #Start selve combat.
+        pass
     else:
         background_info() #Background info som actions osv
         Background_Calculations.check_local_area()
@@ -28,8 +28,8 @@ def run_Game(): #Hoved-delen av backend koden.
         elif player_command == "2":
             Commands.harvest_local_area()
         elif player_command == "3":
-            Commands.migrate(Migration.create_next_areas())
 
+            Commands.migrate(Migration.create_next_areas())
             Random_Event.handle_event()  # Random event
             print("You are now in a " + Static_Data.current_map.landscape.type_of_landscape.name + " region")
         elif player_command == "4":

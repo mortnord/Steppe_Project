@@ -14,14 +14,24 @@ class Static_Data():
     growing_time = 0
     max_amount_of_buildings = 0
     current_amount_of_buildings = 0
+
     deck_list = 0
     which_dwarf_to_attack = 0
+    turn_phase = 0
 
     map_with_regions = []
 
     enemies_to_defeat = []
 
     window = 0
+
+    @classmethod
+    def set_turn_phase(cls, turn_phase_input):
+        cls.turn_phase = turn_phase_input
+
+    @classmethod
+    def get_turn_phase(cls):
+        return cls.turn_phase
 
     @classmethod
     def set_window(cls, window_input):
