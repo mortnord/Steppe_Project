@@ -24,6 +24,5 @@ class Slime(BasicEnemy):
         if self.type_of_planned_attack == Enumerators.TypeOfPlannedAttack.Defend: #For defend,
             self.defend += self.value #Så bare får vi defend
 
-
     def on_death(self):
         print("The slime dies!")
