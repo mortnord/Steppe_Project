@@ -1,10 +1,8 @@
 import random
 
 import arcade
-
 from GUI_Dirc import GUI
-from Cards import Attack, Quick_Attack, Defend, Heavy_Attack
-
+from Cards import Attack, Quick_Attack, Defend, Heavy_Attack, Healing
 import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
 import Sheeps
 from Map_Dirc import Landscape, Map
