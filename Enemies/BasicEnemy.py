@@ -10,7 +10,7 @@ class BasicEnemy():
         self.type_of_planned_attack = 0
         self.type_of_planned_attack_sprite = None
         self.defend = 0
-        self.target = 0
+        self.target = None
 
     def take_damage(self, value_damage): #En basisklasse av ta skade, samme som dwarf sin.
         if self.defend > 0:

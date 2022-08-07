@@ -11,8 +11,7 @@ class Combat:
         for x in range(len(Static_Data.get_enemies_to_defeat())):
             Static_Data.get_enemies_to_defeat()[
                 x].plan_attack()  # Sjekk implementation for detaljer, men fienden planlegger
-            Static_Data.get_enemies_to_defeat()[
-                x].plan_target()  # sjekk implementation for detlajer, men fienden velger target
+
             if Static_Data.get_enemies_to_defeat()[
                 x].type_of_planned_attack == Enumerators.TypeOfPlannedAttack.Attack:  # Vis angrip, skriv denne teksten
                 print("Goblin " + str(x + 1) + " with health " +
@@ -45,15 +44,15 @@ class Combat:
                 break  # Kun en ting kan dø om gangen, så stop, og heller kom tilbake vis flere ting dør.
 
     def player_use_card_round(self, card_nr, target):  # Del 2 av kamp, spilleren gjør actions
-        result = Static_Data.get_deck_list().hand[card_nr].usage(card_nr,target)
+        result = Static_Data.get_deck_list().hand[card_nr].usage(card_nr, target)
         self.check_for_deaths()
         if Static_Data.get_energy() == 0:
             Static_Data.set_turn_phase(2)
         return result
 
     def end_player_turn(self):
-        Static_Data.set_turn_phase(2)
         Deck_management.discard_hand()
+        Static_Data.set_turn_phase(2)
 
     def enemy_use_indication_round(self):  # Del 3 av kamp, motstanderen gjør ting
         for x in range(len(Static_Data.get_enemies_to_defeat())):  # hver motstander gjør ting
@@ -61,6 +60,7 @@ class Combat:
             if len(Static_Data.get_enemies_to_defeat()) > 0:  # Vis det fortsatt er fiender igjen
                 self.check_for_deaths()  # sjekk om de har daua, hahaha
         Static_Data.set_turn_phase(3)
+
     def end_turn_step(self):  # Her kan vi legge til effekter som skjer på slutten av en runde, f.eks forgiftning osv
         self.check_for_deaths()
         Static_Data.set_turn_phase(0)

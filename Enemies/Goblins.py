@@ -19,6 +19,7 @@ class Goblin(BasicEnemy): #Goblins arver masse info fra enemies
             self.value = random.randint(1,2)
             self.type_of_planned_attack = Enumerators.TypeOfPlannedAttack.Attack #Her planlegger vi attack
             self.type_of_planned_attack_sprite = Enumerators.Sprites_of_planned_attack.Attack.value
+            self.plan_target()
         else:
 
             self.value = random.randint(1,2)

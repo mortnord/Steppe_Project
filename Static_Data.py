@@ -1,3 +1,4 @@
+import Background_Calculations
 import Commands_Dirc
 
 
@@ -51,7 +52,7 @@ class Static_Data():
 
     @classmethod
     def full_energy(cls):
-        cls.energy = len(Static_Data.get_list_of_people())
+        cls.energy = Background_Calculations.calculate_max_energy()
 
     @classmethod
     def get_energy(cls):

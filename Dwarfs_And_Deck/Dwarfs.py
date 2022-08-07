@@ -11,6 +11,8 @@ class Dwarf: #En dverg
         self.health = 10 #initial-verdi liv
         self.defend = 0 #mengden armor
         self.sprite = Enumerators.Sprites.Dwarf.value
+        self.has_energy = True
+        self.amount_energy = 1
 
     def take_damage(self, value_damage): #Denne metoden kalles når vi tar skade
         print(self.defend)

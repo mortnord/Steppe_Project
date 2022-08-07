@@ -6,18 +6,19 @@ from Static_Data import Static_Data
 from Static_Data_Bools import Static_Data_Bools
 
 
-def calculate_grass(): #Her regner vi ut hvor mye grass vi trenger, og hvor mye grass vi har totalt i landskapet men og i inventory
-    #det gir oss antall actions vi kan ha.
+def calculate_grass():  # Her regner vi ut hvor mye grass vi trenger, og hvor mye grass vi har totalt i landskapet men og i inventory
+    # det gir oss antall actions vi kan ha.
     grass_needed = 0
     for x in range(len(Static_Data.get_list_of_sheeps())):
         grass_needed += Static_Data.get_list_of_sheeps()[x].eat_amount
     actions_available = math.floor(
-        ((int(Static_Data.get_current_map().landscape.amount_of_grass) + int(Inventory.get_grass_amount())) / int(grass_needed)))
+        ((int(Static_Data.get_current_map().landscape.amount_of_grass) + int(Inventory.get_grass_amount())) / int(
+            grass_needed)))
     Static_Data.set_Actions_Available(actions_available)
     Static_Data.set_Amount_of_Grass_eating_per_action(grass_needed)
 
 
-def calculate_max_buildings(): #per 2 voksne værer gir oss 1 potensiell building (tenk deg trekker de på hjul)
+def calculate_max_buildings():  # per 2 voksne værer gir oss 1 potensiell building (tenk deg trekker de på hjul)
     male_sheep = 0
 
     for x in range(len(Static_Data.get_list_of_sheeps())):
@@ -27,7 +28,7 @@ def calculate_max_buildings(): #per 2 voksne værer gir oss 1 potensiell buildin
     Static_Data.set_max_amount_of_buildings(building_slots_available)
 
 
-def has_buildings(): #Vi setter ett flag på at vi har diverse bygninger
+def has_buildings():  # Vi setter ett flag på at vi har diverse bygninger
     for x in range(len(Inventory.get_buildings())):
         if Inventory.get_buildings()[x].type_of_building == Enumerators.TypeOfBuilding.Silo:
             Static_Data_Bools.set_Silo_bool(True)
@@ -39,7 +40,7 @@ def has_buildings(): #Vi setter ett flag på at vi har diverse bygninger
             Static_Data_Bools.set_Cheesery_bool(True)
 
 
-def calculate_max_storage(): #Vi teller opp hva bygninger vi har, og da får vi forskjellige mengder max storage i inventory
+def calculate_max_storage():  # Vi teller opp hva bygninger vi har, og da får vi forskjellige mengder max storage i inventory
     Silos = 0
     Wagons = 0
     Cheesery = 0
@@ -58,14 +59,15 @@ def calculate_max_storage(): #Vi teller opp hva bygninger vi har, og da får vi 
     Inventory.set_max_wood_amount(10 + Wagons)
 
 
-def handle_input(handle_input): #håndter input, fjerner mellomrom og gjør det til små bokstaver, brukes rundt omkring
+def handle_input(handle_input):  # håndter input, fjerner mellomrom og gjør det til små bokstaver, brukes rundt omkring
     handle_input = handle_input.lower()
     handle_input = handle_input.strip()
     return handle_input
 
 
-def check_local_area(): #print info om landskapet du er i
-    print("There is " + str(Static_Data.get_current_map().landscape.amount_of_grass) + " grass remaining in this region")
+def check_local_area():  # print info om landskapet du er i
+    print(
+        "There is " + str(Static_Data.get_current_map().landscape.amount_of_grass) + " grass remaining in this region")
     print("You have " + str(Inventory.get_grass_amount()) + " grass stored")
     print("This gives you " + str(Static_Data.get_Actions_Available()) + " actions left")
     if Static_Data.get_current_map().landscape.amount_of_wood > 0:
@@ -75,3 +77,10 @@ def check_local_area(): #print info om landskapet du er i
     if Static_Data.get_current_map().landscape.has_river:
         print("There is a river here")
 
+
+def calculate_max_energy():
+    max_energy = 0
+    for x in range(len(Static_Data.get_list_of_people())):
+        if Static_Data.get_list_of_people()[x].has_energy:
+            max_energy += Static_Data.get_list_of_people()[x].amount_energy
+    return max_energy
