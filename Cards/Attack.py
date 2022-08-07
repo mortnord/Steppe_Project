@@ -10,6 +10,7 @@ class Attack(Card):
         self.value = 2 #verdien på attacket
         self.type_of_card = Enumerators.TypeOfCard.Attack #Sier at dette er ett attack kort
         self.dwarfs_required = 1 #Kostnaden for å bruke kortet
+        self.indicator_sprite = Enumerators.Sprites_of_planned_attack.Attack.value
 
     def usage(self, card_nr, x): #Card_nr er hva nr kortet var i hånden når man spiller det. X er energi-kostnaden
         print("Choose target enemy")

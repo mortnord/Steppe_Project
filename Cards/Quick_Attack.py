@@ -10,7 +10,7 @@ class Quick_Attack(Card):
         self.value = 1
         self.type_of_card = Enumerators.TypeOfCard.Quick_Attack
         self.dwarfs_required = 0 #Forskjellen er at dette kortet er gratis å bruke
-
+        self.indicator_sprite = Enumerators.Sprites_of_planned_attack.Attack.value
     def usage(self, card_nr, x):
         print("Choose target enemy")
 

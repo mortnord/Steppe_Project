@@ -33,6 +33,7 @@ class TypeOfPlannedAttack(Enum):
 class Sprites_of_planned_attack(Enum):
     Attack = "Assets/sword.png"
     Defend = "Assets/shield.png"
+
 class Sprites(Enum):
     Card = "Assets/card.png"
 

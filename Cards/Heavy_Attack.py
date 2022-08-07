@@ -11,7 +11,7 @@ class Heavy_Attack(Card):
         self.type_of_card = Enumerators.TypeOfCard.Heavy_Attack
         self.dwarfs_required = 2
         self.one_time = True #Dette kortet er engangsbruk per kamp
-
+        self.indicator_sprite = Enumerators.Sprites_of_planned_attack.Attack.value
     def usage(self, card_nr, x):
         print("Choose target enemy")
 

@@ -22,6 +22,7 @@ class Combat_View(arcade.View):
     def setup(self):
         self.sprites_list_enemies = arcade.SpriteList()
         self.sprites_list_enemies_indicator = arcade.SpriteList()
+        self.sprites_list_cards_indicator = arcade.SpriteList()
         self.sprites_list_cards = arcade.SpriteList()
         self.sprites_list_dwarves = arcade.SpriteList()
         self.mouse_hand = arcade.SpriteList()
@@ -50,10 +51,12 @@ class Combat_View(arcade.View):
         self.sprites_list_cards.clear()
         for x in range(len(Static_Data.get_deck_list().hand)):
             self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().hand[x].sprite, 0.20))
-
+            self.sprites_list_cards_indicator.append(arcade.Sprite(Static_Data.get_deck_list().hand[x].indicator_sprite,0.10))
         for x in range(len(self.sprites_list_cards)):
             self.sprites_list_cards[x].center_x = 150 * x + 150
             self.sprites_list_cards[x].center_y = 50
+            self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x
+            self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y
 
     def update_enemies(self):
         self.sprites_list_enemies.clear()
@@ -72,6 +75,7 @@ class Combat_View(arcade.View):
                              arcade.color.WHITE,
                              1)
 
+
     def update_indications(self):
         self.sprites_list_enemies_indicator.clear()
 
@@ -84,6 +88,7 @@ class Combat_View(arcade.View):
         self.sprites_list_cards.draw()
         self.sprites_list_dwarves.draw()
         self.sprites_list_enemies_indicator.draw()
+        self.sprites_list_cards_indicator.draw()
         for x in range(len(self.sprites_list_enemies)):
             arcade.draw_text(Static_Data.get_enemies_to_defeat()[x].value,
                              self.sprites_list_enemies_indicator[x].center_x + 30,
@@ -98,7 +103,7 @@ class Combat_View(arcade.View):
         for x in range(len(self.sprites_list_cards)):
             arcade.draw_text(Static_Data.get_deck_list().hand[x].value,
                              self.sprites_list_cards[x].center_x,
-                             self.sprites_list_cards[x].center_y,
+                             self.sprites_list_cards[x].center_y-30,
                              arcade.color.BLACK,
                              10)
         arcade.finish_render()
