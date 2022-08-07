@@ -18,6 +18,8 @@ class Combat_View(arcade.View):
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
         self.held_card = []
         self.held_card_original_position = None
+        self.held_card_indicator = []
+        self.held_card_indicator_original_position = None
 
     def setup(self):
         self.sprites_list_enemies = arcade.SpriteList()
@@ -120,11 +122,21 @@ class Combat_View(arcade.View):
             self.held_card = [primary_card]
             self.held_cards_original_position = primary_card.position
 
+        indicator, distance = arcade.get_closest_sprite(self.held_card[0],self.sprites_list_cards_indicator)
+
+
+        self.held_card_indicator = [indicator]
+        self.held_card_indicator_original_position = indicator.position
+
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
 
         for card in self.held_card:
             card.center_x += dx
             card.center_y += dy
+
+        for x in range(len(self.held_card_indicator)):
+            self.held_card_indicator[x].center_x += dx
+            self.held_card_indicator[x].center_y += dy
     def on_mouse_release(self, x: int, y: int, button: int, modifiers: int):
         # If we don't have any cards, who cares
         if len(self.held_card) == 0:
@@ -142,3 +154,4 @@ class Combat_View(arcade.View):
 
         # We are no longer holding cards
         self.held_card = []
+        self.held_card_indicator = []
