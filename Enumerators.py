@@ -25,14 +25,18 @@ class TypeOfCard(Enum):
     Attack_and_defend = "Attack and defend"
     Quick_Attack = "Quick Attack"
     Heavy_Attack = "Heavy Attack"
+    Healing = "Healing"
 
 class TypeOfPlannedAttack(Enum):
     Attack = "Attack"
     Defend = "Defend"
+    Healing = "Healing"
 
 class Sprites_of_planned_attack(Enum):
     Attack = "Assets/sword.png"
     Defend = "Assets/shield.png"
+    Healing = "Assets/healing.png"
+
 class Sprites(Enum):
     Card = "Assets/card.png"
 
