@@ -9,10 +9,11 @@ class Landscape: #Landskapsobjekter med initialiseringsverdi
     amount_of_grass = 0
     amount_of_wood = 0
     amount_of_stone = 0
-
+    possible_enemies = []
     def __init__(self):
         self.Landscapes_ID = Static_Data.get_Landscape_ID() #ID-nr, auto-increment
         self.has_river = river_generation() #sjangse på river, sjekk implementation for detaljer
+        self.possible_enemies = [Enumerators.Monsters.Goblin.value, Enumerators.Monsters.Slime.value]
 
 
 class Steppes(Landscape):
@@ -21,14 +22,12 @@ class Steppes(Landscape):
         self.amount_of_grass = 40 + random.randint(0, 30)
         self.type_of_landscape = Enumerators.Landscapes.Steppes
 
-
 class Wooded(Landscape):
     def __init__(self):
         super().__init__()
         self.amount_of_grass = 10 + random.randint(0, 30)
         self.amount_of_wood = 3 + random.randint(0, 6)
         self.type_of_landscape = Enumerators.Landscapes.Wooded
-
 
 class Hills(Landscape):
     def __init__(self):

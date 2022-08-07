@@ -1,6 +1,9 @@
 from enum import Enum
 
 #Enumeratorer er en egen definert variabel, som man kan bruke for å sammenligne og sjekke ting, f.eks at TypeOfSheep = Ram osv.
+import Enemies.Goblins
+
+
 class TypeOfSheep(Enum):
     Ram = "Ram"
     Ewe = "Ewe"
@@ -43,5 +46,10 @@ class Sprites(Enum):
     Dwarf = "Assets/dwarf.png"
 
     Goblin = "Assets/Goblin.png"
+    Slime = "Assets/Slime.png"
 
     Energy = "Assets/energy.png"
+
+class Monsters(Enum):
+    Goblin = "Goblin"
+    Slime = "Slime"

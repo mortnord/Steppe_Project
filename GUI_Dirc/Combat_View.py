@@ -36,7 +36,6 @@ class Combat_View(arcade.View):
         self.sprites_list_dwarves_defend = arcade.SpriteList()
         self.sprites_list_dwarves_energy = arcade.SpriteList()
 
-
         self.mouse_hand = arcade.SpriteList()
 
         self.generate_enemy_sprites()
@@ -74,8 +73,10 @@ class Combat_View(arcade.View):
         for x in range(len(Static_Data.get_list_of_people())):
             self.sprites_list_dwarves.append(arcade.Sprite(Static_Data.get_list_of_people()[x].sprite, 0.10))
 
-            self.sprites_list_dwarves_health.append(arcade.Sprite(Enumerators.Sprites_of_planned_attack.Healing.value, 0.10))
-            self.sprites_list_dwarves_defend.append(arcade.Sprite(Enumerators.Sprites_of_planned_attack.Defend.value, 0.10))
+            self.sprites_list_dwarves_health.append(
+                arcade.Sprite(Enumerators.Sprites_of_planned_attack.Healing.value, 0.10))
+            self.sprites_list_dwarves_defend.append(
+                arcade.Sprite(Enumerators.Sprites_of_planned_attack.Defend.value, 0.10))
         self.sprites_list_dwarves_energy.append(arcade.Sprite(Enumerators.Sprites.Energy.value, 0.05))
         for x in range(len(self.sprites_list_dwarves)):
             self.sprites_list_dwarves[x].center_x = 150 * x + 150
@@ -84,8 +85,9 @@ class Combat_View(arcade.View):
             self.sprites_list_dwarves_health[x].center_y = self.sprites_list_dwarves[x].center_y + 50
             self.sprites_list_dwarves_defend[x].center_x = self.sprites_list_dwarves[x].center_x
             self.sprites_list_dwarves_defend[x].center_y = self.sprites_list_dwarves[x].center_y + 100
-        self.sprites_list_dwarves_energy[0].center_x = self.sprites_list_dwarves[0].center_x -100
+        self.sprites_list_dwarves_energy[0].center_x = self.sprites_list_dwarves[0].center_x - 100
         self.sprites_list_dwarves_energy[0].center_y = self.sprites_list_dwarves[0].center_y
+
     def update_cards(self):
         self.sprites_list_cards.clear()
         self.sprites_list_cards_indicator.clear()
@@ -130,10 +132,13 @@ class Combat_View(arcade.View):
         self.sprites_list_enemies.draw()
         self.sprites_list_cards.draw()
         self.sprites_list_dwarves.draw()
+
+        self.sprites_list_cards_indicator.draw()
+
         self.sprites_list_enemies_indicator.draw()
         self.sprites_list_enemies_defend.draw()
         self.sprites_list_enemies_health.draw()
-        self.sprites_list_cards_indicator.draw()
+
         self.sprites_list_dwarves_health.draw()
         self.sprites_list_dwarves_defend.draw()
         self.sprites_list_dwarves_energy.draw()
@@ -163,7 +168,7 @@ class Combat_View(arcade.View):
                              self.sprites_list_cards[x].center_x,
                              self.sprites_list_cards[x].center_y - 30,
                              arcade.color.BLACK,
-                            10)
+                             10)
         for x in range(len(self.sprites_list_dwarves)):
             arcade.draw_text(Static_Data.get_list_of_people()[x].health,
                              self.sprites_list_dwarves_health[x].center_x + 30,
@@ -174,12 +179,13 @@ class Combat_View(arcade.View):
                              self.sprites_list_dwarves_defend[x].center_x + 40,
                              self.sprites_list_dwarves_defend[x].center_y,
                              arcade.color.WHITE,
-                         10)
+                             10)
         arcade.draw_text(Static_Data.get_energy(),
                          self.sprites_list_dwarves_energy[0].center_x + 40,
                          self.sprites_list_dwarves_energy[0].center_y,
                          arcade.color.WHITE,
                          10)
+
     # Gjør så lite som mulig, annet enn å tegne
     def on_update(self, delta_time: float):
         self.combat_class.start_combat(self)
@@ -215,14 +221,14 @@ class Combat_View(arcade.View):
         enemies, distance_enemies = arcade.get_closest_sprite(self.held_card[0], self.sprites_list_enemies)
         dwarfs, distance_dwarfs = arcade.get_closest_sprite(self.held_card[0], self.sprites_list_dwarves)
 
-        if (arcade.check_for_collision(self.held_card[0], enemies)):
+        if arcade.check_for_collision(self.held_card[0], enemies):
             result = self.combat_class.player_use_card_round(self.sprites_list_cards.index(self.held_card[0]),
                                                              self.sprites_list_enemies.index(enemies))
             if result:
                 self.update_cards()
                 self.update_enemies()
                 self.update_dwarves()
-        if (arcade.check_for_collision(self.held_card[0], dwarfs)):
+        if arcade.check_for_collision(self.held_card[0], dwarfs):
             result = self.combat_class.player_use_card_round(self.sprites_list_cards.index(self.held_card[0]),
                                                              self.sprites_list_enemies.index(enemies))
             if result:
@@ -233,3 +239,5 @@ class Combat_View(arcade.View):
         # We are no longer holding cards
         self.held_card = []
         self.held_card_indicator = []
+
+
