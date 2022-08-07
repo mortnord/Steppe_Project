@@ -9,5 +9,6 @@ class Card:
         self.one_time = False #Kan brukes som flag senere for å indikere att kortet er one-time-use per kamp
         self.sprite = Enumerators.Sprites.Card.value
         self.indicator_sprite = None
+
     def print_text(self):
         print("This is an " + self.type_of_card.value + " card with " + str(self.value) + " value, and this costs " + str(self.dwarfs_required) + " dwarfs")
