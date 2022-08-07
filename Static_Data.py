@@ -16,7 +16,7 @@ class Static_Data():
     current_amount_of_buildings = 0
 
     deck_list = 0
-    which_dwarf_to_attack = 0
+    energy = 0
     turn_phase = 0
 
     map_with_regions = []
@@ -50,16 +50,16 @@ class Static_Data():
         return cls.map_with_regions
 
     @classmethod
-    def reset_which_dwarf_to_attack(cls):
-        cls.which_dwarf_to_attack = 0
+    def full_energy(cls):
+        cls.energy = len(Static_Data.get_list_of_people())
 
     @classmethod
-    def get_which_dwarf_to_attack(cls):
-        return cls.which_dwarf_to_attack
+    def get_energy(cls):
+        return cls.energy
 
     @classmethod
-    def set_which_dwarf_to_attack(cls, input):
-        cls.which_dwarf_to_attack += input
+    def set_energy(cls, input):
+        cls.energy -= input
 
     @classmethod
     def get_enemies_to_defeat(cls):
@@ -68,6 +68,7 @@ class Static_Data():
     @classmethod
     def set_enemies_to_defeat(cls, enemies_to_defeat_input):
         cls.enemies_to_defeat = enemies_to_defeat_input
+
     @classmethod
     def get_deck_list(cls):
         return cls.deck_list

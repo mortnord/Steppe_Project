@@ -16,7 +16,7 @@ class BasicEnemy():
         if self.defend > 0:
             self.defend = self.defend - value_damage
             if self.defend < 0:
-                self.health -= self.defend
+                self.health += self.defend
                 self.defend = 0
         else:
             self.health -= value_damage

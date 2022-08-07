@@ -43,3 +43,5 @@ class Sprites(Enum):
     Dwarf = "Assets/dwarf.png"
 
     Goblin = "Assets/Goblin.png"
+
+    Energy = "Assets/energy.png"
