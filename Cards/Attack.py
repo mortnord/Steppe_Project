@@ -12,9 +12,9 @@ class Attack(Card):
         self.dwarfs_required = 1 #Kostnaden for å bruke kortet
         self.indicator_sprite = Enumerators.Sprites_of_planned_attack.Attack.value
 
-    def usage(self, card_nr, target_enemy): #Card_nr er hva nr kortet var i hånden når man spiller det. X er energi-kostnaden
+    def usage(self, card_nr, target_enemy, nr_dwarf): #Card_nr er hva nr kortet var i hånden når man spiller det. X er energi-kostnaden
         Static_Data.get_enemies_to_defeat()[target_enemy].take_damage(self.value) #Her gjør vi damage på hva vi har valgt, sjekk implementation for detaljer
         Static_Data.set_energy(self.dwarfs_required) #Her fjerner vi energien vi har brukt fra potensiell energi
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr)) #her popper vi (tar ut og legger en annen plass) kortet ut fra deck-lista,
-                                                                                                    # og legger det i discard-pile lista
+        nr_dwarf.has_energy = nr_dwarf.use_energy(self.dwarfs_required)                                                                               # og legger det i discard-pile lista
         return True

@@ -44,11 +44,12 @@ class Sprites(Enum):
     Card = "Assets/card.png"
 
     Dwarf = "Assets/dwarf.png"
-
+    Active_Dwarf_Pointer = "Assets/red_arrow_down.png"
     Goblin = "Assets/Goblin.png"
     Slime = "Assets/Slime.png"
 
     Energy = "Assets/energy.png"
+    End_Turn = "Assets/End_Turn.png"
 
 class Monsters(Enum):
     Goblin = "Goblin"

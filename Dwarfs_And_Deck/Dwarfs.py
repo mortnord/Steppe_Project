@@ -13,6 +13,7 @@ class Dwarf: #En dverg
         self.sprite = Enumerators.Sprites.Dwarf.value
         self.has_energy = True
         self.amount_energy = 1
+        self.max_energy = 1
 
     def take_damage(self, value_damage): #Denne metoden kalles når vi tar skade
         print(self.defend)
@@ -23,3 +24,9 @@ class Dwarf: #En dverg
                 self.defend = 0
         else: #Ingen armor, = bare skade
             self.health -= value_damage
+    def use_energy(self, value_energy):
+        self.amount_energy -= value_energy
+        if self.amount_energy == 0:
+            return False
+        else:
+            return True

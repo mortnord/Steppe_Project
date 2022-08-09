@@ -43,12 +43,17 @@ class Combat:
                 Static_Data.get_enemies_to_defeat().remove(Static_Data.get_enemies_to_defeat()[x])  # Fjern fra lista
                 break  # Kun en ting kan dø om gangen, så stop, og heller kom tilbake vis flere ting dør.
 
-    def player_use_card_round(self, card_nr, target):  # Del 2 av kamp, spilleren gjør actions
-        result = Static_Data.get_deck_list().hand[card_nr].usage(card_nr, target)
-        self.check_for_deaths()
-        if Static_Data.get_energy() == 0:
-            Static_Data.set_turn_phase(2)
-        return result
+    def player_use_card_round(self, card_nr, target, nr_dwarf):  # Del 2 av kamp, spilleren gjør actions
+        if nr_dwarf.has_energy:
+            result = Static_Data.get_deck_list().hand[card_nr].usage(card_nr, target, nr_dwarf)
+
+            self.check_for_deaths()
+            if Static_Data.get_energy() == 0:
+                Static_Data.set_turn_phase(2)
+
+            return result
+        else:
+            return False
 
     def end_player_turn(self):
         Deck_management.discard_hand()
@@ -61,12 +66,17 @@ class Combat:
                 self.check_for_deaths()  # sjekk om de har daua, hahaha
         Static_Data.set_turn_phase(3)
 
-    def end_turn_step(self):  # Her kan vi legge til effekter som skjer på slutten av en runde, f.eks forgiftning osv
+    def end_turn_step(self,
+                      view):  # Her kan vi legge til effekter som skjer på slutten av en runde, f.eks forgiftning osv
         self.check_for_deaths()
         Static_Data.set_turn_phase(0)
+        for x in range(len(Static_Data.get_list_of_people())):
+            Static_Data.get_list_of_people()[x].has_energy = True
+        view.change_active_dwarf()
 
     def start_step(self):
-        Static_Data.full_energy()
+        for x in range(len(Static_Data.get_list_of_people())):
+            Static_Data.get_list_of_people()[x].amount_energy = Static_Data.get_list_of_people()[x].max_energy
         Deck_management.draw_cards_until_full()  # Trekk kort opp til max verdien for hånda (3 enn så leng)
         for x in range(len(Static_Data.get_list_of_people())):  # Fjern all defend, det er jo kun for 1 runde
             Static_Data.get_list_of_people()[x].defend = 0
@@ -87,7 +97,7 @@ class Combat:
                 view.update_enemies()
                 view.update_dwarves()
             if Static_Data.get_turn_phase() == 3:
-                self.end_turn_step()
+                self.end_turn_step(view)
                 view.update_cards()
                 view.update_enemies()
                 view.update_dwarves()
