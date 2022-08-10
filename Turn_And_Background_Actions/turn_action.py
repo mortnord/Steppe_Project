@@ -1,11 +1,14 @@
+import Background_Calculations
 import Enumerators
 from Inventory import Inventory
+from Setup import background_info
 from Static_Data import Static_Data
 
 
 def take_Action(): #Dette skjer når en runde går.
     Static_Data.use_Actions_available(1) #Først, bruke en action.
-
+    background_info()  # Background info som actions osv
+    Background_Calculations.check_local_area()
     milk() #melke sauer
 
     graze() #sauer beite

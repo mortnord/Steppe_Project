@@ -8,14 +8,14 @@ from Static_Data import Static_Data
 class MapWindowTest(arcade.View):
     def __init__(self):
         super().__init__()
-        self.coin_list = None
+        self.region_list = None
         self.arrow_list = None
 
         arcade.set_background_color(arcade.color.AMAZON)
         self.camera_sprites = arcade.Camera(600, 600)
 
     def setup(self):
-        self.coin_list = arcade.SpriteList()
+        self.region_list = arcade.SpriteList()
         self.arrow_list = arcade.SpriteList()
 
         arrow = arcade.Sprite("Assets/red_arrow_down.png",0.10)
@@ -33,7 +33,7 @@ class MapWindowTest(arcade.View):
             coin.center_x = Static_Data.get_map_with_regions()[x].x_position
             coin.center_y = Static_Data.get_map_with_regions()[x].y_position
             # Add the coin to the lists
-            self.coin_list.append(coin)
+            self.region_list.append(coin)
 
 
         position = Vec2(-300, -300)
@@ -56,7 +56,7 @@ class MapWindowTest(arcade.View):
         arcade.start_render()
         self.draw_connections()
         self.camera_sprites.use()
-        self.coin_list.draw()
+        self.region_list.draw()
         self.arrow_list.draw()
         arcade.finish_render()
 
@@ -67,3 +67,7 @@ class MapWindowTest(arcade.View):
         self.camera_sprites.set_projection()
         Setup.run_Game()
 
+    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
+        map_region_selected = arcade.get_sprites_at_point((x,y), self.region_list)
+        if len(map_region_selected) > 0:
+            print(map_region_selected)

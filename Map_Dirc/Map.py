@@ -30,17 +30,15 @@ def find_connections(): #Komplisert.
                                 distance)) #her lager vi en connection og legger den til i Region sin connection liste.
 
     for x in range(len(Static_Data.get_map_with_regions())):
-        for y in range(len(Static_Data.get_map_with_regions()[x].connections)):
-            print(str(Static_Data.get_map_with_regions()[x].connections[y].nr_region) + "  "+ str(Static_Data.get_map_with_regions()[x].connections[y].distance))
+
+
         Static_Data.get_map_with_regions()[x].connections.sort(key=lambda z: z.distance) #Vi sorter connection-lista basert på distansen, slik at de 3 nærmeste er på bunnen
 
         while (len(Static_Data.get_map_with_regions()[x].connections)) > 3: #så, fjerner vi alle untatt de 3 første,
                 #dette gjør at kun de 3 nærmeste er igjen
             Static_Data.get_map_with_regions()[x].connections.pop()
-        for y in range(len(Static_Data.get_map_with_regions()[x].connections)):
-            print(str(Static_Data.get_map_with_regions()[x].connections[y].nr_region) + "  " + str(
-                Static_Data.get_map_with_regions()[x].connections[y].distance))
-            print("done")
+
+
 
 
 def map_generation():

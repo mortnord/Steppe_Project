@@ -9,25 +9,7 @@ class Combat:
 
     def enemy_indication_round(self):  # Del 1 av kamp, fienden indikerer og planlegger hva de har tenkt å gjøre
         for x in range(len(Static_Data.get_enemies_to_defeat())):
-            Static_Data.get_enemies_to_defeat()[
-                x].plan_attack()  # Sjekk implementation for detaljer, men fienden planlegger
-
-            if Static_Data.get_enemies_to_defeat()[
-                x].type_of_planned_attack == Enumerators.TypeOfPlannedAttack.Attack:  # Vis angrip, skriv denne teksten
-                print("Goblin " + str(x + 1) + " with health " +
-                      str(Static_Data.get_enemies_to_defeat()[x].health) + " and defend " +
-                      str(Static_Data.get_enemies_to_defeat()[x].defend) + " has planned an " +
-                      str(Static_Data.get_enemies_to_defeat()[x].type_of_planned_attack.value) + " with value " +
-                      str(Static_Data.get_enemies_to_defeat()[x].value) + " on target " +
-                      str(Static_Data.get_enemies_to_defeat()[x].target.ID))
-
-            if Static_Data.get_enemies_to_defeat()[
-                x].type_of_planned_attack == Enumerators.TypeOfPlannedAttack.Defend:  # Vis defend, skriv denne
-                print("Goblin " + str(x + 1) + " with health " +
-                      str(Static_Data.get_enemies_to_defeat()[x].health) + " and defend " +
-                      str(Static_Data.get_enemies_to_defeat()[x].defend) + " has planned an " +
-                      str(Static_Data.get_enemies_to_defeat()[x].type_of_planned_attack.value) + " with value " +
-                      str(Static_Data.get_enemies_to_defeat()[x].value))
+            Static_Data.get_enemies_to_defeat()[x].plan_attack()  # Sjekk implementation for detaljer, men fienden planlegger
         Static_Data.set_turn_phase(1)
 
     def check_for_deaths(self):
