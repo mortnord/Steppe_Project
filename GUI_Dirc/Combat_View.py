@@ -2,18 +2,21 @@ import arcade
 
 import Enumerators
 import Setup
-from Commands_Dirc import Combat
+from Commands_Dirc import Combat, Deck_management
+from GUI_Dirc import GUI
 from Static_Data import Static_Data
-
 
 # lag dette på nytt, der en kamp situasjon skifter til denne scenen, som lager fiender og alt relatert til kamp blir gjort her.
 # lag fiender
 # håndter fiender
 #
+from Static_Data_Bools import Static_Data_Bools
+
 
 class Combat_View(arcade.View):
     combat_class = Combat.Combat()
     active_dwarf = None
+    setup_done = False
 
     def __init__(self):
         super().__init__()
@@ -51,7 +54,7 @@ class Combat_View(arcade.View):
 
         self.active_dwarf = Static_Data.get_list_of_people()[0]
         self.end_turn.append(arcade.Sprite(Enumerators.Sprites.End_Turn.value, 0.10))
-
+        self.setup_done = True
 
     def change_active_dwarf(self):
         for x in range(len(Static_Data.get_list_of_people())):
@@ -120,6 +123,7 @@ class Combat_View(arcade.View):
         self.sprites_list_cards.clear()
         self.sprites_list_cards_indicator.clear()
         for x in range(len(Static_Data.get_deck_list().hand)):
+            print(Static_Data.get_deck_list().hand[x].sprite + " is problemet" + str(x))
             self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().hand[x].sprite, 0.20))
             self.sprites_list_cards_indicator.append(
                 arcade.Sprite(Static_Data.get_deck_list().hand[x].indicator_sprite, 0.10))
@@ -154,60 +158,31 @@ class Combat_View(arcade.View):
 
     def on_draw(self):
         """ Draw this view """
-        self.clear()
+        if self.setup_done:
+            self.clear()
 
-        self.sprites_list_enemies.draw()
-        self.sprites_list_cards.draw()
-        self.sprites_list_dwarves.draw()
+            self.sprites_list_enemies.draw()
+            self.sprites_list_cards.draw()
+            self.sprites_list_dwarves.draw()
 
-        self.sprites_list_cards_indicator.draw()
+            self.sprites_list_cards_indicator.draw()
 
-        self.sprites_list_enemies_indicator.draw()
-        self.sprites_list_enemies_defend.draw()
-        self.sprites_list_enemies_health.draw()
+            self.sprites_list_enemies_indicator.draw()
+            self.sprites_list_enemies_defend.draw()
+            self.sprites_list_enemies_health.draw()
 
-        self.sprites_list_dwarves_health.draw()
-        self.sprites_list_dwarves_defend.draw()
-        self.sprites_list_dwarves_energy.draw()
+            self.sprites_list_dwarves_health.draw()
+            self.sprites_list_dwarves_defend.draw()
+            self.sprites_list_dwarves_energy.draw()
 
-        self.active_dwarf_pointer.draw()
-        self.end_turn.draw()
-        self.draw_text()
+            self.active_dwarf_pointer.draw()
+            self.end_turn.draw()
+            self.draw_text()
 
     def draw_text(self):
-        for x in range(len(self.sprites_list_enemies)):
-            arcade.draw_text(Static_Data.get_enemies_to_defeat()[x].health,
-                             self.sprites_list_enemies[x].center_x + 30,
-                             self.sprites_list_enemies[x].center_y - 50,
-                             arcade.color.REDWOOD,
-                             10)
-            arcade.draw_text(Static_Data.get_enemies_to_defeat()[x].value,
-                             self.sprites_list_enemies_indicator[x].center_x + 40,
-                             self.sprites_list_enemies_indicator[x].center_y,
-                             arcade.color.WHITE,
-                             10)
-            arcade.draw_text(Static_Data.get_enemies_to_defeat()[x].defend,
-                             self.sprites_list_enemies_defend[x].center_x + 40,
-                             self.sprites_list_enemies_defend[x].center_y,
-                             arcade.color.WHITE,
-                             10)
-        for x in range(len(self.sprites_list_dwarves)):
-            arcade.draw_text(Static_Data.get_list_of_people()[x].health,
-                             self.sprites_list_dwarves_health[x].center_x + 30,
-                             self.sprites_list_dwarves_health[x].center_y - 50,
-                             arcade.color.REDWOOD,
-                             20)
 
-            arcade.draw_text(Static_Data.get_list_of_people()[x].defend,
-                             self.sprites_list_dwarves_defend[x].center_x + 40,
-                             self.sprites_list_dwarves_defend[x].center_y,
-                             arcade.color.BLACK,
-                             20)
-            arcade.draw_text(Static_Data.get_list_of_people()[x].amount_energy,
-                             self.sprites_list_dwarves_energy[x].center_x - 30,
-                             self.sprites_list_dwarves_energy[x].center_y,
-                             arcade.color.BLACK,
-                             20)
+        self.draw_enemy_text()
+        self.draw_dwarf_text()
         if len(Static_Data.get_deck_list().hand) > 0:
             for x in range(len(self.sprites_list_cards)):
                 arcade.draw_text(Static_Data.get_deck_list().hand[x].value,
@@ -226,9 +201,52 @@ class Combat_View(arcade.View):
                                  arcade.color.BLACK,
                                  1)
 
+    def draw_dwarf_text(self):
+        for x in range(len(self.sprites_list_dwarves)):
+            arcade.draw_text(Static_Data.get_list_of_people()[x].health,
+                             self.sprites_list_dwarves_health[x].center_x + 30,
+                             self.sprites_list_dwarves_health[x].center_y - 50,
+                             arcade.color.REDWOOD,
+                             20)
+
+            arcade.draw_text(Static_Data.get_list_of_people()[x].defend,
+                             self.sprites_list_dwarves_defend[x].center_x + 40,
+                             self.sprites_list_dwarves_defend[x].center_y,
+                             arcade.color.BLACK,
+                             20)
+            arcade.draw_text(Static_Data.get_list_of_people()[x].amount_energy,
+                             self.sprites_list_dwarves_energy[x].center_x - 30,
+                             self.sprites_list_dwarves_energy[x].center_y,
+                             arcade.color.BLACK,
+                             20)
+
+    def draw_enemy_text(self):
+        for x in range(len(self.sprites_list_enemies)):
+            arcade.draw_text(Static_Data.get_enemies_to_defeat()[x].health,
+                             self.sprites_list_enemies[x].center_x + 30,
+                             self.sprites_list_enemies[x].center_y - 50,
+                             arcade.color.REDWOOD,
+                             10)
+            arcade.draw_text(Static_Data.get_enemies_to_defeat()[x].value,
+                             self.sprites_list_enemies_indicator[x].center_x + 40,
+                             self.sprites_list_enemies_indicator[x].center_y,
+                             arcade.color.WHITE,
+                             10)
+            arcade.draw_text(Static_Data.get_enemies_to_defeat()[x].defend,
+                             self.sprites_list_enemies_defend[x].center_x + 40,
+                             self.sprites_list_enemies_defend[x].center_y,
+                             arcade.color.WHITE,
+                             10)
+
     # Gjør så lite som mulig, annet enn å tegne
     def on_update(self, delta_time: float):
         self.combat_class.start_combat(self)
+        if len(Static_Data.get_enemies_to_defeat()) < 1:
+            Static_Data_Bools.set_combat(False)
+            Deck_management.reset_deck()
+            map_view = GUI.MapWindowTest()
+            self.window.show_view(map_view)
+            map_view.setup()
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
 

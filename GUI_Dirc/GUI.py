@@ -1,8 +1,13 @@
 import arcade
 from pyglet.math import Vec2
 
+import Commands_Dirc.Commands
 import Setup
+from Events import Random_Event
+from GUI_Dirc import Combat_View
 from Static_Data import Static_Data
+from Commands_Dirc import Migration
+from Static_Data_Bools import Static_Data_Bools
 
 
 class MapWindowTest(arcade.View):
@@ -18,7 +23,7 @@ class MapWindowTest(arcade.View):
         self.region_list = arcade.SpriteList()
         self.arrow_list = arcade.SpriteList()
 
-        arrow = arcade.Sprite("Assets/red_arrow_down.png",0.10)
+        arrow = arcade.Sprite("Assets/red_arrow_down.png", 0.10)
         arrow.center_x = Static_Data.get_current_map().x_position - 10
         arrow.center_y = Static_Data.get_current_map().y_position + 30
         self.arrow_list.append(arrow)
@@ -32,9 +37,10 @@ class MapWindowTest(arcade.View):
             # Position the coin
             coin.center_x = Static_Data.get_map_with_regions()[x].x_position
             coin.center_y = Static_Data.get_map_with_regions()[x].y_position
+            print(coin.center_x)
+            print(coin.center_y)
             # Add the coin to the lists
             self.region_list.append(coin)
-
 
         position = Vec2(-300, -300)
         self.camera_sprites.move_to(position, 1)
@@ -53,21 +59,34 @@ class MapWindowTest(arcade.View):
 
     def on_draw(self):
         self.clear()
-        arcade.start_render()
         self.draw_connections()
         self.camera_sprites.use()
         self.region_list.draw()
         self.arrow_list.draw()
-        arcade.finish_render()
 
     def on_update(self, delta_time: float):
 
         self.arrow_list[0].center_x = Static_Data.get_current_map().x_position - 10
         self.arrow_list[0].center_y = Static_Data.get_current_map().y_position + 30
-        self.camera_sprites.set_projection()
-        Setup.run_Game()
 
+        if Static_Data_Bools.get_combat():
+            combat_view = Combat_View.Combat_View()
+            combat_view.setup()
+            self.window.show_view(combat_view)
+        Setup.run_Game()
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
-        map_region_selected = arcade.get_sprites_at_point((x,y), self.region_list)
+        map_region_selected = arcade.get_sprites_at_point((x - 300, y - 300), self.region_list)
         if len(map_region_selected) > 0:
-            print(map_region_selected)
+            possible_areas = Migration.create_next_areas()
+            if Static_Data.get_map_with_regions()[self.region_list.index(map_region_selected[0])] in possible_areas:
+
+                Commands_Dirc.Commands.migrate(
+                    Static_Data.get_map_with_regions()[self.region_list.index(map_region_selected[0])])
+
+                Random_Event.handle_event()  # Random event
+                if Static_Data_Bools.get_combat():
+                    combat_view = Combat_View.Combat_View()
+                    combat_view.setup()
+                    Static_Data.get_window().show_view(combat_view)
+
+

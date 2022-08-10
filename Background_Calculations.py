@@ -84,3 +84,11 @@ def calculate_max_energy():
         if Static_Data.get_list_of_people()[x].has_energy:
             max_energy += Static_Data.get_list_of_people()[x].amount_energy
     return max_energy
+
+def background_info(): #beregn de forskjellige bakgrunnsinfoene
+    calculate_grass()
+    calculate_max_buildings()
+    has_buildings()
+    calculate_max_storage()
+
+    print("Your sheep need to graze " + str(Static_Data.get_Amount_of_Grass_eating_per_action()) + " grass per action")

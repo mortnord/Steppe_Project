@@ -1,5 +1,8 @@
+import arcade
+
 import Background_Calculations
 import Generation.Initial_Generation
+from GUI_Dirc import GUI, Combat_View
 from Static_Data_Bools import Static_Data_Bools
 from Static_Data import Static_Data
 
@@ -24,28 +27,23 @@ def run_Game(): #Hoved-delen av backend koden.
         #     Inventory_and_herd_management.inventory_and_herd_management()
         # elif player_command == "2":
         #     Commands.harvest_local_area()
-        # elif player_command == "3":
-        #
-        #     Commands.migrate(Migration.create_next_areas())
-        #     Random_Event.handle_event()  # Random event
-        #     print("You are now in a " + Static_Data.current_map.landscape.type_of_landscape.name + " region")
+
         # elif player_command == "4":
         #     Deck_management.print_deck()
         # else:
         #     print("Invalid command, prøv igjen")
 
 
-def background_info(): #beregn de forskjellige bakgrunnsinfoene
-    Background_Calculations.calculate_grass()
-    Background_Calculations.calculate_max_buildings()
-    Background_Calculations.has_buildings()
-    Background_Calculations.calculate_max_storage()
-
-    print("Your sheep need to graze " + str(Static_Data.get_Amount_of_Grass_eating_per_action()) + " grass per action")
 
 
 def setup():
     Generation.Initial_Generation.start_initial_creation()
-    background_info()  # Background info som actions osv
+    Background_Calculations.background_info()  # Background info som actions osv
     Background_Calculations.check_local_area()
+    window = arcade.Window(600, 600, "TEST")
+    Static_Data.set_window(window)
+    map_view = GUI.MapWindowTest()
+    Static_Data.get_window().show_view(map_view)
+    map_view.setup()
     run_Game()
+    arcade.run()

@@ -9,7 +9,8 @@ class Combat:
 
     def enemy_indication_round(self):  # Del 1 av kamp, fienden indikerer og planlegger hva de har tenkt å gjøre
         for x in range(len(Static_Data.get_enemies_to_defeat())):
-            Static_Data.get_enemies_to_defeat()[x].plan_attack()  # Sjekk implementation for detaljer, men fienden planlegger
+            Static_Data.get_enemies_to_defeat()[
+                x].plan_attack()  # Sjekk implementation for detaljer, men fienden planlegger
         Static_Data.set_turn_phase(1)
 
     def check_for_deaths(self):
@@ -56,10 +57,11 @@ class Combat:
             Static_Data.get_list_of_people()[x].has_energy = True
         view.change_active_dwarf()
 
-    def start_step(self):
+    def start_step(self, view):
+        Deck_management.draw_cards_until_full(view)
         for x in range(len(Static_Data.get_list_of_people())):
             Static_Data.get_list_of_people()[x].amount_energy = Static_Data.get_list_of_people()[x].max_energy
-        Deck_management.draw_cards_until_full()  # Trekk kort opp til max verdien for hånda (3 enn så leng)
+
         for x in range(len(Static_Data.get_list_of_people())):  # Fjern all defend, det er jo kun for 1 runde
             Static_Data.get_list_of_people()[x].defend = 0
 
@@ -67,17 +69,13 @@ class Combat:
         if len(Static_Data.get_enemies_to_defeat()) > 0:  # Så lenge vi har fiender igjen å sloss mot
             pass
             if Static_Data.get_turn_phase() == 0:
-                self.start_step()
+                self.start_step(view)
                 self.enemy_indication_round()  ##Første del, Sjekk hver enkel implementation for detaljer.
 
-                view.update_cards()
                 view.update_enemies()
                 view.update_dwarves()
             if Static_Data.get_turn_phase() == 2:
                 self.enemy_use_indication_round()
-                view.update_cards()
-                view.update_enemies()
-                view.update_dwarves()
             if Static_Data.get_turn_phase() == 3:
                 self.end_turn_step(view)
                 view.update_cards()
