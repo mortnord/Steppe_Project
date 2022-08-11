@@ -11,7 +11,7 @@ class Combat:
         for x in range(len(Static_Data.get_enemies_to_defeat())):
             Static_Data.get_enemies_to_defeat()[
                 x].plan_attack()  # Sjekk implementation for detaljer, men fienden planlegger
-        Static_Data.set_turn_phase(1)
+        Static_Data.set_turn_phase(-1)
 
     def check_for_deaths(self):
         for x in range(len(Static_Data.get_list_of_people())):  # Sjekker om vi har noen døde dverger
@@ -29,11 +29,7 @@ class Combat:
     def player_use_card_round(self, card_nr, target, nr_dwarf):  # Del 2 av kamp, spilleren gjør actions
         if nr_dwarf.has_energy:
             result = Static_Data.get_deck_list().hand[card_nr].usage(card_nr, target, nr_dwarf)
-
             self.check_for_deaths()
-            if Static_Data.get_energy() == 0:
-                Static_Data.set_turn_phase(2)
-
             return result
         else:
             return False
@@ -53,23 +49,29 @@ class Combat:
                       view):  # Her kan vi legge til effekter som skjer på slutten av en runde, f.eks forgiftning osv
         self.check_for_deaths()
         Static_Data.set_turn_phase(0)
-        for x in range(len(Static_Data.get_list_of_people())):
-            Static_Data.get_list_of_people()[x].has_energy = True
         view.change_active_dwarf()
 
     def start_step(self, view):
+        for x in range(len(Static_Data.get_list_of_people())):
+            Static_Data.get_list_of_people()[x].has_energy = True
+        Static_Data.full_energy()
         Deck_management.draw_cards_until_full(view)
         for x in range(len(Static_Data.get_list_of_people())):
             Static_Data.get_list_of_people()[x].amount_energy = Static_Data.get_list_of_people()[x].max_energy
 
         for x in range(len(Static_Data.get_list_of_people())):  # Fjern all defend, det er jo kun for 1 runde
             Static_Data.get_list_of_people()[x].defend = 0
+        Static_Data.set_turn_phase(1)
 
     def start_combat(self, view):  # Kamp-loopen.
         if len(Static_Data.get_enemies_to_defeat()) > 0:  # Så lenge vi har fiender igjen å sloss mot
-            pass
+
             if Static_Data.get_turn_phase() == 0:
                 self.start_step(view)
+
+                view.update_enemies()
+                view.update_dwarves()
+            if Static_Data.get_turn_phase() == 1:
                 self.enemy_indication_round()  ##Første del, Sjekk hver enkel implementation for detaljer.
 
                 view.update_enemies()
@@ -83,3 +85,4 @@ class Combat:
                 view.update_dwarves()
         else:
             Static_Data_Bools.set_combat(False)
+            Static_Data.set_turn_phase(0)
