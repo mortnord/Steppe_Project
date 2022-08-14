@@ -53,12 +53,13 @@ def initial_map_generation():
 
 # Temporary
 def next_map_generation():
-    map_type = random.randint(1, 3)  # Tilfeldig generert hva landskap det blir
+    map_type = random.randint(1, 10)  # Tilfeldig generert hva landskap det blir
     map_to_return = 0
-    if map_type == 1:
-        map_to_return = Landscape.Steppes()
+
     if map_type == 2:
         map_to_return = Landscape.Wooded()
-    if map_type == 3:
+    elif map_type == 1:
         map_to_return = Landscape.Hills()
+    else:
+        map_to_return = Landscape.Steppes()
     return map_to_return

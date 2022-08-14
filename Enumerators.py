@@ -19,6 +19,12 @@ class Landscapes(Enum):
     City = "City"
 
 
+class Landscapes_sprites(Enum):
+    Steppes = "Assets/Landscape_Sprites/grass_tile.png"
+    Wooded = "Assets/Landscape_Sprites/forest_tile.png"
+    Hills = "Assets/Landscape_Sprites/stone.png"
+
+
 class TypeOfBuilding(Enum):
     Silo = "Silo"
     Wagon = "Wagon"
@@ -74,3 +80,9 @@ class Numbers(Enum):
     Seven = "Assets/Numbers/Number-7-0.png"
     Eight = "Assets/Numbers/Number-8-0.png"
     Nine = "Assets/Numbers/Number-9-0.png"
+
+class Button_Sprites(Enum):
+    Harvest_Grass = "Assets/UI/Harvest_Buttons/Harvest_Button_Grass.png"
+    Harvest_Wood = "Assets/UI/Harvest_Buttons/Harvest_Button_Wood.png"
+    Harvest_Stone = "Assets/UI/Harvest_Buttons/Harvest_Button_Stone.png"
+    Harvest_Fish = "Assets/UI/Harvest_Buttons/Harvest_Button_Fish.png"

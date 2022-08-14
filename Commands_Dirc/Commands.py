@@ -1,7 +1,8 @@
+import Background_Calculations
 import Turn_And_Background_Actions.Grow_Sheep
 from Background_Calculations import handle_input
 from Commands_Dirc import Harvest_Commands
-from Events import Random_Event
+
 from Inventory import Inventory
 from Static_Data import Static_Data
 
@@ -27,7 +28,7 @@ def harvest_local_area(): #Denne leder oss videre til hva vi skal høste evnt.
 def migrate(next_map): #Verdien inn er neste region vi skal til
     Inventory.set_temporary_food_amount(-Inventory.get_temporary_food_amount()) #Vi fjerner all temporary food (melk enn så leng)
     Static_Data.set_current_map(next_map) #Vi bytter hva som er nåværende map, med det nye
-
+    Background_Calculations.background_info()
     Static_Data.set_growing_time(1) #Øker verdien på kortid sauer ska vokse / få lam
     if Static_Data.get_growing_time() > 3: #Vis Større enn 3, så får vi lam og sauer vokser opp
         print(Static_Data.get_growing_time())

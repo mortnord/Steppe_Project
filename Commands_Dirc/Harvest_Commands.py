@@ -22,9 +22,8 @@ def harvest_grass(amount_harvester):  # verdien inn er hvor mange som kan høste
         print("You dont have enough space")
 
     Turn_And_Background_Actions.turn_action.take_Action()  # Å høste grass tar tid, så da går det en runde, sjekk implementation for detaljer
-    Inventory.set_grass_amount(amount_harvested) #Så legger vi grasset inn i inventoriet
-    print(str(amount_harvested) + " grass harvested") #skriv hvor mye vi høster
-    print("You have in total " + str(Inventory.grass_amount) + " grass") #Og hvor mye vi har nå
+    Inventory.set_grass_amount(int(amount_harvested)) #Så legger vi grasset inn i inventoriet
+
 
 
 def harvest_stone(amount_harvester): #Sjekk grass, bare her får vi ikke en 5x effekt siden det er wood
@@ -44,9 +43,7 @@ def harvest_stone(amount_harvester): #Sjekk grass, bare her får vi ikke en 5x e
     while Inventory.get_stone_amount() > Inventory.get_max_stone_amount():
         Inventory.set_stone_amount(-1)
     Turn_And_Background_Actions.turn_action.take_Action()
-    Inventory.set_stone_amount(amount_harvested)
-    print(str(amount_harvested) + " stone harvested")
-    print("You have in total " + str(Inventory.stone_amount) + " stone")
+    Inventory.set_stone_amount(int(amount_harvested))
 
 
 def harvest_wood(amount_harvester): #sjekk grass, bare ingen 5x effekt her heller
@@ -66,9 +63,8 @@ def harvest_wood(amount_harvester): #sjekk grass, bare ingen 5x effekt her helle
     while Inventory.get_wood_amount() > Inventory.get_max_wood_amount():
         Inventory.set_wood_amount(-1)
     Turn_And_Background_Actions.turn_action.take_Action()
-    Inventory.set_wood_amount(amount_harvested)
-    print(str(amount_harvested) + " wood harvested")
-    print("You have in total " + str(Inventory.wood_amount) + " wood")
+    Inventory.set_wood_amount(int(amount_harvested))
+
 
 
 def fish_in_river(): #I områder med elv, kan vi fiske
