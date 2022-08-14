@@ -18,13 +18,13 @@ class Goblin(BasicEnemy): #Goblins arver masse info fra enemies
         if chance == 3:
             self.value = random.randint(1,2)
             self.type_of_planned_attack = Enumerators.TypeOfPlannedAttack.Attack #Her planlegger vi attack
-            self.type_of_planned_attack_sprite = Enumerators.Sprites_of_planned_attack.Attack.value
+            self.type_of_planned_attack_sprite = Enumerators.Sprites_Of_Planned_Attack.Attack.value
             self.plan_target()
         else:
 
             self.value = random.randint(1,2)
             self.type_of_planned_attack = Enumerators.TypeOfPlannedAttack.Defend #Her planlegger vi
-            self.type_of_planned_attack_sprite = Enumerators.Sprites_of_planned_attack.Defend.value
+            self.type_of_planned_attack_sprite = Enumerators.Sprites_Of_Planned_Attack.Defend.value
 
     def usage(self): #Koden for hvordan goblin angriper eller defender.
         self.defend = 0 #først fjerner vi armor, siden det er dens tur til å angripe

@@ -46,7 +46,7 @@ class TypeOfPlannedAttack(Enum):
     Healing = "Healing"
 
 
-class Sprites_of_planned_attack(Enum):
+class Sprites_Of_Planned_Attack(Enum):
     Attack = "Assets/sword.png"
     Defend = "Assets/shield.png"
     Healing = "Assets/healing.png"
@@ -55,14 +55,19 @@ class Sprites_of_planned_attack(Enum):
 class Sprites(Enum):
     Card = "Assets/card.png"
 
-    Dwarf = "Assets/dwarf.png"
+    Dwarf = "Assets/Animals_Dwarfs_And_Monsters/dwarf.png"
     Active_Dwarf_Pointer = "Assets/red_arrow_down.png"
-    Goblin = "Assets/Goblin.png"
-    Slime = "Assets/Slime.png"
+    Goblin = "Assets/Animals_Dwarfs_And_Monsters/Goblin.png"
+    Slime = "Assets/Animals_Dwarfs_And_Monsters/Slime.png"
 
     Energy = "Assets/energy.png"
     End_Turn = "Assets/End_Turn.png"
 
+    Milk = "Assets/milk.png"
+    Meat = "Assets/meat.png"
+
+    Lamb = "Assets/Animals_Dwarfs_And_Monsters/lam.png"
+    Sheep = "Assets/Animals_Dwarfs_And_Monsters/Gammalnorskspel.png"
 
 class Monsters(Enum):
     Goblin = "Goblin"
@@ -86,3 +91,4 @@ class Button_Sprites(Enum):
     Harvest_Wood = "Assets/UI/Harvest_Buttons/Harvest_Button_Wood.png"
     Harvest_Stone = "Assets/UI/Harvest_Buttons/Harvest_Button_Stone.png"
     Harvest_Fish = "Assets/UI/Harvest_Buttons/Harvest_Button_Fish.png"
+    Pass = "Assets/UI/Harvest_Buttons/pass.png"

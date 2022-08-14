@@ -14,7 +14,7 @@ class Slime(BasicEnemy):
     def plan_attack(self):  # AIen til slime, den er tilfeldig hva den velger å gjøre, med en overvekt på defend
         self.value = random.randint(1, 2)
         self.type_of_planned_attack = Enumerators.TypeOfPlannedAttack.Attack  # Her planlegger vi attack
-        self.type_of_planned_attack_sprite = Enumerators.Sprites_of_planned_attack.Attack.value
+        self.type_of_planned_attack_sprite = Enumerators.Sprites_Of_Planned_Attack.Attack.value
         self.plan_target()
 
     def usage(self): #Koden for hvordan slime angriper eller defender.

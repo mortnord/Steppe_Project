@@ -137,9 +137,9 @@ class Combat_View(arcade.View):
             self.sprites_list_dwarves.append(arcade.Sprite(Static_Data.get_list_of_people()[x].sprite, 0.10))
 
             self.sprites_list_dwarves_health.append(
-                arcade.Sprite(Enumerators.Sprites_of_planned_attack.Healing.value, 0.10))
+                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Healing.value, 0.10))
             self.sprites_list_dwarves_defend.append(
-                arcade.Sprite(Enumerators.Sprites_of_planned_attack.Defend.value, 0.10))
+                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Defend.value, 0.10))
             self.sprites_list_dwarves_energy.append(arcade.Sprite(Enumerators.Sprites.Energy.value, 0.02))
         for x in range(len(self.sprites_list_dwarves)):
             self.sprites_list_dwarves[x].center_x = 150 * x + 150
@@ -201,9 +201,9 @@ class Combat_View(arcade.View):
             self.sprites_list_enemies_indicator.append(
                 arcade.Sprite(Static_Data.get_enemies_to_defeat()[x].type_of_planned_attack_sprite, 0.10))
             self.sprites_list_enemies_health.append(
-                arcade.Sprite(Enumerators.Sprites_of_planned_attack.Healing.value, 0.10))
+                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Healing.value, 0.10))
             self.sprites_list_enemies_defend.append(
-                arcade.Sprite(Enumerators.Sprites_of_planned_attack.Defend.value, 0.10))
+                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Defend.value, 0.10))
         for x in range(len(self.sprites_list_enemies)):
             self.sprites_list_enemies[x].center_x = 150 * x + 150
             self.sprites_list_enemies[x].center_y = 400

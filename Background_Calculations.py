@@ -53,7 +53,7 @@ def calculate_max_storage():  # Vi teller opp hva bygninger vi har, og da får v
 
         if Inventory.get_buildings()[x].type_of_building == Enumerators.TypeOfBuilding.Cheesery:
             Cheesery += Inventory.get_buildings()[x].capacity
-    Inventory.set_max_grass_amount(10 + Silos)
+    Inventory.set_max_grass_amount(50 + Silos)
     Inventory.set_max_stone_amount(10 + Wagons)
     Inventory.set_max_food_amount(10 + Wagons + Cheesery)
     Inventory.set_max_wood_amount(10 + Wagons)

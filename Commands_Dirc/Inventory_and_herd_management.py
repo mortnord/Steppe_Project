@@ -10,19 +10,13 @@ from Static_Data_Bools import Static_Data_Bools
 
 
 def conserve_food(): #Her lager vi ost
-    if Static_Data_Bools.get_Cheesery_bool(): #Først sjekker vi om spilleren har bygget ysteriet
-        print(
-            "Do you want to use an action to conserve temporary food (buckets of milk) into cheese? 3 buckets gives 1 "
-            "cheese. Y/N")
-        answer = input() #Vil spillere lage ost?
-        if answer == "Y":
-            Turn_And_Background_Actions.turn_action.take_Action() #Det tar tid å lage ost..
-            buckets_conserved = math.floor((int(Inventory.get_temporary_food_amount()) / 3)) #For hver 3 bøtter med melk, så får vi en ost
+
+        buckets_conserved = math.floor((int(Inventory.get_temporary_food_amount()) / 3)) #For hver 3 bøtter med melk, så får vi en ost
+        if buckets_conserved > 0:
             Inventory.set_food_amount(buckets_conserved) #Ost er mat vi kan ta med oss rundt, i motsetning til melk
             Inventory.set_temporary_food_amount(-(buckets_conserved * 3)) #Fjern temporary food, det er jo ost nå
-        Inventory.print_inventory() #Skriv hva vi har nå
-    else:
-        print("You have no way to conserve the food") #Må ha ysteri...
+            Turn_And_Background_Actions.turn_action.take_Action()  # Det tar tid å lage ost..
+    #TODO Re-implementer cheesey for å lage ost
 
 def slaughter_sheep(sheep, number): #Her forventer vi inn saue-type, og hvor mange
     temp_list = []
@@ -34,21 +28,7 @@ def slaughter_sheep(sheep, number): #Her forventer vi inn saue-type, og hvor man
                 break
     for x in range(len(temp_list)):
         Static_Data.get_list_of_sheeps().remove(temp_list[x]) #Her fjerner vi sauene fra lista over sauer vi har, de er jo døde
-
-
-def slaughter_Sheep_choice(): #Her velger vi om vi skal slakte værer eller søyer
-    print("Do you want to slaughter rams or ewes?")
-
-    resource_to_gather = input()
-    print("How many?")
-    number = int(input())
-    resource_to_gather = Background_Calculations.handle_input(resource_to_gather) #hvor mange vi skal slakte
-    if resource_to_gather == "ram" or resource_to_gather == "rams": #værer
-        slaughter_sheep(Enumerators.TypeOfSheep.Ram, number)
-    elif resource_to_gather == "ewe" or resource_to_gather == "ewes": #søyer
-        slaughter_sheep(Enumerators.TypeOfSheep.Ewe, number)
-
-
+    Background_Calculations.background_info()
 def look_over_sheeps(list_of_sheeps): #Her ser vi over flokken
     male_sheep = 0 #Først har vi null av alle
     female_sheep = 0
@@ -63,21 +43,9 @@ def look_over_sheeps(list_of_sheeps): #Her ser vi over flokken
             male_lambs += 1
         if list_of_sheeps[x].type_of_sheep == Enumerators.TypeOfSheep.Female_Lamb: #Søylam
             female_lambs += 1
+    type_of_sheeps = [male_sheep, female_sheep, male_lambs, female_lambs]
+    return type_of_sheeps
 
-    print("You have " + str(male_sheep) + " rams") #Så skriver vi ut hvor mange vi har av hver
-
-    print("You have " + str(female_sheep) + " ewes")
-
-    print("You have " + str(male_lambs) + " young rams")
-
-    print("You have " + str(female_lambs) + " young ewes")
-
-    print("You have " + str(len(list_of_sheeps)) + " sheep in total")
-
-    print("Do you want to slaughter some sheep? Y/N") #spørsmål vi vil slakte, vis spiller skriver Y, så slaktes det
-    player_command = str(input())
-    if player_command == "Y":
-        slaughter_Sheep_choice()
 
 
 def look_over_dwarfs_and_inventory(list_of_people): #Samme som sauetelling, bare over dverger

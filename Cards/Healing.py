@@ -9,7 +9,7 @@ class Healing(Card):
         self.type_of_card = Enumerators.TypeOfCard.Healing
         self.dwarfs_required = 1
         self.one_time = True
-        self.indicator_sprite = Enumerators.Sprites_of_planned_attack.Healing.value
+        self.indicator_sprite = Enumerators.Sprites_Of_Planned_Attack.Healing.value
 
     def usage(self, card_nr, target_dwarf,nr_dwarf):
 

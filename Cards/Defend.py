@@ -12,7 +12,7 @@ class Defend(Card):
         self.value = 2
         self.type_of_card = Enumerators.TypeOfCard.Defend #Dette er ett defend kort
         self.dwarfs_required = 1
-        self.indicator_sprite = Enumerators.Sprites_of_planned_attack.Defend.value
+        self.indicator_sprite = Enumerators.Sprites_Of_Planned_Attack.Defend.value
 
     def usage(self, card_nr, target_dwarf,nr_dwarf):
 

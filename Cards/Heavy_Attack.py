@@ -11,7 +11,7 @@ class Heavy_Attack(Card):
         self.type_of_card = Enumerators.TypeOfCard.Heavy_Attack
         self.dwarfs_required = 1
         self.one_time = True #Dette kortet er engangsbruk per kamp
-        self.indicator_sprite = Enumerators.Sprites_of_planned_attack.Attack.value
+        self.indicator_sprite = Enumerators.Sprites_Of_Planned_Attack.Attack.value
 
     def usage(self, card_nr, target_enemy,nr_dwarf):
         Static_Data.get_enemies_to_defeat()[target_enemy].take_damage(
