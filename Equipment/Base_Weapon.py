@@ -1,6 +1,5 @@
-class Base_Weapon():
-    bonus_defend = 0
-    bonus_attack = 0
+from Equipment.Base_Equipment import Base_Equipment
 
-    def usage(self,using_dwarf):
-        pass
+
+class Base_Weapon(Base_Equipment):
+  pass

@@ -1,5 +1,4 @@
 from Equipment.Base_Ring import Base_Ring
-from Static_Data import Static_Data
 
 
 class Healing_Ring(Base_Ring):
