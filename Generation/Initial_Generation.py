@@ -1,13 +1,11 @@
 import random
 
-import arcade
-from GUI_Dirc import GUI
 from Cards import Attack, Quick_Attack, Defend, Heavy_Attack, Healing
 import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
 import Sheeps
 from Map_Dirc import Landscape, Map
 from Static_Data import Static_Data
-
+from Equipment import Steel_Axe, Steel_Armor, Healing_Ring
 
 def start_initial_creation():  # Her lager vi oppsettet av objekter
     list_of_people, list_of_sheeps, deck_list = initial_Creation(2, 2, 5, 3,
@@ -33,6 +31,9 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
     deck_list.content.append(Healing.Healing())  #
     for x in range(dwarfs):  # legg til ønsket mengde dwarfs
         list_of_people.append(Dwarfs_And_Deck.Dwarfs.Dwarf())
+    list_of_people[0].weapon = Steel_Axe.Steel_Axe()
+    list_of_people[1].armor = Steel_Armor.Steel_Armor()
+    list_of_people[0].ring = Healing_Ring.Healing_Ring()
     for x in range(male_sheeps):  # Ønsket mengde sauer og sauetyper
         list_of_sheeps.append(Sheeps.SheepMale())
     for x in range(female_sheeps):

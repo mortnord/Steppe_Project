@@ -14,6 +14,8 @@ class Healing(Card):
     def usage(self, card_nr, target_dwarf,nr_dwarf):
 
         Static_Data.get_list_of_people()[target_dwarf].health += self.value
+        if Static_Data.get_list_of_people()[target_dwarf].health > Static_Data.get_list_of_people()[target_dwarf].max_health:
+            Static_Data.get_list_of_people()[target_dwarf].health = Static_Data.get_list_of_people()[target_dwarf].max_health
         Static_Data.set_energy(self.dwarfs_required)
         if self.one_time:        #Vis kortet fortsatt er engangsbruk, legg det i en annen bunke som ikke blir stokket inn
                                 #når man er tom for kort

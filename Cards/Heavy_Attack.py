@@ -15,7 +15,7 @@ class Heavy_Attack(Card):
 
     def usage(self, card_nr, target_enemy,nr_dwarf):
         Static_Data.get_enemies_to_defeat()[target_enemy].take_damage(
-            self.value)  # Her gjør vi damage på hva vi har valgt, sjekk implementation for detaljer
+            self.value  + nr_dwarf.bonus_attack)  # Her gjør vi damage på hva vi har valgt, sjekk implementation for detaljer
         Static_Data.set_energy(self.dwarfs_required)  # Her fjerner vi energien vi har brukt fra potensiell energi
 
 

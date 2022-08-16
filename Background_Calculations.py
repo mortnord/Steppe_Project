@@ -65,19 +65,6 @@ def handle_input(handle_input):  # håndter input, fjerner mellomrom og gjør de
     return handle_input
 
 
-def check_local_area():  # print info om landskapet du er i
-    print(
-        "There is " + str(Static_Data.get_current_map().landscape.amount_of_grass) + " grass remaining in this region")
-    print("You have " + str(Inventory.get_grass_amount()) + " grass stored")
-    print("This gives you " + str(Static_Data.get_Actions_Available()) + " actions left")
-    if Static_Data.get_current_map().landscape.amount_of_wood > 0:
-        print("There is " + str(Static_Data.get_current_map().landscape.amount_of_wood) + " wood available")
-    if Static_Data.get_current_map().landscape.amount_of_stone > 0:
-        print("There is " + str(Static_Data.get_current_map().landscape.amount_of_stone) + " stone available")
-    if Static_Data.get_current_map().landscape.has_river:
-        print("There is a river here")
-
-
 def calculate_max_energy():
     max_energy = 0
     for x in range(len(Static_Data.get_list_of_people())):
@@ -85,10 +72,15 @@ def calculate_max_energy():
             max_energy += Static_Data.get_list_of_people()[x].amount_energy
     return max_energy
 
-def background_info(): #beregn de forskjellige bakgrunnsinfoene
+
+def background_info():  # beregn de forskjellige bakgrunnsinfoene
     calculate_grass()
     calculate_max_buildings()
     has_buildings()
     calculate_max_storage()
+    calculate_bonus_effects()
 
-    print("Your sheep need to graze " + str(Static_Data.get_Amount_of_Grass_eating_per_action()) + " grass per action")
+
+def calculate_bonus_effects():
+    for x in range(len(Static_Data.get_list_of_people())):
+        Static_Data.get_list_of_people()[x].calculate_bonus_damage()

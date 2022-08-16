@@ -3,6 +3,7 @@ from pyglet.math import Vec2
 
 import Background_Calculations
 import Enumerators
+import GUI_Calculations
 import Turn_And_Background_Actions.turn_action
 from Events import Random_Event
 from GUI_Dirc import Combat_View
@@ -15,6 +16,13 @@ from Static_Data_Bools import Static_Data_Bools
 class Map_View(arcade.View):
     def __init__(self):
         super().__init__()
+        self.list_of_sheep_nr = []
+        self.list_of_items_UI = []
+        self.food_list = arcade.SpriteList()
+        self.sheep_list = arcade.SpriteList()
+        self.harvest_info = arcade.SpriteList()
+        self.harvest_button = arcade.SpriteList()
+        self.actions_UI = arcade.SpriteList()
         self.region_list = None
         self.arrow_list = None
 
@@ -56,17 +64,9 @@ class Map_View(arcade.View):
             # Add the coin to the lists
             self.region_list.append(coin)
 
-    def draw_connections(self):
-        for x in range(len(Static_Data.get_map_with_regions())):
-            for y in range(len(Static_Data.get_map_with_regions()[x].connections)):
-                arcade.draw_line(Static_Data.get_map_with_regions()[x].connections[y].own_x,
-                                 Static_Data.get_map_with_regions()[x].connections[y].own_y,
-                                 Static_Data.get_map_with_regions()[x].connections[y].target_x,
-                                 Static_Data.get_map_with_regions()[x].connections[y].target_y, arcade.color.BLACK, 3)
-
     def on_draw(self):
         self.clear()
-        self.draw_connections()
+        GUI_Calculations.draw_connections()
         self.camera_sprites.use()
         self.region_list.draw()
         self.arrow_list.draw()
@@ -109,8 +109,8 @@ class Map_View(arcade.View):
                     Static_Data.get_window().show_view(combat_view)
         button_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.harvest_button)
         milk_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.food_list)
-        sheep_clicked = arcade.get_sprites_at_point((x-300, y-300), self.list_of_sheep_nr[1])
-        rams_clicked = arcade.get_sprites_at_point((x-300, y-300), self.list_of_sheep_nr[0])
+        sheep_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.list_of_sheep_nr[1])
+        rams_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.list_of_sheep_nr[0])
         if len(button_clicked):
 
             if Static_Data.get_Actions_Available() > 0:
@@ -135,10 +135,10 @@ class Map_View(arcade.View):
         if len(rams_clicked):
             Inventory_and_herd_management.slaughter_sheep(Enumerators.TypeOfSheep.Ram, 1)
             print("clicked male sheep")
-    def generate_harvest_UI(self):
 
-        self.harvest_button = arcade.SpriteList()
-        self.harvest_info = arcade.SpriteList()
+    def generate_harvest_UI(self):
+        self.harvest_button.clear()
+        self.harvest_info.clear()
 
         self.harvest_button.append(arcade.Sprite(Enumerators.Button_Sprites.Harvest_Grass.value, 0.50))
         self.harvest_button.append(arcade.Sprite(Enumerators.Button_Sprites.Harvest_Wood.value, 0.50))
@@ -157,7 +157,7 @@ class Map_View(arcade.View):
             self.harvest_info[x].center_y = self.harvest_button[x].center_y + 50
 
     def generate_sheep_UI(self):
-        self.sheep_list = arcade.SpriteList()
+        self.sheep_list.clear()
 
         self.sheep_list.append(arcade.Sprite(Enumerators.Sprites.Sheep.value, 0.03))
         self.sheep_list.append(arcade.Sprite(Enumerators.Sprites.Lamb.value, 0.03))
@@ -167,7 +167,8 @@ class Map_View(arcade.View):
         self.update_sheep_nr_slaughter()
 
     def generate_inventory_UI(self):
-        self.food_list = arcade.SpriteList()
+        self.food_list.clear()
+
         self.food_list.append(arcade.Sprite(Enumerators.Sprites.Meat.value, 0.20))
         self.food_list.append(arcade.Sprite(Enumerators.Sprites.Milk.value, 0.20))
         for x in range(len(self.food_list)):
@@ -175,63 +176,65 @@ class Map_View(arcade.View):
             self.food_list[x].center_y = 225
 
     def update_number_sprites(self):
-        self.actions_UI = Combat_View.make_SpriteList_from_numbers(int(Static_Data.get_Actions_Available()),
-                                                                   self.harvest_button[
+        self.actions_UI = GUI_Calculations.make_SpriteList_from_numbers(int(Static_Data.get_Actions_Available()),
+                                                                        self.harvest_button[
                                                                        len(self.harvest_button) - 1].center_x + 50,
-                                                                   self.harvest_button[
+                                                                        self.harvest_button[
                                                                        len(self.harvest_button) - 1].center_y)
-        self.list_of_items_UI = []
+        self.list_of_items_UI.clear()
 
-        self.list_of_items_UI.append(Combat_View.make_SpriteList_from_numbers(int(Inventory.get_grass_amount()),
-                                                                              self.harvest_info[0].center_x,
-                                                                              self.harvest_info[0].center_y + 50))
-        self.list_of_items_UI.append(Combat_View.make_SpriteList_from_numbers(int(Inventory.get_wood_amount()),
-                                                                              self.harvest_info[1].center_x,
-                                                                              self.harvest_info[1].center_y + 50))
-        self.list_of_items_UI.append(Combat_View.make_SpriteList_from_numbers(int(Inventory.get_stone_amount()),
-                                                                              self.harvest_info[2].center_x,
-                                                                              self.harvest_info[2].center_y + 50))
+        self.list_of_items_UI.append(GUI_Calculations.make_SpriteList_from_numbers(int(Inventory.get_grass_amount()),
+                                                                                   self.harvest_info[0].center_x,
+                                                                                   self.harvest_info[0].center_y + 50))
+        self.list_of_items_UI.append(GUI_Calculations.make_SpriteList_from_numbers(int(Inventory.get_wood_amount()),
+                                                                                   self.harvest_info[1].center_x,
+                                                                                   self.harvest_info[1].center_y + 50))
+        self.list_of_items_UI.append(GUI_Calculations.make_SpriteList_from_numbers(int(Inventory.get_stone_amount()),
+                                                                                   self.harvest_info[2].center_x,
+                                                                                   self.harvest_info[2].center_y + 50))
         self.list_of_items_UI.append(
-            Combat_View.make_SpriteList_from_numbers(int(Inventory.get_temporary_food_amount()),
-                                                     self.food_list[1].center_x,
-                                                     self.food_list[1].center_y + 50))
-        self.list_of_items_UI.append(Combat_View.make_SpriteList_from_numbers(int(Inventory.get_food_amount()),
-                                                                              self.food_list[0].center_x,
-                                                                              self.food_list[0].center_y + 50))
+            GUI_Calculations.make_SpriteList_from_numbers(int(Inventory.get_temporary_food_amount()),
+                                                          self.food_list[1].center_x,
+                                                          self.food_list[1].center_y + 50))
+        self.list_of_items_UI.append(GUI_Calculations.make_SpriteList_from_numbers(int(Inventory.get_food_amount()),
+                                                                                   self.food_list[0].center_x,
+                                                                                   self.food_list[0].center_y + 50))
 
         self.list_of_items_UI.append(
-            Combat_View.make_SpriteList_from_numbers(int(Static_Data.get_current_map().landscape.amount_of_grass),
-                                                     self.harvest_info[0].center_x,
-                                                     self.harvest_info[0].center_y - 100))
+            GUI_Calculations.make_SpriteList_from_numbers(int(Static_Data.get_current_map().landscape.amount_of_grass),
+                                                          self.harvest_info[0].center_x,
+                                                          self.harvest_info[0].center_y - 100))
         self.list_of_items_UI.append(
-            Combat_View.make_SpriteList_from_numbers(int(Static_Data.get_current_map().landscape.amount_of_wood),
-                                                     self.harvest_info[1].center_x,
-                                                     self.harvest_info[1].center_y - 100))
+            GUI_Calculations.make_SpriteList_from_numbers(int(Static_Data.get_current_map().landscape.amount_of_wood),
+                                                          self.harvest_info[1].center_x,
+                                                          self.harvest_info[1].center_y - 100))
         self.list_of_items_UI.append(
-            Combat_View.make_SpriteList_from_numbers(int(Static_Data.get_current_map().landscape.amount_of_stone),
-                                                     self.harvest_info[2].center_x,
-                                                     self.harvest_info[2].center_y - 100))
+            GUI_Calculations.make_SpriteList_from_numbers(int(Static_Data.get_current_map().landscape.amount_of_stone),
+                                                          self.harvest_info[2].center_x,
+                                                          self.harvest_info[2].center_y - 100))
 
     def update_sheep_nr_slaughter(self):
 
-        self.list_of_sheep_nr = []
+        self.list_of_sheep_nr.clear()
         type_of_sheeps = Inventory_and_herd_management.look_over_sheeps(
             Static_Data.get_list_of_sheeps())  # male, female, male_lamb, female_lamb
-        self.list_of_sheep_nr.append(Combat_View.make_SpriteList_from_numbers(int(type_of_sheeps[0]),
-                                                                              self.sheep_list[0].center_x,
-                                                                              self.sheep_list[0].center_y + 50))
-        self.list_of_sheep_nr.append(Combat_View.make_SpriteList_from_numbers(int(type_of_sheeps[1]),
-                                                                              self.sheep_list[0].center_x,
-                                                                              self.sheep_list[0].center_y - 50))
-        self.list_of_sheep_nr.append(Combat_View.make_SpriteList_from_numbers(int(type_of_sheeps[2]),
-                                                                              self.sheep_list[1].center_x,
-                                                                              self.sheep_list[1].center_y + 50))
-        self.list_of_sheep_nr.append(Combat_View.make_SpriteList_from_numbers(int(type_of_sheeps[3]),
-                                                                              self.sheep_list[1].center_x,
-                                                                              self.sheep_list[1].center_y - 50))
-        self.list_of_sheep_nr.append(Combat_View.make_SpriteList_from_numbers(int(len(Static_Data.get_list_of_sheeps())),
-                                                                              self.sheep_list[0].center_x - 50,
-                                                                              self.sheep_list[0].center_y + 10))
-        self.list_of_sheep_nr.append(Combat_View.make_SpriteList_from_numbers(Static_Data.get_Amount_of_Grass_eating_per_action(),
-                                                                              self.sheep_list[0].center_y - 150,
-                                                                              self.sheep_list[0].center_x + 100))
+        self.list_of_sheep_nr.append(GUI_Calculations.make_SpriteList_from_numbers(int(type_of_sheeps[0]),
+                                                                                   self.sheep_list[0].center_x,
+                                                                                   self.sheep_list[0].center_y + 50))
+        self.list_of_sheep_nr.append(GUI_Calculations.make_SpriteList_from_numbers(int(type_of_sheeps[1]),
+                                                                                   self.sheep_list[0].center_x,
+                                                                                   self.sheep_list[0].center_y - 50))
+        self.list_of_sheep_nr.append(GUI_Calculations.make_SpriteList_from_numbers(int(type_of_sheeps[2]),
+                                                                                   self.sheep_list[1].center_x,
+                                                                                   self.sheep_list[1].center_y + 50))
+        self.list_of_sheep_nr.append(GUI_Calculations.make_SpriteList_from_numbers(int(type_of_sheeps[3]),
+                                                                                   self.sheep_list[1].center_x,
+                                                                                   self.sheep_list[1].center_y - 50))
+        self.list_of_sheep_nr.append(
+            GUI_Calculations.make_SpriteList_from_numbers(int(len(Static_Data.get_list_of_sheeps())),
+                                                          self.sheep_list[0].center_x - 50,
+                                                          self.sheep_list[0].center_y + 10))
+        self.list_of_sheep_nr.append(
+            GUI_Calculations.make_SpriteList_from_numbers(Static_Data.get_Amount_of_Grass_eating_per_action(),
+                                                          self.sheep_list[0].center_y - 150,
+                                                          self.sheep_list[0].center_x + 100))

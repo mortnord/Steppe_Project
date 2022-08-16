@@ -1,43 +1,12 @@
 import arcade
 
 import Enumerators
-import Setup
 from Commands_Dirc import Combat, Deck_management
+from GUI_Calculations import make_SpriteList_from_numbers
 from GUI_Dirc import GUI
 from Static_Data import Static_Data
 
 from Static_Data_Bools import Static_Data_Bools
-
-
-def make_SpriteList_from_numbers(number_inn, x_position_inn, y_position_inn):
-    sprite_list_temporary = arcade.SpriteList()
-    SIZE_CONSTANT = 0.30
-    string_number = str(number_inn)
-    for x in range(len(string_number)):
-        if string_number[x] == "0":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Zero.value, SIZE_CONSTANT))
-        elif string_number[x] == "1":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.One.value, SIZE_CONSTANT))
-        elif string_number[x] == "2":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Two.value, SIZE_CONSTANT))
-        elif string_number[x] == "3":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Three.value, SIZE_CONSTANT))
-        elif string_number[x] == "4":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Four.value, SIZE_CONSTANT))
-        elif string_number[x] == "5":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Five.value, SIZE_CONSTANT))
-        elif string_number[x] == "6":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Six.value, SIZE_CONSTANT))
-        elif string_number[x] == "7":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Seven.value, SIZE_CONSTANT))
-        elif string_number[x] == "8":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Eight.value, SIZE_CONSTANT))
-        elif string_number[x] == "9":
-            sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Nine.value, SIZE_CONSTANT))
-    for x in range(len(sprite_list_temporary)):
-        sprite_list_temporary[x].center_x = x_position_inn + (x * 24)
-        sprite_list_temporary[x].center_y = y_position_inn
-    return sprite_list_temporary
 
 
 class Combat_View(arcade.View):
@@ -82,7 +51,6 @@ class Combat_View(arcade.View):
     def on_show_view(self):
         arcade.set_background_color(arcade.csscolor.DARK_SLATE_BLUE)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
-
 
     def setup(self):
 
@@ -152,16 +120,16 @@ class Combat_View(arcade.View):
             self.sprites_list_dwarves_energy[x].center_y = self.sprites_list_dwarves[x].center_y
             self.list_of_dwarf_health.append(
                 make_SpriteList_from_numbers(Static_Data.get_list_of_people()[x].health,
-                                                  self.sprites_list_dwarves[x].center_x + 25,
-                                                  self.sprites_list_dwarves[x].center_y + 50))
+                                             self.sprites_list_dwarves[x].center_x + 25,
+                                             self.sprites_list_dwarves[x].center_y + 50))
             self.list_of_dwarf_defend.append(
                 make_SpriteList_from_numbers(Static_Data.get_list_of_people()[x].defend,
-                                                  self.sprites_list_dwarves[x].center_x + 25,
-                                                  self.sprites_list_dwarves[x].center_y + 100))
+                                             self.sprites_list_dwarves[x].center_x + 25,
+                                             self.sprites_list_dwarves[x].center_y + 100))
             self.list_of_dwarf_energy.append(
                 make_SpriteList_from_numbers(Static_Data.get_list_of_people()[x].amount_energy,
-                                                  self.sprites_list_dwarves[x].center_x - 65,
-                                                  self.sprites_list_dwarves[x].center_y))
+                                             self.sprites_list_dwarves[x].center_x - 65,
+                                             self.sprites_list_dwarves[x].center_y))
 
         self.active_dwarf_pointer[0].center_x = self.sprites_list_dwarves[
             Static_Data.get_list_of_people().index(self.active_dwarf)].center_x
@@ -215,16 +183,16 @@ class Combat_View(arcade.View):
             self.sprites_list_enemies_defend[x].center_y = self.sprites_list_enemies[x].center_y - 100
             self.list_of_enemy_health.append(
                 make_SpriteList_from_numbers(Static_Data.get_enemies_to_defeat()[x].health,
-                                                  self.sprites_list_enemies[x].center_x + 25,
-                                                  self.sprites_list_enemies[x].center_y - 50))
+                                             self.sprites_list_enemies[x].center_x + 25,
+                                             self.sprites_list_enemies[x].center_y - 50))
             self.list_of_enemy_defend.append(
                 make_SpriteList_from_numbers(Static_Data.get_enemies_to_defeat()[x].defend,
-                                                  self.sprites_list_enemies[x].center_x + 25,
-                                                  self.sprites_list_enemies[x].center_y - 100))
+                                             self.sprites_list_enemies[x].center_x + 25,
+                                             self.sprites_list_enemies[x].center_y - 100))
             self.list_of_enemy_indicator.append(
                 make_SpriteList_from_numbers(Static_Data.get_enemies_to_defeat()[x].value,
-                                                  self.sprites_list_enemies[x].center_x + 25,
-                                                  self.sprites_list_enemies[x].center_y + 50))
+                                             self.sprites_list_enemies[x].center_x + 25,
+                                             self.sprites_list_enemies[x].center_y + 50))
 
     def on_draw(self):
         """ Draw this view """

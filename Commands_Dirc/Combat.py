@@ -1,12 +1,9 @@
-import Background_Calculations
-import Enumerators
 from Commands_Dirc import Deck_management
 from Static_Data import Static_Data
 from Static_Data_Bools import Static_Data_Bools
 
 
 class Combat:
-
     def enemy_indication_round(self):  # Del 1 av kamp, fienden indikerer og planlegger hva de har tenkt å gjøre
         for x in range(len(Static_Data.get_enemies_to_defeat())):
             Static_Data.get_enemies_to_defeat()[
@@ -50,6 +47,11 @@ class Combat:
         self.check_for_deaths()
         Static_Data.set_turn_phase(0)
         view.change_active_dwarf()
+        for x in range(len(Static_Data.get_list_of_people())):
+            Static_Data.get_list_of_people()[x].weapon.usage(Static_Data.get_list_of_people()[x])
+            Static_Data.get_list_of_people()[x].armor.usage(Static_Data.get_list_of_people()[x])
+            Static_Data.get_list_of_people()[x].ring.usage(Static_Data.get_list_of_people()[x])
+            Static_Data.get_list_of_people()[x].cloak.usage(Static_Data.get_list_of_people()[x])
 
     def start_step(self, view):
         for x in range(len(Static_Data.get_list_of_people())):

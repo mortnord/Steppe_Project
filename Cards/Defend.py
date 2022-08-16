@@ -1,5 +1,3 @@
-import Background_Calculations
-
 import Enumerators
 
 from Cards.Base_Cards import Card
@@ -16,7 +14,7 @@ class Defend(Card):
 
     def usage(self, card_nr, target_dwarf,nr_dwarf):
 
-        Static_Data.get_list_of_people()[target_dwarf].defend += self.value #Her legger vi til defend
+        Static_Data.get_list_of_people()[target_dwarf].defend += (self.value + nr_dwarf.bonus_defend) #Her legger vi til defend
         Static_Data.set_energy(self.dwarfs_required)
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
         nr_dwarf.has_energy = nr_dwarf.use_energy(self.dwarfs_required)

@@ -43,8 +43,7 @@ def find_connections():  # Komplisert.
 def map_generation():
     zoom_multiplier = 70  # størrelse multiplier
     valid_map_checked = True
-    list_of_regions = []
-    list_of_regions.append(Map_Region.Region(-3 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))  # start-byen
+    list_of_regions = [Map_Region.Region(-3 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City())]
     while valid_map_checked:
         for x in range(-3, 3):  # Lag en 6x4 område med 95% sjangse på å generate en region
             for y in range(-2, 2):
@@ -63,7 +62,7 @@ def map_generation():
         if needed_regions == 2:
             valid_map_checked = False
         else:
-            list_of_regions = []
+            list_of_regions.clear()
             list_of_regions.append(
                 Map_Region.Region(-3 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))  # start-byen
     list_of_regions.append(Map_Region.Region(4 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))  # slutt-byen.
