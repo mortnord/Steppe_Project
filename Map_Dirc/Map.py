@@ -63,8 +63,10 @@ def map_generation():
             valid_map_checked = False
         else:
             list_of_regions.clear()
+
             list_of_regions.append(
                 Map_Region.Region(-3 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))  # start-byen
+
     list_of_regions.append(Map_Region.Region(4 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))  # slutt-byen.
 
     Static_Data.set_map_with_regions(list_of_regions)

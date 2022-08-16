@@ -12,7 +12,6 @@ class Region: #Map-objektet som alle kartene består av, ett landskap, posisjone
         self.connections = []
         self.nr_region = landscape.Landscapes_ID
         self.scramble()
-        print(x_pos, y_pos)
 
     def scramble(self):
         self.x_position += random.randint(-20, 20)

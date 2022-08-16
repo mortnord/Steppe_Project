@@ -1,6 +1,6 @@
 import Enumerators
 from Static_Data import Static_Data
-from Equipment import Base_Armor, Base_Weapon, Base_Ring, Base_Cloak
+from Equipment.Base_Equipment import Base_Ring, Base_Weapon, Base_Armor, Base_Cloak
 
 
 class Dwarf:  # En dverg

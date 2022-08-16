@@ -5,7 +5,7 @@ import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
 import Sheeps
 from Map_Dirc import Landscape, Map
 from Static_Data import Static_Data
-from Equipment import Steel_Axe, Steel_Armor, Healing_Ring
+from Equipment import Steel_Axe, Steel_Armor, Healing_Ring, Cloak_Of_Defend
 
 def start_initial_creation():  # Her lager vi oppsettet av objekter
     list_of_people, list_of_sheeps, deck_list = initial_Creation(2, 2, 5, 3,
@@ -34,6 +34,7 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
     list_of_people[0].weapon = Steel_Axe.Steel_Axe()
     list_of_people[1].armor = Steel_Armor.Steel_Armor()
     list_of_people[0].ring = Healing_Ring.Healing_Ring()
+    list_of_people[1].cloak = Cloak_Of_Defend.Cloak_Of_Defend()
     for x in range(male_sheeps):  # Ønsket mengde sauer og sauetyper
         list_of_sheeps.append(Sheeps.SheepMale())
     for x in range(female_sheeps):
@@ -55,8 +56,6 @@ def initial_map_generation():
 # Temporary
 def next_map_generation():
     map_type = random.randint(1, 10)  # Tilfeldig generert hva landskap det blir
-    map_to_return = 0
-
     if map_type == 2:
         map_to_return = Landscape.Wooded()
     elif map_type == 1:

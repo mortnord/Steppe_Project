@@ -10,5 +10,8 @@ class Card:
         self.sprite = Enumerators.Sprites.Card.value
         self.indicator_sprite = None
 
-    def print_text(self):
-        print("This is an " + self.type_of_card.value + " card with " + str(self.value) + " value, and this costs " + str(self.dwarfs_required) + " dwarfs")
+    def usage_card_equipment(self, using_card, using_dwarf):
+        using_dwarf.cloak.usage_card(using_card, using_dwarf)
+        using_dwarf.armor.usage_card(using_card, using_dwarf)
+        using_dwarf.weapon.usage_card(using_card, using_dwarf)
+        using_dwarf.ring.usage_card(using_card, using_dwarf)

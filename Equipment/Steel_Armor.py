@@ -1,4 +1,4 @@
-from Equipment.Base_Armor import Base_Armor
+from Equipment.Base_Equipment.Base_Armor import Base_Armor
 
 
 class Steel_Armor(Base_Armor):

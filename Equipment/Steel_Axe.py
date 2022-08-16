@@ -1,4 +1,4 @@
-from Equipment.Base_Weapon import Base_Weapon
+from Equipment.Base_Equipment.Base_Weapon import Base_Weapon
 
 
 class Steel_Axe(Base_Weapon):

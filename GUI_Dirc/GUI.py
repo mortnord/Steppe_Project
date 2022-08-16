@@ -131,10 +131,10 @@ class Map_View(arcade.View):
                     Inventory_and_herd_management.conserve_food()
         if len(sheep_clicked):
             Inventory_and_herd_management.slaughter_sheep(Enumerators.TypeOfSheep.Ewe, 1)
-            print("clicked female sheeps")
+
         if len(rams_clicked):
             Inventory_and_herd_management.slaughter_sheep(Enumerators.TypeOfSheep.Ram, 1)
-            print("clicked male sheep")
+
 
     def generate_harvest_UI(self):
         self.harvest_button.clear()
