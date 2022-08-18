@@ -59,6 +59,7 @@ class Sprites(Enum):
     Active_Dwarf_Pointer = "Assets/red_arrow_down.png"
     Goblin = "Assets/Animals_Dwarfs_And_Monsters/Goblin.png"
     Slime = "Assets/Animals_Dwarfs_And_Monsters/Slime.png"
+    Demon = "Assets/Animals_Dwarfs_And_Monsters/Demon.png"
 
     Energy = "Assets/energy.png"
     End_Turn = "Assets/End_Turn.png"
@@ -72,6 +73,7 @@ class Sprites(Enum):
 class Monsters(Enum):
     Goblin = "Goblin"
     Slime = "Slime"
+    Demon = "Demon"
 
 
 class Numbers(Enum):

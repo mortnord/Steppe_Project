@@ -87,4 +87,5 @@ class Combat:
                 view.update_dwarves()
         else:
             Static_Data_Bools.set_combat(False)
+            Static_Data.set_initial_difficulty(1)
             Static_Data.set_turn_phase(0)

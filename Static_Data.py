@@ -23,8 +23,16 @@ class Static_Data():
     map_with_regions = []
 
     enemies_to_defeat = []
-
+    initial_difficulty = 10
     window = 0
+
+    @classmethod
+    def get_initial_difficulty(cls):
+        return cls.initial_difficulty
+
+    @classmethod
+    def set_initial_difficulty(cls, difficulty_input):
+        cls.initial_difficulty += difficulty_input
 
     @classmethod
     def set_turn_phase(cls, turn_phase_input):
