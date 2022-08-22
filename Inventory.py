@@ -15,6 +15,16 @@ class Inventory:
     stone_amount = 0
     max_stone_amount = 0
     buildings = []
+    equipment = []
+
+    @classmethod
+    def add_equipment(cls, input):
+        cls.equipment.append(input)
+
+    @classmethod
+    def get_equipment(cls):
+        return cls.equipment
+
 
     @classmethod
     def get_grass_amount(cls):
@@ -96,11 +106,3 @@ class Inventory:
     def get_buildings(cls):
         return cls.buildings
 
-    @classmethod
-    def print_inventory(cls):
-        print("You have " + str(cls.grass_amount) + " grass out of " + str(cls.max_grass_amount) + " in storage capacity")
-        print("You have " + str(cls.food_amount) + " food out of " + str(cls.max_food_amount) +" in storage capacity")
-        print("You have " + str(cls.wood_amount) + " wood out of " + str(cls.max_wood_amount) +" in storage capacity")
-        print("You have " + str(cls.stone_amount) + " stone out of " + str(cls.max_stone_amount) +" in storage capacity")
-        print("You have " + str(cls.temporary_food_amount) + " buckets of milk")
-        print(print_buildings())

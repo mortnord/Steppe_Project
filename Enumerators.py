@@ -1,7 +1,23 @@
 from enum import Enum
 
-# Enumeratorer er en egen definert variabel, som man kan bruke for å sammenligne og sjekke ting, f.eks at TypeOfSheep = Ram osv.
-import Enemies.Goblins
+# Enumeratorer er en egen definert variabel, som man kan bruke for å sammenligne og sjekke ting, f.eks at TypeOfSheep
+# = Ram osv.
+
+
+class Equipment_Ring_Sprite(Enum):
+    Base_Ring = "Assets/Equipment_Sprites/Equipment_Rings/Base_Ring.png"
+
+
+class Equipment_Armor_Sprite(Enum):
+    Base_Armor = "Assets/Equipment_Sprites/Equipment_Armor/Base_Armor.png"
+
+
+class Equipment_Cloak_Sprite(Enum):
+    Base_Cloak = "Assets/Equipment_Sprites/Equipment_Cloaks/Base_Cloak.png"
+
+
+class Equipment_Weapon_Sprite(Enum):
+    Base_Weapon = "Assets/Equipment_Sprites/Equipment_Weapons/Base_Weapon.png"
 
 
 class TypeOfSheep(Enum):
@@ -69,6 +85,7 @@ class Sprites(Enum):
     Lamb = "Assets/Animals_Dwarfs_And_Monsters/lam.png"
     Sheep = "Assets/Animals_Dwarfs_And_Monsters/Gammalnorskspel.png"
 
+
 class Monsters(Enum):
     Goblin = "Goblin"
     Slime = "Slime"
@@ -87,6 +104,7 @@ class Numbers(Enum):
     Eight = "Assets/Numbers/Number-8-0.png"
     Nine = "Assets/Numbers/Number-9-0.png"
 
+
 class Button_Sprites(Enum):
     Harvest_Grass = "Assets/UI/Harvest_Buttons/Harvest_Button_Grass.png"
     Harvest_Wood = "Assets/UI/Harvest_Buttons/Harvest_Button_Wood.png"
@@ -95,3 +113,4 @@ class Button_Sprites(Enum):
     Pass = "Assets/UI/Harvest_Buttons/pass.png"
     Deck_UI = "Assets/UI/deck.png"
     Back = "Assets/UI/back.png"
+    Equipment = "Assets/UI/Equipment.png"

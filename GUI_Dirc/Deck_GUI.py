@@ -8,15 +8,15 @@ from GUI_Dirc import GUI
 class Deck_GUI(arcade.View):
     def __init__(self):
         super().__init__()
+        self.other_UI_UI = arcade.SpriteList()
+        self.list_of_cards_text = []
+        self.sprites_list_cards_indicator = arcade.SpriteList()
+        self.sprites_list_cards = arcade.SpriteList()
         self.width, self.height = arcade.window_commands.get_display_size()
         self.scaling_x = 1920 / self.width
         self.scaling_y = 1080 / self.height
 
     def setup(self):
-        self.sprites_list_cards = arcade.SpriteList()
-        self.sprites_list_cards_indicator = arcade.SpriteList()
-        self.list_of_cards_text = []
-        self.other_UI_UI = arcade.SpriteList()
         self.update_cards()
         self.update_other_UI()
 

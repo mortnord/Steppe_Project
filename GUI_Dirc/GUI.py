@@ -6,7 +6,7 @@ import Enumerators
 import GUI_Calculations
 import Turn_And_Background_Actions.turn_action
 from Events import Random_Event
-from GUI_Dirc import Combat_View, Deck_GUI
+from GUI_Dirc import Combat_View, Deck_GUI, Equipment_View
 from Inventory import Inventory
 from Static_Data import Static_Data
 from Commands_Dirc import Migration, Commands, Harvest_Commands, Inventory_and_herd_management
@@ -42,6 +42,7 @@ class Map_View(arcade.View):
                                  Static_Data.get_map_with_regions()[x].connections[y].own_y,
                                  Static_Data.get_map_with_regions()[x].connections[y].target_x,
                                  Static_Data.get_map_with_regions()[x].connections[y].target_y, arcade.color.BLACK, 3)
+
     def setup(self):
         self.arrow_list = arcade.SpriteList()
 
@@ -73,9 +74,9 @@ class Map_View(arcade.View):
                 coin = arcade.Sprite("Assets/coinGold_ul.png",
                                      0.25)
             # Position the coin
-            coin.center_x = Static_Data.get_map_with_regions()[x].x_position /self.scaling_x
+            coin.center_x = Static_Data.get_map_with_regions()[x].x_position / self.scaling_x
 
-            coin.center_y = Static_Data.get_map_with_regions()[x].y_position /self.scaling_y
+            coin.center_y = Static_Data.get_map_with_regions()[x].y_position / self.scaling_y
 
             # Add the coin to the lists
             self.region_list.append(coin)
@@ -110,8 +111,8 @@ class Map_View(arcade.View):
             self.window.show_view(combat_view)
         self.update_number_sprites()
         self.update_sheep_nr_slaughter()
-        self.scaling_x = 1920/self.height
-        self.scaling_y = 1080/self.width
+        self.scaling_x = 1920 / self.height
+        self.scaling_y = 1080 / self.width
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         map_region_selected = arcade.get_sprites_at_point((x - 300, y - 300), self.region_list)
@@ -119,7 +120,7 @@ class Map_View(arcade.View):
         milk_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.food_list)
         sheep_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.list_of_sheep_nr[1])
         rams_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.list_of_sheep_nr[0])
-        UI_clicked = arcade.get_sprites_at_point((x-300, y-300), self.other_UI_UI)
+        UI_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.other_UI_UI)
         if len(map_region_selected) > 0:
             possible_areas = Migration.create_next_areas()
             if Static_Data.get_map_with_regions()[self.region_list.index(map_region_selected[0])] in possible_areas:
@@ -157,9 +158,15 @@ class Map_View(arcade.View):
         if len(rams_clicked):
             Inventory_and_herd_management.slaughter_sheep(Enumerators.TypeOfSheep.Ram, 1)
         if len(UI_clicked):
-            deck_view = Deck_GUI.Deck_GUI()
-            deck_view.setup()
-            Static_Data.get_window().show_view(deck_view)
+            if UI_clicked[0] == self.other_UI_UI[0]:
+                deck_view = Deck_GUI.Deck_GUI()
+                deck_view.setup()
+                Static_Data.get_window().show_view(deck_view)
+            if UI_clicked[0] == self.other_UI_UI[1]:
+                equipment_view = Equipment_View.Equipment_View()
+                equipment_view.setup()
+                Static_Data.get_window().show_view(equipment_view)
+
     def generate_harvest_UI(self):
         self.harvest_button.clear()
         self.harvest_info.clear()
@@ -170,8 +177,8 @@ class Map_View(arcade.View):
         self.harvest_button.append(arcade.Sprite(Enumerators.Button_Sprites.Harvest_Fish.value, 0.50))
         self.harvest_button.append(arcade.Sprite(Enumerators.Button_Sprites.Pass.value, 0.50))
         for x in range(len(self.harvest_button)):
-            self.harvest_button[x].center_x = (400 + 55 * x)/self.scaling_x
-            self.harvest_button[x].center_y = 600/self.scaling_y
+            self.harvest_button[x].center_x = (400 + 55 * x) / self.scaling_x
+            self.harvest_button[x].center_y = 600 / self.scaling_y
 
         self.harvest_info.append(arcade.Sprite(Enumerators.Landscapes_sprites.Steppes.value, 0.15))
         self.harvest_info.append(arcade.Sprite(Enumerators.Landscapes_sprites.Wooded.value, 0.15))
@@ -186,8 +193,8 @@ class Map_View(arcade.View):
         self.sheep_list.append(arcade.Sprite(Enumerators.Sprites.Sheep.value, 0.03))
         self.sheep_list.append(arcade.Sprite(Enumerators.Sprites.Lamb.value, 0.03))
         for x in range(len(self.sheep_list)):
-            self.sheep_list[x].center_x = (1000 + x * 50)/self.scaling_x
-            self.sheep_list[x].center_y = 600/self.scaling_y
+            self.sheep_list[x].center_x = (1000 + x * 50) / self.scaling_x
+            self.sheep_list[x].center_y = 600 / self.scaling_y
         self.update_sheep_nr_slaughter()
 
     def generate_inventory_UI(self):
@@ -196,8 +203,8 @@ class Map_View(arcade.View):
         self.food_list.append(arcade.Sprite(Enumerators.Sprites.Meat.value, 0.20))
         self.food_list.append(arcade.Sprite(Enumerators.Sprites.Milk.value, 0.20))
         for x in range(len(self.food_list)):
-            self.food_list[x].center_x = (250 + 55 * x)/self.scaling_x
-            self.food_list[x].center_y = 600/self.scaling_y
+            self.food_list[x].center_x = (250 + 55 * x) / self.scaling_x
+            self.food_list[x].center_y = 600 / self.scaling_y
 
     def update_number_sprites(self):
         self.actions_UI = GUI_Calculations.make_SpriteList_from_numbers(int(Static_Data.get_Actions_Available()),
@@ -267,5 +274,8 @@ class Map_View(arcade.View):
         self.other_UI_UI.clear()
 
         self.other_UI_UI.append(arcade.Sprite(Enumerators.Button_Sprites.Deck_UI.value, 0.40))
-        self.other_UI_UI[0].center_x = -200/self.scaling_x
-        self.other_UI_UI[0].center_y = 700/self.scaling_y
+        self.other_UI_UI.append(arcade.Sprite(Enumerators.Button_Sprites.Equipment.value, 0.40))
+        self.other_UI_UI[0].center_x = -200 / self.scaling_x
+        self.other_UI_UI[0].center_y = 700 / self.scaling_y
+        self.other_UI_UI[1].center_x = -200 / self.scaling_x
+        self.other_UI_UI[1].center_y = 600 / self.scaling_y

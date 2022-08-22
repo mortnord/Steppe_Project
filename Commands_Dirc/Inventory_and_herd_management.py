@@ -48,10 +48,6 @@ def look_over_sheeps(list_of_sheeps): #Her ser vi over flokken
 
 
 
-def look_over_dwarfs_and_inventory(list_of_people): #Samme som sauetelling, bare over dverger
-    for x in range(len(list_of_people)):
-        print(str(list_of_people[x].ID) + " is ID ")
-    Inventory.print_inventory()
 
 
 def build_building(type_building): #Her bygger vi bygninger, vi forventer inn hva type bygning det er snakk om
@@ -81,16 +77,3 @@ def build_options(): #Her finner vi alternativer for å bygge
     if building_choice == "cheesery":
         build_building(Buildings.Cheesery())
 
-
-def inventory_and_herd_management(): #Rygg-raden i denne sub-commanden. Vi bestemmer hva vi skal gjøre, basert på player input.
-    print(
-        "Press 1 to check the sheep herd, or 2 to check the inventory, press 3 to conserve food in inventory, press 4 to enter build option")
-    player_command = str(input())
-    if player_command == "1":
-        look_over_sheeps(Static_Data.get_list_of_sheeps())
-    elif player_command == "2":
-        look_over_dwarfs_and_inventory(Static_Data.get_list_of_people())
-    elif player_command == "3":
-        conserve_food()
-    elif player_command == "4":
-        build_options()
