@@ -1,8 +1,9 @@
 class Static_Data_Bools:
+    Took_reward = False
     Silo = False
     Wagon = False
     Cheesery = False
-
+    Reward = False
     Combat = False
 
     @classmethod
@@ -37,3 +38,19 @@ class Static_Data_Bools:
     @classmethod
     def get_Cheesery_bool(cls):
         return cls.Cheesery
+
+    @classmethod
+    def set_reward(cls, input):
+        cls.Reward = input
+
+    @classmethod
+    def get_reward(cls):
+        return cls.Reward
+
+    @classmethod
+    def get_took_reward(cls):
+        return cls.Took_reward
+
+    @classmethod
+    def set_took_reward(cls, input):
+        cls.Took_reward = input

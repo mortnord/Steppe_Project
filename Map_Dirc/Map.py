@@ -41,14 +41,18 @@ def find_connections():  # Komplisert.
 
 
 def map_generation():
-    zoom_multiplier = 70  # størrelse multiplier
+    zoom_multiplier = 150  # størrelse multiplier
     valid_map_checked = True
-    list_of_regions = [Map_Region.Region(-3 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City())]
+    list_of_regions = []
     while valid_map_checked:
-        for x in range(-3, 3):  # Lag en 6x4 område med 95% sjangse på å generate en region
-            for y in range(-2, 2):
+        maps_generated = 0
+        list_of_regions = [Map_Region.Region(0 * zoom_multiplier, 2 * zoom_multiplier, Landscape.City(), zoom_multiplier)]
+        for x in range(0, 6):  # Lag en 6x4 område med 95% sjangse på å generate en region
+            for y in range(0, 4):
+                maps_generated += 1
                 list_of_regions.append(Map_Region.Region((x + 1) * zoom_multiplier, y * zoom_multiplier,
-                                                         Initial_Generation.next_map_generation()))
+                                                         Initial_Generation.next_map_generation(),zoom_multiplier))
+
         needed_regions = 0
         wood_checked = False
         stone_checked = False
@@ -62,12 +66,12 @@ def map_generation():
         if needed_regions == 2:
             valid_map_checked = False
         else:
+            print(list_of_regions[0].landscape.Landscapes_ID)
             list_of_regions.clear()
 
-            list_of_regions.append(
-                Map_Region.Region(-3 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))  # start-byen
+            Static_Data.set_Landscape_ID(maps_generated+1)
 
-    list_of_regions.append(Map_Region.Region(4 * zoom_multiplier, 0 * zoom_multiplier, Landscape.City()))  # slutt-byen.
+    list_of_regions.append(Map_Region.Region(7 * zoom_multiplier, 2 * zoom_multiplier, Landscape.City(),zoom_multiplier))  # slutt-byen.
 
     Static_Data.set_map_with_regions(list_of_regions)
     find_connections()

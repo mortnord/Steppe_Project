@@ -5,3 +5,4 @@ class Deck:
         self.hand_max_amount = 3 #initial-verdien på maks håndstørrelse
         self.hand = [] #hva som er i hånda
         self.one_time_used_cards = [] #eventuelle engangsbruk kort
+        self.list_of_rewards_card = []

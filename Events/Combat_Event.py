@@ -17,7 +17,7 @@ def combat_event(): #Kamp event
         elif Static_Data.get_current_map().landscape.possible_enemies[type_enemy - 1] == "Demon":
             enemies.append(Demon.Demon())
             event_cost = add_cost_of_enemies(enemies, event_cost)
-    print(Static_Data.get_initial_difficulty())
+    enemies.pop()
     return enemies
 
 

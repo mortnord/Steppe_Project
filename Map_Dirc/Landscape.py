@@ -15,7 +15,8 @@ class Landscape:  # Landskapsobjekter med initialiseringsverdi
     def __init__(self):
         self.Landscapes_ID = Static_Data.get_Landscape_ID()  # ID-nr, auto-increment
         self.has_river = river_generation()  # sjangse på river, sjekk implementation for detaljer
-        self.possible_enemies = [Enumerators.Monsters.Goblin.value, Enumerators.Monsters.Slime.value, Enumerators.Monsters.Demon.value]
+        self.possible_enemies = [Enumerators.Monsters.Goblin.value, Enumerators.Monsters.Slime.value,
+                                 Enumerators.Monsters.Demon.value]
 
 
 class Steppes(Landscape):

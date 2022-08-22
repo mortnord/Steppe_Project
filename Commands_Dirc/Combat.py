@@ -1,6 +1,8 @@
+import Background_Calculations
 from Commands_Dirc import Deck_management
 from Static_Data import Static_Data
 from Static_Data_Bools import Static_Data_Bools
+
 
 
 class Combat:
@@ -70,7 +72,6 @@ class Combat:
 
             if Static_Data.get_turn_phase() == 0:
                 self.start_step(view)
-
                 view.update_enemies()
                 view.update_dwarves()
             if Static_Data.get_turn_phase() == 1:
@@ -85,7 +86,12 @@ class Combat:
                 view.update_cards()
                 view.update_enemies()
                 view.update_dwarves()
-        else:
-            Static_Data_Bools.set_combat(False)
-            Static_Data.set_initial_difficulty(1)
+        elif Static_Data_Bools.get_took_reward() is False and Static_Data_Bools.get_reward() is False:
+            print("gi premie")
+            list_of_cards = Background_Calculations.generate_rewards()
+            Background_Calculations.generate_cards(list_of_cards)
+            view.update_rewards_card()
+            Static_Data_Bools.set_reward(True)
             Static_Data.set_turn_phase(0)
+        else:
+            pass

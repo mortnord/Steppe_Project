@@ -34,7 +34,6 @@ class TypeOfBuilding(Enum):
 class TypeOfCard(Enum):
     Attack = "Attack"
     Defend = "Defend"
-    Attack_and_defend = "Attack and defend"
     Quick_Attack = "Quick Attack"
     Heavy_Attack = "Heavy Attack"
     Healing = "Healing"
@@ -94,3 +93,5 @@ class Button_Sprites(Enum):
     Harvest_Stone = "Assets/UI/Harvest_Buttons/Harvest_Button_Stone.png"
     Harvest_Fish = "Assets/UI/Harvest_Buttons/Harvest_Button_Fish.png"
     Pass = "Assets/UI/Harvest_Buttons/pass.png"
+    Deck_UI = "Assets/UI/deck.png"
+    Back = "Assets/UI/back.png"

@@ -8,7 +8,9 @@ from Static_Data import Static_Data
 def setup():
     Generation.Initial_Generation.start_initial_creation()
     Background_Calculations.background_info()  # Background info som actions osv
-    window = arcade.Window(600, 600, "TEST")
+    width, height = arcade.window_commands.get_display_size()
+    window = arcade.Window(width, height, "TEST", fullscreen=True)
+
     Static_Data.set_window(window)
     map_view = GUI.Map_View()
     Static_Data.get_window().show_view(map_view)

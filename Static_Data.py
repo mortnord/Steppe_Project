@@ -92,6 +92,10 @@ class Static_Data():
         return cls.ID
 
     @classmethod
+    def set_Landscape_ID(cls, input):
+        cls.Landscape_ID -= input
+
+    @classmethod
     def get_Landscape_ID(cls):
         cls.Landscape_ID += 1
         return cls.Landscape_ID-1

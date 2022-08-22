@@ -1,6 +1,8 @@
 import math
+import random
 
 import Enumerators
+from Cards import Healing, Quick_Attack, Heavy_Attack, Attack, Defend
 from Inventory import Inventory
 from Static_Data import Static_Data
 from Static_Data_Bools import Static_Data_Bools
@@ -84,3 +86,27 @@ def background_info():  # beregn de forskjellige bakgrunnsinfoene
 def calculate_bonus_effects():
     for x in range(len(Static_Data.get_list_of_people())):
         Static_Data.get_list_of_people()[x].calculate_bonus_damage()
+
+
+def generate_rewards():
+    rewards_to_generate = 3
+    list_of_cards = list(Enumerators.TypeOfCard)
+    chosen_list_of_cards = []
+    for x in range(rewards_to_generate):
+        chosen_list_of_cards.append(random.choice(list_of_cards))
+    return chosen_list_of_cards
+
+
+def generate_cards(list_of_cards):
+    for x in range(len(list_of_cards)):
+        if list_of_cards[x] == Enumerators.TypeOfCard.Healing:
+            Static_Data.get_deck_list().list_of_rewards_card.append(Healing.Healing())
+        elif list_of_cards[x] == Enumerators.TypeOfCard.Attack:
+            Static_Data.get_deck_list().list_of_rewards_card.append(Quick_Attack.Quick_Attack())
+        elif list_of_cards[x] == Enumerators.TypeOfCard.Heavy_Attack:
+            Static_Data.get_deck_list().list_of_rewards_card.append(Heavy_Attack.Heavy_Attack())
+        elif list_of_cards[x] == Enumerators.TypeOfCard.Quick_Attack:
+            Static_Data.get_deck_list().list_of_rewards_card.append(Attack.Attack())
+        elif list_of_cards[x] == Enumerators.TypeOfCard.Defend:
+            Static_Data.get_deck_list().list_of_rewards_card.append(Defend.Defend())
+

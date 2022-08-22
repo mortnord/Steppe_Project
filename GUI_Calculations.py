@@ -1,16 +1,8 @@
 import arcade
 
 import Enumerators
-from Static_Data import Static_Data
 
 
-def draw_connections():
-    for x in range(len(Static_Data.get_map_with_regions())):
-        for y in range(len(Static_Data.get_map_with_regions()[x].connections)):
-            arcade.draw_line(Static_Data.get_map_with_regions()[x].connections[y].own_x,
-                             Static_Data.get_map_with_regions()[x].connections[y].own_y,
-                             Static_Data.get_map_with_regions()[x].connections[y].target_x,
-                             Static_Data.get_map_with_regions()[x].connections[y].target_y, arcade.color.BLACK, 3)
 
 
 def make_SpriteList_from_numbers(number_inn, x_position_inn, y_position_inn):
