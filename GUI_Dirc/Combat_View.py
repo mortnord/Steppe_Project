@@ -354,3 +354,4 @@ class Combat_View(arcade.View):
         self.held_card = []
         self.held_card_indicator = []
         self.held_card_text = []
+        self.update_cards()

@@ -59,6 +59,9 @@ class Map_View(arcade.View):
         position = Vec2(-self.camera_correction_x, -self.camera_correction_y)
         self.camera_sprites.move_to(position, 1)
 
+    def on_show_view(self):
+        arcade.set_viewport(300, self.window.width, 300, self.window.height)
+
     def generate_region_map_sprites(self):
         self.region_list = arcade.SpriteList()
         for x in range(len(Static_Data.get_map_with_regions())):

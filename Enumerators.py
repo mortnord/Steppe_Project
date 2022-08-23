@@ -4,20 +4,30 @@ from enum import Enum
 # = Ram osv.
 
 
+class Equipment_types(Enum):
+    Weapon = "Weapon"
+    Ring = "Ring"
+    Cloak = "Cloak"
+    Armor = "Armor"
+
 class Equipment_Ring_Sprite(Enum):
     Base_Ring = "Assets/Equipment_Sprites/Equipment_Rings/Base_Ring.png"
+    Healing_Ring = "Assets/Equipment_Sprites/Equipment_Rings/Healing_Ring.png"
 
 
 class Equipment_Armor_Sprite(Enum):
     Base_Armor = "Assets/Equipment_Sprites/Equipment_Armor/Base_Armor.png"
+    Steel_Armor = "Assets/Equipment_Sprites/Equipment_Armor/Steel_Armor.png"
 
 
 class Equipment_Cloak_Sprite(Enum):
     Base_Cloak = "Assets/Equipment_Sprites/Equipment_Cloaks/Base_Cloak.png"
+    Cloak_of_Defend = "Assets/Equipment_Sprites/Equipment_Cloaks/Cloak_of_Defend.png"
 
 
 class Equipment_Weapon_Sprite(Enum):
     Base_Weapon = "Assets/Equipment_Sprites/Equipment_Weapons/Base_Weapon.png"
+    Steel_Axe = "Assets/Equipment_Sprites/Equipment_Weapons/Steel_Axe.png"
 
 
 class TypeOfSheep(Enum):

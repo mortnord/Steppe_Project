@@ -20,6 +20,9 @@ class Deck_GUI(arcade.View):
         self.update_cards()
         self.update_other_UI()
 
+    def on_show_view(self):
+        arcade.set_background_color(arcade.csscolor.YELLOW)
+        arcade.set_viewport(0, self.window.width, 0, self.window.height)
     def on_draw(self):
 
         self.clear()
@@ -42,7 +45,7 @@ class Deck_GUI(arcade.View):
         x_split = 0
         for x in range(len(self.sprites_list_cards)):
 
-            self.sprites_list_cards[x].center_x = -150 + x_split / self.scaling_x
+            self.sprites_list_cards[x].center_x = 150 + x_split / self.scaling_x
             self.sprites_list_cards[x].center_y = 600 + y_split / self.scaling_y
             self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x
             self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y + 20
@@ -60,11 +63,11 @@ class Deck_GUI(arcade.View):
         self.other_UI_UI.clear()
 
         self.other_UI_UI.append(arcade.Sprite(Enumerators.Button_Sprites.Back.value, 0.40))
-        self.other_UI_UI[0].center_x = -200 / self.scaling_x
-        self.other_UI_UI[0].center_y = 700 / self.scaling_y
+        self.other_UI_UI[0].center_x = 100 / self.scaling_x
+        self.other_UI_UI[0].center_y = 1000 / self.scaling_y
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
-        UI_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.other_UI_UI)
+        UI_clicked = arcade.get_sprites_at_point((x, y), self.other_UI_UI)
         if len(UI_clicked):
             map_view = GUI.Map_View()
             map_view.setup()

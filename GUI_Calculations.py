@@ -34,3 +34,15 @@ def make_SpriteList_from_numbers(number_inn, x_position_inn, y_position_inn):
         sprite_list_temporary[x].center_x = x_position_inn + (x * 24)
         sprite_list_temporary[x].center_y = y_position_inn
     return sprite_list_temporary
+
+
+def make_SpriteList_from_equipment_list(dwarf_in_backend, dwarf_in_frontend):
+    equipment_sprite_list = arcade.SpriteList()
+    equipment_sprite_list.append(arcade.Sprite(dwarf_in_backend.armor.sprite, 0.20))
+    equipment_sprite_list.append(arcade.Sprite(dwarf_in_backend.weapon.sprite, 0.20))
+    equipment_sprite_list.append(arcade.Sprite(dwarf_in_backend.ring.sprite, 0.20))
+    equipment_sprite_list.append(arcade.Sprite(dwarf_in_backend.cloak.sprite, 0.20))
+    for x in range(len(equipment_sprite_list)):
+        equipment_sprite_list[x].center_x = dwarf_in_frontend.center_x + 50
+        equipment_sprite_list[x].center_y = dwarf_in_frontend.center_y - 75 + (50*x)
+    return equipment_sprite_list
