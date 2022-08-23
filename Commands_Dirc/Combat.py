@@ -1,3 +1,5 @@
+import random
+
 import Background_Calculations
 from Commands_Dirc import Deck_management
 from Static_Data import Static_Data
@@ -89,7 +91,15 @@ class Combat:
         elif Static_Data_Bools.get_took_reward() is False and Static_Data_Bools.get_reward() is False:
             print("gi premie")
             list_of_cards = Background_Calculations.generate_rewards()
+            chance_for_item = random.randint(1,2)
+            random_item = None
+            if chance_for_item == 1:
+                random_item = Background_Calculations.generate_item_rewards()
+            Background_Calculations.generate_reward_for_inventory(random_item)
+
             Background_Calculations.generate_cards(list_of_cards)
+            if random_item is not None:
+                view.draw_rewards_item(random_item)
             view.update_rewards_card()
             Static_Data_Bools.set_reward(True)
             Static_Data.set_turn_phase(0)

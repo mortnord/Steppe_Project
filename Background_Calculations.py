@@ -3,6 +3,7 @@ import random
 
 import Enumerators
 from Cards import Healing, Quick_Attack, Heavy_Attack, Attack, Defend
+from Equipment import Steel_Axe, Cloak_Of_Defend, Steel_Armor, Healing_Ring
 from Inventory import Inventory
 from Static_Data import Static_Data
 from Static_Data_Bools import Static_Data_Bools
@@ -110,3 +111,25 @@ def generate_cards(list_of_cards):
         elif list_of_cards[x] == Enumerators.TypeOfCard.Defend:
             Static_Data.get_deck_list().list_of_rewards_card.append(Defend.Defend())
 
+
+def generate_item_rewards():
+    possible_items = list(Enumerators.Equipment_Weapon_Sprite)
+    possible_items += (list(Enumerators.Equipment_Cloak_Sprite))
+    possible_items += (list(Enumerators.Equipment_Armor_Sprite))
+    possible_items += (list(Enumerators.Equipment_Ring_Sprite))
+
+    random_item = random.choice(possible_items)
+    return random_item
+
+
+def generate_reward_for_inventory(random_item):
+    if random_item == Enumerators.Equipment_Weapon_Sprite.Steel_Axe:
+        Inventory.equipment.append(Steel_Axe.Steel_Axe())
+    elif random_item == Enumerators.Equipment_Cloak_Sprite.Cloak_of_Defend:
+        Inventory.equipment.append(Cloak_Of_Defend.Cloak_Of_Defend())
+    elif random_item == Enumerators.Equipment_Armor_Sprite.Steel_Armor:
+        Inventory.equipment.append(Steel_Armor.Steel_Armor())
+    elif random_item == Enumerators.Equipment_Ring_Sprite.Healing_Ring:
+        Inventory.equipment.append(Healing_Ring.Healing_Ring())
+    else:
+        pass

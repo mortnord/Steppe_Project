@@ -8,6 +8,7 @@ from Map_Dirc import Landscape, Map
 from Static_Data import Static_Data
 from Equipment import Steel_Axe, Steel_Armor, Healing_Ring, Cloak_Of_Defend
 
+
 def start_initial_creation():  # Her lager vi oppsettet av objekter
     list_of_people, list_of_sheeps, deck_list = initial_Creation(2, 2, 5, 3,
                                                                  3)  # Humans, male sheeps, female sheeps, male lambs, female lambs
@@ -26,16 +27,8 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
         deck_list.content.append(Attack.Attack())
         deck_list.content.append(Defend.Defend())
 
-    for x in range(3):  # 2 Quick attacks
-        deck_list.content.append(Quick_Attack.Quick_Attack())
-    deck_list.content.append(Heavy_Attack.Heavy_Attack())  # Og en heavy attack
-    deck_list.content.append(Healing.Healing())  #
     for x in range(dwarfs):  # legg til ønsket mengde dwarfs
         list_of_people.append(Dwarfs_And_Deck.Dwarfs.Dwarf())
-    Inventory.add_equipment(Steel_Axe.Steel_Axe())
-    Inventory.add_equipment(Steel_Armor.Steel_Armor())
-    Inventory.add_equipment(Healing_Ring.Healing_Ring())
-    Inventory.add_equipment(Cloak_Of_Defend.Cloak_Of_Defend())
     for x in range(male_sheeps):  # Ønsket mengde sauer og sauetyper
         list_of_sheeps.append(Sheeps.SheepMale())
     for x in range(female_sheeps):

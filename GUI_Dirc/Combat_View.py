@@ -50,6 +50,7 @@ class Combat_View(arcade.View):
 
         self.reward_cards = arcade.SpriteList()
         self.reward_cards_indicator = arcade.SpriteList()
+        self.reward_item = arcade.SpriteList()
         self.list_of_reward_cards_text = []
 
         self.width, self.height = arcade.window_commands.get_display_size()
@@ -240,6 +241,7 @@ class Combat_View(arcade.View):
         self.active_dwarf_pointer.draw()
         self.end_turn.draw()
         self.draw_text()
+        self.reward_item.draw()
         if Static_Data_Bools.get_reward():
             self.reward_cards.draw()
             self.reward_cards_indicator.draw()
@@ -355,3 +357,10 @@ class Combat_View(arcade.View):
         self.held_card_indicator = []
         self.held_card_text = []
         self.update_cards()
+
+    def draw_rewards_item(self, random_item):
+        print(random_item.value)
+        length_divider = self.width / 4
+        self.reward_item.append(arcade.Sprite(random_item.value, 0.20))
+        self.reward_item[0].center_y = 700/self.scaling_y
+        self.reward_item[0].center_x = (length_divider * 2)/self.scaling_x

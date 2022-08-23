@@ -79,16 +79,16 @@ class Equipment_View(arcade.View):
             dwarves, distance_equipment = arcade.get_closest_sprite(self.held_item[0], self.sprite_dwarves)
             if arcade.check_for_collision(self.held_item[0],dwarves):
                 nr_item = self.equipment_sprites.index(self.held_item[0])
-                if Inventory.equipment[nr_item].type == Enumerators.Equipment_types.Weapon:
+                if Inventory.equipment[nr_item].type == Enumerators.Equipment_types.Weapon or Inventory.equipment[nr_item].type == Enumerators.Base_Equipment.Base_Weapon:
                     Inventory.equipment.append(Static_Data.get_list_of_people()[self.sprite_dwarves.index(dwarves)].weapon)
                     Static_Data.get_list_of_people()[self.sprite_dwarves.index(dwarves)].weapon = Inventory.equipment.pop(nr_item)
-                elif Inventory.equipment[nr_item].type == Enumerators.Equipment_types.Armor:
+                elif Inventory.equipment[nr_item].type == Enumerators.Equipment_types.Armor or Inventory.equipment[nr_item].type == Enumerators.Base_Equipment.Base_Armor:
                     Inventory.equipment.append(Static_Data.get_list_of_people()[self.sprite_dwarves.index(dwarves)].armor)
                     Static_Data.get_list_of_people()[self.sprite_dwarves.index(dwarves)].armor = Inventory.equipment.pop(nr_item)
-                elif Inventory.equipment[nr_item].type == Enumerators.Equipment_types.Ring:
+                elif Inventory.equipment[nr_item].type == Enumerators.Equipment_types.Ring or Inventory.equipment[nr_item].type == Enumerators.Base_Equipment.Base_Ring:
                     Inventory.equipment.append(Static_Data.get_list_of_people()[self.sprite_dwarves.index(dwarves)].ring)
                     Static_Data.get_list_of_people()[self.sprite_dwarves.index(dwarves)].ring = Inventory.equipment.pop(nr_item)
-                elif Inventory.equipment[nr_item].type == Enumerators.Equipment_types.Cloak:
+                elif Inventory.equipment[nr_item].type == Enumerators.Equipment_types.Cloak or Inventory.equipment[nr_item].type == Enumerators.Base_Equipment.Base_Cloak:
                     Inventory.equipment.append(Static_Data.get_list_of_people()[self.sprite_dwarves.index(dwarves)].cloak)
                     Static_Data.get_list_of_people()[self.sprite_dwarves.index(dwarves)].cloak = Inventory.equipment.pop(nr_item)
             self.update_dwarves()
