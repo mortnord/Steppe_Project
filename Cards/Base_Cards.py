@@ -6,6 +6,7 @@ class Card:
         self.value = 0  #Skade/healing/defend whatever
         self.type_of_card = 0
         self.dwarfs_required = 0
+        self.text = ""
         self.one_time = False #Kan brukes som flag senere for å indikere att kortet er one-time-use per kamp
         self.sprite = Enumerators.Sprites.Card.value
         self.indicator_sprite = None

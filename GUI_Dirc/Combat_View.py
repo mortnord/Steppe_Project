@@ -1,6 +1,8 @@
 import arcade
+from arcade.gui import UIManager
 
 import Enumerators
+import GUI_Calculations
 from Commands_Dirc import Combat, Deck_management
 from GUI_Calculations import make_SpriteList_from_numbers
 from GUI_Dirc import GUI
@@ -56,6 +58,8 @@ class Combat_View(arcade.View):
         self.width, self.height = arcade.window_commands.get_display_size()
         self.scaling_x = 1920 / self.width
         self.scaling_y = 1080 / self.height
+        self.manager = UIManager()
+        self.manager.enable()
 
     def on_show_view(self):
         arcade.set_background_color(arcade.csscolor.DARK_SLATE_BLUE)
@@ -247,7 +251,7 @@ class Combat_View(arcade.View):
             self.reward_cards_indicator.draw()
             for x in range(len(self.list_of_reward_cards_text)):
                 self.list_of_reward_cards_text[x].draw()
-
+        self.manager.draw()
     def draw_text(self):
 
         for x in range(len(Static_Data.get_enemies_to_defeat())):
@@ -274,42 +278,50 @@ class Combat_View(arcade.View):
             map_view.setup()
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
+        self.manager.clear()
+        if button == arcade.MOUSE_BUTTON_LEFT:
+            card = arcade.get_sprites_at_point((x, y), self.sprites_list_cards)
 
-        card = arcade.get_sprites_at_point((x, y), self.sprites_list_cards)
+            if len(card) > 0:
+                primary_card = card[-1]
+                self.held_card = [primary_card]
+                self.held_cards_original_position = primary_card.position
 
-        if len(card) > 0:
-            primary_card = card[-1]
-            self.held_card = [primary_card]
-            self.held_cards_original_position = primary_card.position
+                indicator, distance = arcade.get_closest_sprite(self.held_card[0], self.sprites_list_cards_indicator)
 
-            indicator, distance = arcade.get_closest_sprite(self.held_card[0], self.sprites_list_cards_indicator)
+                self.held_card_indicator = [indicator]
+                self.held_card_indicator_original_position = indicator.position
+                self.closest_card_picking_up = 10000
+                for x in range(len(self.list_of_cards_text)):
+                    text, distance = arcade.get_closest_sprite(self.held_card[0], self.list_of_cards_text[x])
+                    if distance < self.closest_card_picking_up:
+                        self.held_card_text = [text]
+                        self.closest_card_picking_up = distance
 
-            self.held_card_indicator = [indicator]
-            self.held_card_indicator_original_position = indicator.position
-            self.closest_card_picking_up = 10000
-            for x in range(len(self.list_of_cards_text)):
-                text, distance = arcade.get_closest_sprite(self.held_card[0], self.list_of_cards_text[x])
-                if distance < self.closest_card_picking_up:
-                    self.held_card_text = [text]
-                    self.closest_card_picking_up = distance
+            energy = arcade.get_sprites_at_point((x, y), self.end_turn)
+            if len(energy) > 0:
+                self.combat_class.end_player_turn()
+            active_dwarf = arcade.get_sprites_at_point((x, y), self.sprites_list_dwarves)
+            if len(active_dwarf) > 0:
+                nr_dwarf = self.sprites_list_dwarves.index(active_dwarf[0])
+                print(nr_dwarf)
+                self.active_dwarf = Static_Data.get_list_of_people()[nr_dwarf]
+                self.update_dwarves()
+                # set Active dwarf her
+            reward_card = arcade.get_sprites_at_point((x, y), self.reward_cards)
+            if len(reward_card):
+                print("get card")
+                Static_Data.get_deck_list().content.append(
+                    Static_Data.get_deck_list().list_of_rewards_card[self.reward_cards.index(reward_card[0])])
+                Static_Data.get_deck_list().list_of_rewards_card.clear()
+                Static_Data_Bools.set_took_reward(True)
+        elif button == arcade.MOUSE_BUTTON_RIGHT:
+            card_clicked = arcade.get_sprites_at_point((x, y), self.sprites_list_cards)
+            if len(card_clicked):
+                self.manager.clear()
+                card_object = Static_Data.get_deck_list().hand[self.sprites_list_cards.index(card_clicked[0])]
+                self.manager.add(GUI_Calculations.make_panel(x, y, card_object))
 
-        energy = arcade.get_sprites_at_point((x, y), self.end_turn)
-        if len(energy) > 0:
-            self.combat_class.end_player_turn()
-        active_dwarf = arcade.get_sprites_at_point((x, y), self.sprites_list_dwarves)
-        if len(active_dwarf) > 0:
-            nr_dwarf = self.sprites_list_dwarves.index(active_dwarf[0])
-            print(nr_dwarf)
-            self.active_dwarf = Static_Data.get_list_of_people()[nr_dwarf]
-            self.update_dwarves()
-            # set Active dwarf her
-        reward_card = arcade.get_sprites_at_point((x, y), self.reward_cards)
-        if len(reward_card):
-            print("get card")
-            Static_Data.get_deck_list().content.append(
-                Static_Data.get_deck_list().list_of_rewards_card[self.reward_cards.index(reward_card[0])])
-            Static_Data.get_deck_list().list_of_rewards_card.clear()
-            Static_Data_Bools.set_took_reward(True)
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
 
@@ -326,7 +338,7 @@ class Combat_View(arcade.View):
             self.held_card_text[x].center_y += dy
 
     def on_mouse_release(self, x: int, y: int, button: int, modifiers: int):
-        # If we don't have any cards, who cares
+
         if len(self.held_card) == 0:
             return
 
@@ -359,7 +371,6 @@ class Combat_View(arcade.View):
         self.update_cards()
 
     def draw_rewards_item(self, random_item):
-        print(random_item.value)
         length_divider = self.width / 4
         self.reward_item.append(arcade.Sprite(random_item.value, 0.20))
         self.reward_item[0].center_y = 700/self.scaling_y

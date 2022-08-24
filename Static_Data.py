@@ -1,3 +1,5 @@
+from arcade import load_texture
+
 import Background_Calculations
 import Commands_Dirc
 
@@ -26,6 +28,11 @@ class Static_Data():
     initial_difficulty = 10
     window = 0
 
+    bg_text = load_texture("Assets/UI/grey_panel.png")
+
+    @classmethod
+    def get_bg_text_panel(cls):
+        return cls.bg_text
     @classmethod
     def get_initial_difficulty(cls):
         return cls.initial_difficulty
