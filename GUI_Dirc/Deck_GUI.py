@@ -26,7 +26,7 @@ class Deck_GUI(arcade.View):
         self.update_other_UI()
 
     def on_show_view(self):
-        arcade.set_background_color(arcade.csscolor.YELLOW)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 
     def on_draw(self):
@@ -86,4 +86,4 @@ class Deck_GUI(arcade.View):
             card_clicked = arcade.get_sprites_at_point((x, y), self.sprites_list_cards)
             if len(card_clicked):
                 card_object = Static_Data.get_deck_list().content[self.sprites_list_cards.index(card_clicked[0])]
-                self.manager.add(GUI_Calculations.make_panel(x, y, card_object))
+                self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))

@@ -1,6 +1,7 @@
 class Base_Equipment:
     bonus_defend = 0
     bonus_attack = 0
+    text = ""
 
     def usage(self, using_dwarf):
         pass

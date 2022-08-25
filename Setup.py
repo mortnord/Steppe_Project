@@ -5,6 +5,7 @@ import Generation.Initial_Generation
 from GUI_Dirc import GUI
 from Static_Data import Static_Data
 
+
 def setup():
     Generation.Initial_Generation.start_initial_creation()
     Background_Calculations.background_info()  # Background info som actions osv

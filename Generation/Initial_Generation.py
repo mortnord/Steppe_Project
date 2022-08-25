@@ -26,7 +26,6 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
     for x in range(5):  # Legg til 5 av hver attack og defend
         deck_list.content.append(Attack.Attack())
         deck_list.content.append(Defend.Defend())
-
     for x in range(dwarfs):  # legg til ønsket mengde dwarfs
         list_of_people.append(Dwarfs_And_Deck.Dwarfs.Dwarf())
     for x in range(male_sheeps):  # Ønsket mengde sauer og sauetyper

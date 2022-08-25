@@ -3,6 +3,7 @@ from Equipment.Base_Equipment.Base_Ring import Base_Ring
 
 
 class Healing_Ring(Base_Ring):
+    text = "Heals 1 health at end of round"
     sprite = Enumerators.Equipment_Ring_Sprite.Healing_Ring.value
     def usage(self, using_dwarf):
         using_dwarf.health += 1

@@ -320,7 +320,7 @@ class Combat_View(arcade.View):
             if len(card_clicked):
                 self.manager.clear()
                 card_object = Static_Data.get_deck_list().hand[self.sprites_list_cards.index(card_clicked[0])]
-                self.manager.add(GUI_Calculations.make_panel(x, y, card_object))
+                self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))
 
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
