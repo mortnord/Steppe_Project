@@ -68,6 +68,11 @@ class TypeOfCard(Enum):
     Heavy_Attack = "Heavy Attack"
     Healing = "Healing"
 
+class Type_of_card_general(Enum):
+    Attack = "Attack"
+    Defend = "Defend"
+    Healing = "Healing"
+
 
 class TypeOfPlannedAttack(Enum):
     Attack = "Attack"

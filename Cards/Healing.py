@@ -7,6 +7,7 @@ class Healing(Card):
         super().__init__()
         self.value = 6
         self.type_of_card = Enumerators.TypeOfCard.Healing
+        self.type_of_card_general = Enumerators.Type_of_card_general.Healing
         self.dwarfs_required = 1
         self.one_time = True
         self.indicator_sprite = Enumerators.Sprites_Of_Planned_Attack.Healing.value

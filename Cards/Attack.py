@@ -9,6 +9,7 @@ class Attack(Card):
         super().__init__()
         self.value = 2 #verdien på attacket
         self.type_of_card = Enumerators.TypeOfCard.Attack #Sier at dette er ett attack kort
+        self.type_of_card_general = Enumerators.Type_of_card_general.Attack
         self.dwarfs_required = 1 #Kostnaden for å bruke kortet
         self.indicator_sprite = Enumerators.Sprites_Of_Planned_Attack.Attack.value
         self.text = "This is a basic attack card"

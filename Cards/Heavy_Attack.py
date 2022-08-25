@@ -9,6 +9,7 @@ class Heavy_Attack(Card):
         super().__init__()
         self.value = 5
         self.type_of_card = Enumerators.TypeOfCard.Heavy_Attack
+        self.type_of_card_general = Enumerators.Type_of_card_general.Attack
         self.dwarfs_required = 1
         self.one_time = True #Dette kortet er engangsbruk per kamp
         self.indicator_sprite = Enumerators.Sprites_Of_Planned_Attack.Attack.value

@@ -9,6 +9,7 @@ class Quick_Attack(Card):
         super().__init__()
         self.value = 1
         self.type_of_card = Enumerators.TypeOfCard.Quick_Attack
+        self.type_of_card_general = Enumerators.Type_of_card_general.Attack
         self.dwarfs_required = 0 #Forskjellen er at dette kortet er gratis å bruke
         self.indicator_sprite = Enumerators.Sprites_Of_Planned_Attack.Attack.value
 

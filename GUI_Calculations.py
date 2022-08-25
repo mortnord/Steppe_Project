@@ -51,7 +51,7 @@ def make_SpriteList_from_equipment_list(dwarf_in_backend, dwarf_in_frontend, sca
 def make_panel_from_card(mouse_x, mouse_y, card_clicked_on):
     string_to_print = ""
     string_to_print += str(card_clicked_on.value) + " "
-    string_to_print += str(card_clicked_on.type_of_card.value) + "\n"
+    string_to_print += str(card_clicked_on.type_of_card_general.value) + "\n"
     string_to_print += str(card_clicked_on.dwarfs_required)
     string_to_print += " energy to use \n"
     string_to_print += card_clicked_on.text

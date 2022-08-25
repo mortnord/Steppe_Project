@@ -4,8 +4,9 @@ import Enumerators
 class Card:
     def __init__(self): #Base-verdier for alle kort.
         self.value = 0  #Skade/healing/defend whatever
-        self.type_of_card = 0
-        self.dwarfs_required = 0
+        self.type_of_card = None
+        self.dwarfs_required = None
+        self.type_of_card_general = None
         self.text = ""
         self.one_time = False #Kan brukes som flag senere for å indikere att kortet er one-time-use per kamp
         self.sprite = Enumerators.Sprites.Card.value

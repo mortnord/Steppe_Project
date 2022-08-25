@@ -9,6 +9,7 @@ class Defend(Card):
         super().__init__()
         self.value = 2
         self.type_of_card = Enumerators.TypeOfCard.Defend #Dette er ett defend kort
+        self.type_of_card_general = Enumerators.Type_of_card_general.Defend
         self.dwarfs_required = 1
         self.indicator_sprite = Enumerators.Sprites_Of_Planned_Attack.Defend.value
 
