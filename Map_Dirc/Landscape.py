@@ -11,6 +11,7 @@ class Landscape:  # Landskapsobjekter med initialiseringsverdi
     amount_of_stone = 0
     possible_enemies = []
     difficulty_scale = 0
+    elite_difficulty = False
 
     def __init__(self):
         self.Landscapes_ID = Static_Data.get_Landscape_ID()  # ID-nr, auto-increment
@@ -32,6 +33,7 @@ class Wooded(Landscape):
         self.amount_of_grass = 10 + random.randint(0, 30)
         self.amount_of_wood = 3 + random.randint(0, 6)
         self.type_of_landscape = Enumerators.Landscapes.Wooded
+        self.difficulty_scale += 5
 
 
 class Hills(Landscape):
@@ -40,6 +42,7 @@ class Hills(Landscape):
         self.amount_of_grass = 20 + random.randint(0, 30)
         self.amount_of_stone = 5 + random.randint(3, 10)
         self.type_of_landscape = Enumerators.Landscapes.Hills
+        self.difficulty_scale += 5
 
 
 class City(Landscape):

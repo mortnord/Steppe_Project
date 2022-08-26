@@ -6,6 +6,7 @@ import GUI_Calculations
 from Commands_Dirc import Combat, Deck_management
 from GUI_Calculations import make_SpriteList_from_numbers
 from GUI_Dirc import GUI
+from Inventory import Inventory
 from Static_Data import Static_Data
 
 from Static_Data_Bools import Static_Data_Bools
@@ -15,6 +16,7 @@ class Combat_View(arcade.View):
 
     def __init__(self):
         super().__init__()
+        self.random_item = None
         self.combat_class = Combat.Combat()
         self.active_dwarf = None
         self.setup_done = False
@@ -34,6 +36,11 @@ class Combat_View(arcade.View):
         self.sprites_list_cards = arcade.SpriteList()
         self.sprites_list_cards_indicator = arcade.SpriteList()
         self.list_of_cards_text = []
+
+        self.sprites_list_discard_pile = arcade.SpriteList()
+        self.sprites_list_discard_pile_indicator = arcade.SpriteList()
+        self.sprites_deck = arcade.SpriteList()
+        self.sprites_deck_indicator = arcade.SpriteList()
 
         self.sprites_list_enemies_defend = arcade.SpriteList()
         self.list_of_enemy_defend = []
@@ -93,7 +100,7 @@ class Combat_View(arcade.View):
         self.active_dwarf_pointer.clear()
 
         self.active_dwarf_pointer.append(arcade.Sprite(Enumerators.Sprites.Active_Dwarf_Pointer.value, 0.10))
-        self.change_active_dwarf()
+
         for x in range(len(Static_Data.get_list_of_people())):
             self.sprites_list_dwarves.append(arcade.Sprite(Static_Data.get_list_of_people()[x].sprite, 0.10))
 
@@ -136,6 +143,12 @@ class Combat_View(arcade.View):
         self.sprites_list_cards.clear()
         self.sprites_list_cards_indicator.clear()
         self.list_of_cards_text = []
+
+        self.sprites_list_discard_pile.clear()
+        self.sprites_list_discard_pile_indicator.clear()
+        self.sprites_deck.clear()
+        self.sprites_deck_indicator.clear()
+
         for x in range(len(Static_Data.get_deck_list().hand)):
             self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().hand[x].sprite, 0.20))
             self.sprites_list_cards_indicator.append(
@@ -149,6 +162,22 @@ class Combat_View(arcade.View):
             self.list_of_cards_text.append(make_SpriteList_from_numbers(Static_Data.get_deck_list().hand[x].value,
                                                                         self.sprites_list_cards[x].center_x,
                                                                         self.sprites_list_cards[x].center_y - 15))
+
+        self.sprites_deck.append(arcade.Sprite(Enumerators.Sprites.Card.value, 0.20))
+        self.sprites_deck[0].center_x = 100 / self.scaling_x
+        self.sprites_deck[0].center_y = 100 / self.scaling_y
+
+        self.sprites_deck_indicator = make_SpriteList_from_numbers(len(Static_Data.get_deck_list().content),
+                                                                   self.sprites_deck[0].center_x,
+                                                                   self.sprites_deck[0].center_y + 50)
+
+        self.sprites_list_discard_pile.append(arcade.Sprite(Enumerators.Sprites.Card.value, 0.20))
+        self.sprites_list_discard_pile[0].center_x = 1820 / self.scaling_x
+        self.sprites_list_discard_pile[0].center_y = 100 / self.scaling_y
+
+        self.sprites_list_discard_pile_indicator = make_SpriteList_from_numbers(
+            len(Static_Data.get_deck_list().discard_pile), self.sprites_list_discard_pile[0].center_x,
+            self.sprites_list_discard_pile[0].center_y + 50)
 
     def update_rewards_card(self):
         self.reward_cards.clear()
@@ -215,6 +244,10 @@ class Combat_View(arcade.View):
 
         self.sprites_list_enemies.draw()
         self.sprites_list_cards.draw()
+        self.sprites_deck.draw()
+        self.sprites_deck_indicator.draw()
+        self.sprites_list_discard_pile.draw()
+        self.sprites_list_discard_pile_indicator.draw()
         self.sprites_list_dwarves.draw()
 
         self.sprites_list_cards_indicator.draw()
@@ -252,6 +285,7 @@ class Combat_View(arcade.View):
             for x in range(len(self.list_of_reward_cards_text)):
                 self.list_of_reward_cards_text[x].draw()
         self.manager.draw()
+
     def draw_text(self):
 
         for x in range(len(Static_Data.get_enemies_to_defeat())):
@@ -310,7 +344,6 @@ class Combat_View(arcade.View):
                 # set Active dwarf her
             reward_card = arcade.get_sprites_at_point((x, y), self.reward_cards)
             if len(reward_card):
-                print("get card")
                 Static_Data.get_deck_list().content.append(
                     Static_Data.get_deck_list().list_of_rewards_card[self.reward_cards.index(reward_card[0])])
                 Static_Data.get_deck_list().list_of_rewards_card.clear()
@@ -318,10 +351,17 @@ class Combat_View(arcade.View):
         elif button == arcade.MOUSE_BUTTON_RIGHT:
             card_clicked = arcade.get_sprites_at_point((x, y), self.sprites_list_cards)
             if len(card_clicked):
-                self.manager.clear()
                 card_object = Static_Data.get_deck_list().hand[self.sprites_list_cards.index(card_clicked[0])]
                 self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))
-
+            reward_clicked = arcade.get_sprites_at_point((x, y), self.reward_cards)
+            if len(reward_clicked):
+                card_object = Static_Data.get_deck_list().list_of_rewards_card[
+                    self.reward_cards.index(reward_clicked[0])]
+                self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))
+            item_reward_clicked = arcade.get_sprites_at_point((x, y), self.reward_item)
+            if len(item_reward_clicked):
+                item_object = Inventory.equipment[len(Inventory.equipment) - 1]
+                self.manager.add(GUI_Calculations.make_panel_from_item(x, y, item_object))
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
 
@@ -371,7 +411,8 @@ class Combat_View(arcade.View):
         self.update_cards()
 
     def draw_rewards_item(self, random_item):
+        self.random_item = random_item
         length_divider = self.width / 4
         self.reward_item.append(arcade.Sprite(random_item.value, 0.20))
-        self.reward_item[0].center_y = 700/self.scaling_y
-        self.reward_item[0].center_x = (length_divider * 2)/self.scaling_x
+        self.reward_item[0].center_y = 700 / self.scaling_y
+        self.reward_item[0].center_x = (length_divider * 2) / self.scaling_x

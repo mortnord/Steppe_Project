@@ -1,3 +1,5 @@
+import random
+
 import arcade
 
 import Enumerators
@@ -73,5 +75,17 @@ def map_generation():
 
     list_of_regions.append(Map_Region.Region(7 * zoom_multiplier, 2 * zoom_multiplier, Landscape.City(),zoom_multiplier))  # slutt-byen.
 
+    modify_map_with_elites_and_others(list_of_regions)
     Static_Data.set_map_with_regions(list_of_regions)
     find_connections()
+
+
+def modify_map_with_elites_and_others(list_of_regions):
+
+    elite_1 = random.choice(list_of_regions[1:12])
+    elite_1.landscape.elite_difficulty = True
+
+    elite_2 = random.choice(list_of_regions[13:25])
+    elite_2.landscape.elite_difficulty = True
+
+

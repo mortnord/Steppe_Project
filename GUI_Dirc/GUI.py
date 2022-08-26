@@ -66,13 +66,15 @@ class Map_View(arcade.View):
         self.region_list = arcade.SpriteList()
         for x in range(len(Static_Data.get_map_with_regions())):
             # Create the coin instance
-
+            size = 0.15
+            if Static_Data.get_map_with_regions()[x].landscape.elite_difficulty:
+                size = 0.40
             if Static_Data.get_map_with_regions()[x].landscape.type_of_landscape == Enumerators.Landscapes.Steppes:
-                coin = arcade.Sprite(Enumerators.Landscapes_sprites.Steppes.value, 0.15)
+                coin = arcade.Sprite(Enumerators.Landscapes_sprites.Steppes.value, size)
             elif Static_Data.get_map_with_regions()[x].landscape.type_of_landscape == Enumerators.Landscapes.Wooded:
-                coin = arcade.Sprite(Enumerators.Landscapes_sprites.Wooded.value, 0.15)
+                coin = arcade.Sprite(Enumerators.Landscapes_sprites.Wooded.value, size)
             elif Static_Data.get_map_with_regions()[x].landscape.type_of_landscape == Enumerators.Landscapes.Hills:
-                coin = arcade.Sprite(Enumerators.Landscapes_sprites.Hills.value, 0.15)
+                coin = arcade.Sprite(Enumerators.Landscapes_sprites.Hills.value, size)
             else:
                 coin = arcade.Sprite("Assets/coinGold_ul.png",
                                      0.25)

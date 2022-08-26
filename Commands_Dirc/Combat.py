@@ -61,6 +61,7 @@ class Combat:
         for x in range(len(Static_Data.get_list_of_people())):
             Static_Data.get_list_of_people()[x].has_energy = True
         Static_Data.full_energy()
+        view.change_active_dwarf()
         Deck_management.draw_cards_until_full(view)
         for x in range(len(Static_Data.get_list_of_people())):
             Static_Data.get_list_of_people()[x].amount_energy = Static_Data.get_list_of_people()[x].max_energy
@@ -91,11 +92,14 @@ class Combat:
         elif Static_Data_Bools.get_took_reward() is False and Static_Data_Bools.get_reward() is False:
             print("gi premie")
             list_of_cards = Background_Calculations.generate_rewards()
-            chance_for_item = random.randint(1,2)
+            if Static_Data.get_current_map().landscape.elite_difficulty:
+                chance_for_item = random.randint(1,1)
+            else:
+                chance_for_item = random.randint(1,3)
             random_item = None
             if chance_for_item == 1:
                 random_item = Background_Calculations.generate_item_rewards()
-            Background_Calculations.generate_reward_for_inventory(random_item)
+                Background_Calculations.generate_reward_for_inventory(random_item)
 
             Background_Calculations.generate_cards(list_of_cards)
             if random_item is not None:

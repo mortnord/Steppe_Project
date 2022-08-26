@@ -15,7 +15,7 @@ class Quick_Attack(Card):
 
     def usage(self, card_nr, target_enemy,nr_dwarf):
         Static_Data.get_enemies_to_defeat()[target_enemy].take_damage(
-            self.value  + nr_dwarf.bonus_attack)  # Her gjør vi damage på hva vi har valgt, sjekk implementation for detaljer
+            self.value + nr_dwarf.bonus_attack)  # Her gjør vi damage på hva vi har valgt, sjekk implementation for detaljer
         Static_Data.set_energy(self.dwarfs_required)  # Her fjerner vi energien vi har brukt fra potensiell energi
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
         self.usage_card_equipment(self, nr_dwarf)

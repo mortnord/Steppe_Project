@@ -131,5 +131,3 @@ def generate_reward_for_inventory(random_item):
         Inventory.equipment.append(Steel_Armor.Steel_Armor())
     elif random_item == Enumerators.Equipment_Ring_Sprite.Healing_Ring:
         Inventory.equipment.append(Healing_Ring.Healing_Ring())
-    else:
-        pass

@@ -1,5 +1,4 @@
 import arcade
-from arcade import load_texture
 from arcade.gui import UIManager, UITextArea, UITexturePane
 
 import Enumerators
@@ -14,6 +13,7 @@ class Deck_GUI(arcade.View):
         self.other_UI_UI = arcade.SpriteList()
         self.list_of_cards_text = []
         self.sprites_list_cards_indicator = arcade.SpriteList()
+        self.sprites_list_cards_energy_indicator = arcade.SpriteList()
         self.sprites_list_cards = arcade.SpriteList()
         self.width, self.height = arcade.window_commands.get_display_size()
         self.scaling_x = 1920 / self.width
@@ -35,6 +35,7 @@ class Deck_GUI(arcade.View):
         self.other_UI_UI.draw()
         self.sprites_list_cards.draw()
         self.sprites_list_cards_indicator.draw()
+        self.sprites_list_cards_energy_indicator.draw()
         for x in range(len(self.list_of_cards_text)):
             self.list_of_cards_text[x].draw()
         self.manager.draw()
@@ -44,26 +45,36 @@ class Deck_GUI(arcade.View):
         self.sprites_list_cards_indicator.clear()
         self.list_of_cards_text = []
         for x in range(len(Static_Data.get_deck_list().content)):
-            self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().content[x].sprite, 0.20))
+            self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().content[x].sprite, 1))
             self.sprites_list_cards_indicator.append(
-                arcade.Sprite(Static_Data.get_deck_list().content[x].indicator_sprite, 0.10))
+                arcade.Sprite(Static_Data.get_deck_list().content[x].indicator_sprite, 1))
+            if Static_Data.get_deck_list().content[x].dwarfs_required == 1:
+                self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
+            elif Static_Data.get_deck_list().content[x].dwarfs_required == 2:
+                self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
+            else:
+                self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.Free_Energy.value))
+
         cards_in_a_row = 0
         y_split = 0
         x_split = 0
         for x in range(len(self.sprites_list_cards)):
 
             self.sprites_list_cards[x].center_x = 150 + x_split / self.scaling_x
-            self.sprites_list_cards[x].center_y = 600 + y_split / self.scaling_y
-            self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x
-            self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y + 20
+            self.sprites_list_cards[x].center_y = 800 + y_split / self.scaling_y
+            self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x - 23
+            self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y - 12.5
+            self.sprites_list_cards_energy_indicator[x].center_x = self.sprites_list_cards[x].center_x - 70
+            self.sprites_list_cards_energy_indicator[x].center_y = self.sprites_list_cards[x].center_y + 120.5
             self.list_of_cards_text.append(make_SpriteList_from_numbers(Static_Data.get_deck_list().content[x].value,
-                                                                        self.sprites_list_cards[x].center_x,
-                                                                        self.sprites_list_cards[x].center_y - 15))
-            x_split += 70
+                                                                        self.sprites_list_cards[x].center_x - 70,
+                                                                        self.sprites_list_cards[x].center_y - 12.5))
+
+            x_split += 250
             cards_in_a_row += 1
-            if cards_in_a_row > 9:
+            if cards_in_a_row > 6:
                 cards_in_a_row = 0
-                y_split -= 100
+                y_split -= 350
                 x_split = 0
 
     def update_other_UI(self):

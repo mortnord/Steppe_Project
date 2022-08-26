@@ -35,6 +35,9 @@ def make_SpriteList_from_numbers(number_inn, x_position_inn, y_position_inn):
         sprite_list_temporary[x].center_y = y_position_inn
     return sprite_list_temporary
 
+def create_card_indicators_from_backend():
+
+    pass
 
 def make_SpriteList_from_equipment_list(dwarf_in_backend, dwarf_in_frontend, scaling_x, scaling_y):
     equipment_sprite_list = arcade.SpriteList()

@@ -81,13 +81,13 @@ class TypeOfPlannedAttack(Enum):
 
 
 class Sprites_Of_Planned_Attack(Enum):
-    Attack = "Assets/sword.png"
-    Defend = "Assets/shield.png"
+    Attack = "Assets/Card_Assets/Attack_Symbol.png"
+    Defend = "Assets/Card_Assets/Defend_Symbol.png"
     Healing = "Assets/healing.png"
 
 
 class Sprites(Enum):
-    Card = "Assets/card.png"
+    Card = "Assets/Card_Assets/Base_card_No_Info.png"
 
     Dwarf = "Assets/Animals_Dwarfs_And_Monsters/dwarf.png"
     Active_Dwarf_Pointer = "Assets/red_arrow_down.png"
@@ -96,6 +96,9 @@ class Sprites(Enum):
     Demon = "Assets/Animals_Dwarfs_And_Monsters/Demon.png"
 
     Energy = "Assets/energy.png"
+    One_Energy = "Assets/Card_Assets/One_Energy_Cost.png"
+    Two_Energy = "Assets/Card_Assets/Two_Energy_Cost.png"
+    Free_Energy = "Assets/Card_Assets/Free_Energy.png"
     End_Turn = "Assets/End_Turn.png"
 
     Milk = "Assets/milk.png"

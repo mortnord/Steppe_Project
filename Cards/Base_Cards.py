@@ -3,7 +3,6 @@ import Enumerators
 
 class Card:
     def __init__(self): #Base-verdier for alle kort.
-        self.value = 0  #Skade/healing/defend whatever
         self.type_of_card = None
         self.dwarfs_required = None
         self.type_of_card_general = None
