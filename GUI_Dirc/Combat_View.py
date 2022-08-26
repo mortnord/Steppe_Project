@@ -150,18 +150,18 @@ class Combat_View(arcade.View):
         self.sprites_deck_indicator.clear()
 
         for x in range(len(Static_Data.get_deck_list().hand)):
-            self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().hand[x].sprite, 0.20))
+            self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().hand[x].sprite ))
             self.sprites_list_cards_indicator.append(
-                arcade.Sprite(Static_Data.get_deck_list().hand[x].indicator_sprite, 0.10))
+                arcade.Sprite(Static_Data.get_deck_list().hand[x].indicator_sprite))
 
         for x in range(len(self.sprites_list_cards)):
-            self.sprites_list_cards[x].center_x = ((self.width / 2) + 55 * x) / self.scaling_x
-            self.sprites_list_cards[x].center_y = 50 / self.scaling_y
-            self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x
-            self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y + 20
+            self.sprites_list_cards[x].center_x = ((self.width /3) + 250 * x) / self.scaling_x
+            self.sprites_list_cards[x].center_y = 250 / self.scaling_y
+            self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x -23
+            self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y -12.5
             self.list_of_cards_text.append(make_SpriteList_from_numbers(Static_Data.get_deck_list().hand[x].value,
-                                                                        self.sprites_list_cards[x].center_x,
-                                                                        self.sprites_list_cards[x].center_y - 15))
+                                                                        self.sprites_list_cards[x].center_x -70,
+                                                                        self.sprites_list_cards[x].center_y - 12.5))
 
         self.sprites_deck.append(arcade.Sprite(Enumerators.Sprites.Card.value, 0.20))
         self.sprites_deck[0].center_x = 100 / self.scaling_x
