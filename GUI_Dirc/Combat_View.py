@@ -108,7 +108,13 @@ class Combat_View(arcade.View):
                 arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Healing.value))
             self.sprites_list_dwarves_defend.append(
                 arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Defend.value))
-            self.sprites_list_dwarves_energy.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
+
+            if Static_Data.get_list_of_people()[x].amount_energy == 0:
+                self.sprites_list_dwarves_energy.append(arcade.Sprite(Enumerators.Sprites.Free_Energy.value))
+            elif Static_Data.get_list_of_people()[x].amount_energy == 1:
+                self.sprites_list_dwarves_energy.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
+            elif Static_Data.get_list_of_people()[x].amount_energy == 2:
+                self.sprites_list_dwarves_energy.append(arcade.Sprite(Enumerators.Sprites.Two_Energy.value))
         length_divider = self.width / 4
         for x in range(len(self.sprites_list_dwarves)):
             self.sprites_list_dwarves[x].center_x = length_divider * (x + 1) / self.scaling_x

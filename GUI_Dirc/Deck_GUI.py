@@ -49,9 +49,9 @@ class Deck_GUI(arcade.View):
             self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().content[x].sprite, 1))
             self.sprites_list_cards_indicator.append(
                 arcade.Sprite(Static_Data.get_deck_list().content[x].indicator_sprite, 1))
-            if Static_Data.get_deck_list().content[x].dwarfs_required == 1:
+            if Static_Data.get_deck_list().content[x].energy_required == 1:
                 self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
-            elif Static_Data.get_deck_list().content[x].dwarfs_required == 2:
+            elif Static_Data.get_deck_list().content[x].energy_required == 2:
                 self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
             else:
                 self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.Free_Energy.value))

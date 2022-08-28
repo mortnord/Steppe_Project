@@ -55,7 +55,7 @@ def make_panel_from_card(mouse_x, mouse_y, card_clicked_on):
     string_to_print = ""
     string_to_print += str(card_clicked_on.value) + " "
     string_to_print += str(card_clicked_on.type_of_card_general.value) + "\n"
-    string_to_print += str(card_clicked_on.dwarfs_required)
+    string_to_print += str(card_clicked_on.energy_required)
     string_to_print += " energy to use \n"
     string_to_print += card_clicked_on.text
     if card_clicked_on.one_time:

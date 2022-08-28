@@ -28,7 +28,7 @@ class Combat:
                 break  # Kun en ting kan dø om gangen, så stop, og heller kom tilbake vis flere ting dør.
 
     def player_use_card_round(self, card_nr, target, nr_dwarf):  # Del 2 av kamp, spilleren gjør actions
-        if nr_dwarf.has_energy:
+        if nr_dwarf.has_energy or Static_Data.get_deck_list().hand[card_nr].energy_required == 0:
             result = Static_Data.get_deck_list().hand[card_nr].usage(card_nr, target, nr_dwarf)
             self.check_for_deaths()
             return result

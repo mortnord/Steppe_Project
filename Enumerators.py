@@ -74,6 +74,12 @@ class Type_of_card_general(Enum):
     Defend = "Defend"
     Healing = "Healing"
 
+class Type_Card_Sprite(Enum):
+    Attack = "Assets/Card_Assets/Cards/Attack_Card.png"
+    Defend = "Assets/Card_Assets/Cards/Defend_Card.png"
+    Heavy_Attack = "Assets/Card_Assets/Cards/Heavy_Attack_Card.png"
+    Quick_Attack = "Assets/Card_Assets/Cards/Quick_Attack_Card.png"
+    Healing = "Assets/Card_Assets/Cards/Healing.png"
 
 class TypeOfPlannedAttack(Enum):
     Attack = "Attack"

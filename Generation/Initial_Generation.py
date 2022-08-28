@@ -3,10 +3,8 @@ import random
 from Cards import Attack, Quick_Attack, Defend, Heavy_Attack, Healing
 import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
 import Sheeps
-from Inventory import Inventory
 from Map_Dirc import Landscape, Map
 from Static_Data import Static_Data
-from Equipment import Steel_Axe, Steel_Armor, Healing_Ring, Cloak_Of_Defend, Hammer
 
 
 def start_initial_creation():  # Her lager vi oppsettet av objekter
@@ -23,7 +21,6 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
     list_of_people = []
     list_of_sheeps = []
     deck_list = Dwarfs_And_Deck.Deck.Deck()  # Lag ett nytt deck-objekt
-    Inventory.equipment.append(Hammer.Hammer())
     for x in range(5):  # Legg til 5 av hver attack og defend
         deck_list.content.append(Attack.Attack())
         deck_list.content.append(Defend.Defend())
