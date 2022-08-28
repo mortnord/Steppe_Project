@@ -58,6 +58,8 @@ def make_panel_from_card(mouse_x, mouse_y, card_clicked_on):
     string_to_print += str(card_clicked_on.dwarfs_required)
     string_to_print += " energy to use \n"
     string_to_print += card_clicked_on.text
+    if card_clicked_on.one_time:
+        string_to_print += "One time use per combat"
     text_area = UITextArea(x=mouse_x, y=mouse_y, width=150, height=50, text=string_to_print, text_color=(0, 0, 0, 255))
     return UITexturePane(text_area.with_space_around(right=20), tex=Static_Data.get_bg_text_panel(),
                          padding=(10, 10, 10, 10))

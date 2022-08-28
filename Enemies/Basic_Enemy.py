@@ -13,6 +13,7 @@ class Basic_Enemy():
         self.defend = 0
         self.target = None
         self.cost = 0
+        self.stunned = False
 
     def take_damage(self, value_damage): #En basisklasse av ta skade, samme som dwarf sin.
         if self.defend > 0:

@@ -19,5 +19,7 @@ class Defend(Card):
         Static_Data.set_energy(self.dwarfs_required)
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
         nr_dwarf.has_energy = nr_dwarf.use_energy(self.dwarfs_required)
+
         self.usage_card_equipment(self, nr_dwarf)
+
         return True

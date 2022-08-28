@@ -23,5 +23,7 @@ class Attack(Card):
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(
             card_nr))  # her popper vi (tar ut og legger en annen plass) kortet ut fra deck-lista,
         nr_dwarf.has_energy = nr_dwarf.use_energy(self.dwarfs_required)  # og legger det i discard-pile lista
+
         self.usage_card_equipment(self, nr_dwarf)
+        self.usage_card_enemy(self, nr_dwarf, target_enemy)
         return True

@@ -16,4 +16,5 @@ def setup():
     map_view = GUI.Map_View()
     Static_Data.get_window().show_view(map_view)
     map_view.setup()
+
     arcade.run()

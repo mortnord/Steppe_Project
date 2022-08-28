@@ -14,8 +14,8 @@ class Dwarf:  # En dverg
         self.defend = 0  # mengden armor
         self.sprite = Enumerators.Sprites.Dwarf.value
         self.has_energy = True
-        self.amount_energy = 1
-        self.max_energy = 1
+        self.amount_energy = 0
+        self.max_energy = 2
         self.armor = Base_Armor.Base_Armor()
         self.weapon = Base_Weapon.Base_Weapon()
         self.ring = Base_Ring.Base_Ring()

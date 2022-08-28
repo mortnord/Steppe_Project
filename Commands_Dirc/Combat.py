@@ -41,7 +41,10 @@ class Combat:
 
     def enemy_use_indication_round(self):  # Del 3 av kamp, motstanderen gjør ting
         for x in range(len(Static_Data.get_enemies_to_defeat())):  # hver motstander gjør ting
-            Static_Data.get_enemies_to_defeat()[x].usage()  # Hver fiende gjør sin ting, sjekk hver fiende
+            if Static_Data.get_enemies_to_defeat()[x].stunned:
+                Static_Data.get_enemies_to_defeat()[x].stunned = False
+            else:
+                Static_Data.get_enemies_to_defeat()[x].usage()  # Hver fiende gjør sin ting, sjekk hver fiende
             if len(Static_Data.get_enemies_to_defeat()) > 0:  # Vis det fortsatt er fiender igjen
                 self.check_for_deaths()  # sjekk om de har daua, hahaha
         Static_Data.set_turn_phase(3)
@@ -64,7 +67,8 @@ class Combat:
         view.change_active_dwarf()
         Deck_management.draw_cards_until_full(view)
         for x in range(len(Static_Data.get_list_of_people())):
-            Static_Data.get_list_of_people()[x].amount_energy = Static_Data.get_list_of_people()[x].max_energy
+            if Static_Data.get_list_of_people()[x].amount_energy < Static_Data.get_list_of_people()[x].max_energy:
+                Static_Data.get_list_of_people()[x].amount_energy += 1
 
         for x in range(len(Static_Data.get_list_of_people())):  # Fjern all defend, det er jo kun for 1 runde
             Static_Data.get_list_of_people()[x].defend = 0

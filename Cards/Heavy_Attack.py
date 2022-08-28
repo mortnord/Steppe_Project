@@ -28,6 +28,7 @@ class Heavy_Attack(Card):
                 card_nr))
         nr_dwarf.has_energy = nr_dwarf.use_energy(self.dwarfs_required)
         self.usage_card_equipment(self, nr_dwarf)
+        self.usage_card_enemy(self, nr_dwarf, target_enemy)
         return True
 
 

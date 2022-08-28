@@ -9,8 +9,8 @@ from Static_Data import Static_Data
 from Static_Data_Bools import Static_Data_Bools
 
 
-def calculate_grass():  # Her regner vi ut hvor mye grass vi trenger, og hvor mye grass vi har totalt i landskapet men og i inventory
-    # det gir oss antall actions vi kan ha.
+def calculate_grass():  # Her regner vi ut hvor mye grass vi trenger, og hvor mye grass vi har totalt i landskapet
+    # men og i inventory det gir oss antall actions vi kan ha.
     grass_needed = 0
     for x in range(len(Static_Data.get_list_of_sheeps())):
         grass_needed += Static_Data.get_list_of_sheeps()[x].eat_amount

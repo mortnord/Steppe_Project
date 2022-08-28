@@ -19,5 +19,6 @@ class Quick_Attack(Card):
         Static_Data.set_energy(self.dwarfs_required)  # Her fjerner vi energien vi har brukt fra potensiell energi
         Static_Data.get_deck_list().discard_pile.append(Static_Data.get_deck_list().hand.pop(card_nr))
         self.usage_card_equipment(self, nr_dwarf)
+        self.usage_card_enemy(self, nr_dwarf, target_enemy)
         return True
 

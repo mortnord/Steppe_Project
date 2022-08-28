@@ -7,6 +7,7 @@ from GUI_Calculations import make_SpriteList_from_numbers
 from Static_Data import Static_Data
 from GUI_Dirc import GUI
 
+
 class Deck_GUI(arcade.View):
     def __init__(self):
         super().__init__()

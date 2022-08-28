@@ -16,3 +16,9 @@ class Card:
         using_dwarf.armor.usage_card(using_card, using_dwarf)
         using_dwarf.weapon.usage_card(using_card, using_dwarf)
         using_dwarf.ring.usage_card(using_card, using_dwarf)
+
+    def usage_card_enemy(self, using_card, using_dwarf, using_enemy):
+        using_dwarf.cloak.usage_card_enemy(using_card, using_dwarf, using_enemy)
+        using_dwarf.armor.usage_card_enemy(using_card, using_dwarf, using_enemy)
+        using_dwarf.weapon.usage_card_enemy(using_card, using_dwarf, using_enemy)
+        using_dwarf.ring.usage_card_enemy(using_card, using_dwarf, using_enemy)
