@@ -105,14 +105,14 @@ class Combat_View(arcade.View):
             self.sprites_list_dwarves.append(arcade.Sprite(Static_Data.get_list_of_people()[x].sprite, 0.10))
 
             self.sprites_list_dwarves_health.append(
-                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Healing.value, 0.10))
+                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Healing.value))
             self.sprites_list_dwarves_defend.append(
-                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Defend.value, 0.10))
-            self.sprites_list_dwarves_energy.append(arcade.Sprite(Enumerators.Sprites.Energy.value, 0.02))
+                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Defend.value))
+            self.sprites_list_dwarves_energy.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
         length_divider = self.width / 4
         for x in range(len(self.sprites_list_dwarves)):
             self.sprites_list_dwarves[x].center_x = length_divider * (x + 1) / self.scaling_x
-            self.sprites_list_dwarves[x].center_y = 150 / self.scaling_y
+            self.sprites_list_dwarves[x].center_y = 350 / self.scaling_y
             self.sprites_list_dwarves_health[x].center_x = self.sprites_list_dwarves[x].center_x
             self.sprites_list_dwarves_health[x].center_y = self.sprites_list_dwarves[x].center_y + 50
             self.sprites_list_dwarves_defend[x].center_x = self.sprites_list_dwarves[x].center_x
@@ -129,14 +129,14 @@ class Combat_View(arcade.View):
                                              self.sprites_list_dwarves[x].center_y + 100))
             self.list_of_dwarf_energy.append(
                 make_SpriteList_from_numbers(Static_Data.get_list_of_people()[x].amount_energy,
-                                             self.sprites_list_dwarves[x].center_x - 65,
+                                             self.sprites_list_dwarves[x].center_x - 85,
                                              self.sprites_list_dwarves[x].center_y))
 
         self.active_dwarf_pointer[0].center_x = self.sprites_list_dwarves[
             Static_Data.get_list_of_people().index(self.active_dwarf)].center_x
         self.active_dwarf_pointer[0].center_y = self.sprites_list_dwarves[Static_Data.get_list_of_people().index(
             self.active_dwarf)].center_y + 30
-        self.end_turn[0].center_x = self.sprites_list_dwarves[0].center_x - 100
+        self.end_turn[0].center_x = self.sprites_list_dwarves[0].center_x - 150
         self.end_turn[0].center_y = self.sprites_list_dwarves[0].center_y
 
     def update_cards(self):
@@ -150,30 +150,30 @@ class Combat_View(arcade.View):
         self.sprites_deck_indicator.clear()
 
         for x in range(len(Static_Data.get_deck_list().hand)):
-            self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().hand[x].sprite ))
+            self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().hand[x].sprite))
             self.sprites_list_cards_indicator.append(
                 arcade.Sprite(Static_Data.get_deck_list().hand[x].indicator_sprite))
 
         for x in range(len(self.sprites_list_cards)):
-            self.sprites_list_cards[x].center_x = ((self.width /3) + 250 * x) / self.scaling_x
-            self.sprites_list_cards[x].center_y = 250 / self.scaling_y
-            self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x -23
-            self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y -12.5
+            self.sprites_list_cards[x].center_x = ((self.width / 3) + 250 * x) / self.scaling_x
+            self.sprites_list_cards[x].center_y = 150 / self.scaling_y
+            self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x - 23
+            self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y - 12.5
             self.list_of_cards_text.append(make_SpriteList_from_numbers(Static_Data.get_deck_list().hand[x].value,
-                                                                        self.sprites_list_cards[x].center_x -70,
+                                                                        self.sprites_list_cards[x].center_x - 70,
                                                                         self.sprites_list_cards[x].center_y - 12.5))
 
-        self.sprites_deck.append(arcade.Sprite(Enumerators.Sprites.Card.value, 0.20))
+        self.sprites_deck.append(arcade.Sprite(Enumerators.Sprites.Card.value))
         self.sprites_deck[0].center_x = 100 / self.scaling_x
-        self.sprites_deck[0].center_y = 100 / self.scaling_y
+        self.sprites_deck[0].center_y = 150 / self.scaling_y
 
         self.sprites_deck_indicator = make_SpriteList_from_numbers(len(Static_Data.get_deck_list().content),
                                                                    self.sprites_deck[0].center_x,
                                                                    self.sprites_deck[0].center_y + 50)
 
-        self.sprites_list_discard_pile.append(arcade.Sprite(Enumerators.Sprites.Card.value, 0.20))
+        self.sprites_list_discard_pile.append(arcade.Sprite(Enumerators.Sprites.Card.value))
         self.sprites_list_discard_pile[0].center_x = 1820 / self.scaling_x
-        self.sprites_list_discard_pile[0].center_y = 100 / self.scaling_y
+        self.sprites_list_discard_pile[0].center_y = 150 / self.scaling_y
 
         self.sprites_list_discard_pile_indicator = make_SpriteList_from_numbers(
             len(Static_Data.get_deck_list().discard_pile), self.sprites_list_discard_pile[0].center_x,
@@ -184,19 +184,19 @@ class Combat_View(arcade.View):
         self.reward_cards_indicator.clear()
         self.list_of_reward_cards_text = []
         for x in range(len(Static_Data.get_deck_list().list_of_rewards_card)):
-            self.reward_cards.append(arcade.Sprite(Static_Data.get_deck_list().list_of_rewards_card[x].sprite, 0.20))
+            self.reward_cards.append(arcade.Sprite(Static_Data.get_deck_list().list_of_rewards_card[x].sprite))
             self.reward_cards_indicator.append(
-                arcade.Sprite(Static_Data.get_deck_list().list_of_rewards_card[x].indicator_sprite, 0.10))
+                arcade.Sprite(Static_Data.get_deck_list().list_of_rewards_card[x].indicator_sprite))
         length_divider = self.width / 4
         for x in range(len(self.reward_cards)):
             self.reward_cards[x].center_x = length_divider * (x + 1) / self.scaling_x
             self.reward_cards[x].center_y = 550 / self.scaling_y
-            self.reward_cards_indicator[x].center_x = self.reward_cards[x].center_x
-            self.reward_cards_indicator[x].center_y = self.reward_cards[x].center_y + 20
+            self.reward_cards_indicator[x].center_x = self.reward_cards[x].center_x - 23
+            self.reward_cards_indicator[x].center_y = self.reward_cards[x].center_y + 12.5
             self.list_of_reward_cards_text.append(
                 make_SpriteList_from_numbers(Static_Data.get_deck_list().list_of_rewards_card[x].value,
-                                             self.reward_cards[x].center_x,
-                                             self.reward_cards[x].center_y - 15))
+                                             self.reward_cards[x].center_x - 70,
+                                             self.reward_cards[x].center_y - 12.5))
 
     def update_enemies(self):
         self.sprites_list_enemies.clear()
@@ -209,15 +209,15 @@ class Combat_View(arcade.View):
         for x in range(len(Static_Data.get_enemies_to_defeat())):
             self.sprites_list_enemies.append(arcade.Sprite(Static_Data.get_enemies_to_defeat()[x].sprite, 0.10))
             self.sprites_list_enemies_indicator.append(
-                arcade.Sprite(Static_Data.get_enemies_to_defeat()[x].type_of_planned_attack_sprite, 0.10))
+                arcade.Sprite(Static_Data.get_enemies_to_defeat()[x].type_of_planned_attack_sprite))
             self.sprites_list_enemies_health.append(
-                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Healing.value, 0.10))
+                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Healing.value))
             self.sprites_list_enemies_defend.append(
-                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Defend.value, 0.10))
+                arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Defend.value))
         length_divider = self.width / 7
         for x in range(len(self.sprites_list_enemies)):
             self.sprites_list_enemies[x].center_x = length_divider * (x + 1) / self.scaling_x
-            self.sprites_list_enemies[x].center_y = 700 / self.scaling_y
+            self.sprites_list_enemies[x].center_y = 900 / self.scaling_y
             self.sprites_list_enemies_indicator[x].center_x = self.sprites_list_enemies[x].center_x
             self.sprites_list_enemies_indicator[x].center_y = self.sprites_list_enemies[x].center_y + 50
             self.sprites_list_enemies_health[x].center_x = self.sprites_list_enemies[x].center_x
