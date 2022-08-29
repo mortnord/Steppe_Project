@@ -6,8 +6,10 @@ from Static_Data import Static_Data
 
 
 class Hammer(Base_Weapon):
-    text = "A basic hammer"
-    sprite = Enumerators.Equipment_Weapon_Sprite.Steel_Axe.value
+    def __init__(self):
+        super().__init__()
+        self.text = "A basic hammer"
+        self.sprite = Enumerators.Equipment_Weapon_Sprite.Steel_Axe.value
 
     def usage_card_enemy(self, using_card, using_dwarf, using_enemy):
         chance = random.randint(1, 10)

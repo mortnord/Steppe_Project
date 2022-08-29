@@ -3,6 +3,8 @@ from Equipment.Base_Equipment.Base_Equipment import Base_Equipment
 
 
 class Base_Ring(Base_Equipment):
-    sprite = Enumerators.Base_Equipment.Base_Ring.value
-    type = Enumerators.Equipment_types.Ring
-    text = "Does nothing"
+    def __init__(self):
+        super().__init__()
+        self.sprite = Enumerators.Base_Equipment.Base_Ring.value
+        self.type = Enumerators.Equipment_types.Ring
+        self.text = "Does nothing"

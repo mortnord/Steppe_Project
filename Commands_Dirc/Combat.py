@@ -49,7 +49,6 @@ class Combat:
 
     def end_turn_step(self,
                       view):  # Her kan vi legge til effekter som skjer på slutten av en runde, f.eks forgiftning osv
-        self.check_for_deaths()
         Static_Data.set_turn_phase(0)
         view.change_active_dwarf()
         for dwarf in Static_Data.get_list_of_people():
@@ -57,6 +56,14 @@ class Combat:
             dwarf.armor.usage(dwarf)
             dwarf.ring.usage(dwarf)
             dwarf.cloak.usage(dwarf)
+        for enemy in Static_Data.get_enemies_to_defeat():
+            if enemy.debuff_list:
+                for debuff in list(enemy.debuff_list):
+                    if debuff.active is not True:
+                        enemy.debuff_list.remove(debuff)
+                for debuff in enemy.debuff_list:
+                    debuff.usage(enemy)
+        self.check_for_deaths()
 
     def start_step(self, view):
         for dwarf in Static_Data.get_list_of_people():

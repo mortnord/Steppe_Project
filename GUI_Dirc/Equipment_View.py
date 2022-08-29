@@ -62,20 +62,20 @@ class Equipment_View(arcade.View):
                 self.held_item = [equip_click]
         elif button == arcade.MOUSE_BUTTON_RIGHT:
             item_clicked = arcade.get_sprites_at_point((x, y), self.equipment_sprites)
-            for dwarf in self.sprite_equipment_dwarves_list:
+            for z, dwarf in enumerate(self.sprite_equipment_dwarves_list):
                 player_equipment_clicked = arcade.get_sprites_at_point((x, y), dwarf)
 
                 if player_equipment_clicked:
                     nr = dwarf.index(player_equipment_clicked[0])
                     item_object = None
                     if nr == 0:
-                        item_object = dwarf.armor
+                        item_object = Static_Data.get_list_of_people()[z].armor
                     if nr == 1:
-                        item_object = dwarf.weapon
+                        item_object = Static_Data.get_list_of_people()[z].weapon
                     if nr == 2:
-                        item_object = dwarf.ring
+                        item_object = Static_Data.get_list_of_people()[z].ring
                     if nr == 3:
-                        item_object = dwarf.cloak
+                        item_object = Static_Data.get_list_of_people()[z].cloak
                     if item_object is not None:
                         self.manager.add(GUI_Calculations.make_panel_from_item(x, y, item_object))
 

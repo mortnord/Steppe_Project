@@ -33,6 +33,7 @@ class Equipment_Cloak_Sprite(Enum):
 class Equipment_Weapon_Sprite(Enum):
     Steel_Axe = "Assets/Equipment_Sprites/Equipment_Weapons/Steel_Axe.png"
     Hammer = "Assets/Equipment_Sprites/Equipment_Weapons/Steel_Axe.png"
+    Spear = "Assets/Equipment_Sprites/Equipment_Weapons/Spear.png"
 
 
 class TypeOfSheep(Enum):

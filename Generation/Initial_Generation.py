@@ -2,8 +2,11 @@ import random
 
 import Dwarfs_And_Deck.Deck
 import Dwarfs_And_Deck.Dwarfs
+
 from Cards import Attack, Defend
 from Dwarfs_And_Deck import Sheeps
+from Equipment import Spear
+from Inventory import Inventory
 from Map_Dirc import Landscape, Map
 from Static_Data import Static_Data
 
@@ -26,6 +29,7 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
     for x in range(5):  # Legg til 5 av hver attack og defend
         deck_list.content.append(Attack.Attack())
         deck_list.content.append(Defend.Defend())
+    Inventory.equipment.append(Spear.Spear())
     for x in range(dwarfs):  # legg til ønsket mengde dwarfs
         list_of_people.append(Dwarfs_And_Deck.Dwarfs.Dwarf())
     for x in range(male_sheeps):  # Ønsket mengde sauer og sauetyper
