@@ -2,7 +2,7 @@ import Enumerators
 from Static_Data import Static_Data
 
 
-class Building: #Data om diverse buildings, kostnader osv
+class Building:  # Data om diverse buildings, kostnader osv
     Building_ID = None
     cost_to_build_wood = 0
     cost_to_build_stone = 0
@@ -20,6 +20,7 @@ class Silo(Building):
         self.cost_to_build_wood = 4
         self.cost_to_build_stone = 2
 
+
 class Wagon(Building):
     def __init__(self):
         super().__init__()
@@ -27,6 +28,7 @@ class Wagon(Building):
         self.capacity = 20
         self.type_of_building = Enumerators.TypeOfBuilding.Wagon
         self.cost_to_build_wood = 6
+
 
 class Cheesery(Building):
     def __init__(self):

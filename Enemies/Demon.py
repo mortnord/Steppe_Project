@@ -7,7 +7,7 @@ from Enemies.Basic_Enemy import Basic_Enemy
 class Demon(Basic_Enemy):
     def __init__(self):
         super().__init__()
-        self.health = 10 #Demons har 10 liv, og ikke 1
+        self.health = 10  # Demons har 10 liv, og ikke 1
         self.sprite = Enumerators.Sprites.Demon.value
         self.cost = 6
 

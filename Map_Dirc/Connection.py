@@ -1,4 +1,4 @@
-class Map_Connection: #Connection objekt-klassen,
+class Map_Connection:  # Connection objekt-klassen,
     def __init__(self, own_x, own_y, target_x, target_y, distance, nr_region):
         self.own_x = own_x
         self.own_y = own_y

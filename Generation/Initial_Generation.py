@@ -1,15 +1,17 @@
 import random
 
-from Cards import Attack, Quick_Attack, Defend, Heavy_Attack, Healing
-import Dwarfs_And_Deck.Dwarfs, Dwarfs_And_Deck.Deck
-import Sheeps
+import Dwarfs_And_Deck.Deck
+import Dwarfs_And_Deck.Dwarfs
+from Cards import Attack, Defend
+from Dwarfs_And_Deck import Sheeps
 from Map_Dirc import Landscape, Map
 from Static_Data import Static_Data
 
 
 def start_initial_creation():  # Her lager vi oppsettet av objekter
     list_of_people, list_of_sheeps, deck_list = initial_Creation(2, 2, 5, 3,
-                                                                 3)  # Humans, male sheeps, female sheeps, male lambs, female lambs
+                                                                 3)  # dwarfs, male sheeps, female sheeps, male
+    # lambs, female lambs
     Static_Data.set_list_of_people(list_of_people)  # Dwarfs i dwarfs lista
     Static_Data.set_list_of_sheeps(list_of_sheeps)  # sauer i sauelista
     Static_Data.set_deck_list(deck_list)  # kort i kortstokken

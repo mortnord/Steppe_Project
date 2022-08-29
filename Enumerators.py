@@ -79,7 +79,7 @@ class Type_Card_Sprite(Enum):
     Defend = "Assets/Card_Assets/Cards/Defend_Card.png"
     Heavy_Attack = "Assets/Card_Assets/Cards/Heavy_Attack_Card.png"
     Quick_Attack = "Assets/Card_Assets/Cards/Quick_Attack_Card.png"
-    Healing = "Assets/Card_Assets/Cards/Healing.png"
+    Healing = "Assets/Card_Assets/Cards/Healing_Card.png"
 
 class TypeOfPlannedAttack(Enum):
     Attack = "Attack"

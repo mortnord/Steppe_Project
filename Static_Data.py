@@ -65,9 +65,7 @@ class Static_Data():
     def get_map_with_regions(cls):
         return cls.map_with_regions
 
-    @classmethod
-    def full_energy(cls):
-        cls.energy = Background_Calculations.calculate_max_energy()
+
 
     @classmethod
     def get_energy(cls):

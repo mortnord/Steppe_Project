@@ -25,9 +25,10 @@ class Dwarf:  # En dverg
 
     def take_damage(self, value_damage):  # Denne metoden kalles når vi tar skade
         print(self.defend)
-        if self.defend > 0:  # Vis vi har armor, ta først og mist armor.
+        if self.defend:  # Vis vi har armor, ta først og mist armor.
             self.defend = self.defend - value_damage
-            if self.defend < 0:  # Vis vi er på negativ armor (f.eks hadde 3 armor, og tok 4 skade), så mist liv for å komme i null.
+            if self.defend < 0:  # Vis vi er på negativ armor (f.eks hadde 3 armor, og tok 4 skade), så mist liv for
+                # å komme i null.
                 self.health += self.defend
                 self.defend = 0
         else:  # Ingen armor, = bare skade
@@ -35,11 +36,13 @@ class Dwarf:  # En dverg
 
     def use_energy(self, value_energy):
         self.amount_energy -= value_energy
-        if self.amount_energy == 0:
-            return False
-        else:
+        if self.amount_energy:
             return True
+        else:
+            return False
 
     def calculate_bonus_damage(self):
-        self.bonus_attack = self.ring.bonus_attack + self.armor.bonus_attack + self.weapon.bonus_attack + self.cloak.bonus_attack
-        self.bonus_defend = self.ring.bonus_defend + self.armor.bonus_defend + self.weapon.bonus_defend + self.cloak.bonus_defend
+        self.bonus_attack = self.ring.bonus_attack + self.armor.bonus_attack + \
+                            self.weapon.bonus_attack + self.cloak.bonus_attack
+        self.bonus_defend = self.ring.bonus_defend + self.armor.bonus_defend + \
+                            self.weapon.bonus_defend + self.cloak.bonus_defend

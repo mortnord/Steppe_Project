@@ -1,5 +1,5 @@
 import arcade
-from arcade.gui import UIManager, UITextArea, UITexturePane
+from arcade.gui import UIManager
 
 import Enumerators
 import GUI_Calculations
@@ -37,21 +37,21 @@ class Deck_GUI(arcade.View):
         self.sprites_list_cards.draw()
         self.sprites_list_cards_indicator.draw()
         self.sprites_list_cards_energy_indicator.draw()
-        for x in range(len(self.list_of_cards_text)):
-            self.list_of_cards_text[x].draw()
+        for card in self.list_of_cards_text:
+            card.draw()
         self.manager.draw()
 
     def update_cards(self):
         self.sprites_list_cards.clear()
         self.sprites_list_cards_indicator.clear()
         self.list_of_cards_text = []
-        for x in range(len(Static_Data.get_deck_list().content)):
-            self.sprites_list_cards.append(arcade.Sprite(Static_Data.get_deck_list().content[x].sprite, 1))
+        for card in Static_Data.get_deck_list().content:
+            self.sprites_list_cards.append(arcade.Sprite(card.sprite, 1))
             self.sprites_list_cards_indicator.append(
-                arcade.Sprite(Static_Data.get_deck_list().content[x].indicator_sprite, 1))
-            if Static_Data.get_deck_list().content[x].energy_required == 1:
+                arcade.Sprite(card.indicator_sprite, 1))
+            if card.energy_required == 1:
                 self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
-            elif Static_Data.get_deck_list().content[x].energy_required == 2:
+            elif card.energy_required == 2:
                 self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
             else:
                 self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.Free_Energy.value))
@@ -63,10 +63,13 @@ class Deck_GUI(arcade.View):
 
             self.sprites_list_cards[x].center_x = 150 + x_split / self.scaling_x
             self.sprites_list_cards[x].center_y = 800 + y_split / self.scaling_y
+
             self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x - 23
             self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y - 12.5
+
             self.sprites_list_cards_energy_indicator[x].center_x = self.sprites_list_cards[x].center_x - 70
             self.sprites_list_cards_energy_indicator[x].center_y = self.sprites_list_cards[x].center_y + 120.5
+
             self.list_of_cards_text.append(make_SpriteList_from_numbers(Static_Data.get_deck_list().content[x].value,
                                                                         self.sprites_list_cards[x].center_x - 70,
                                                                         self.sprites_list_cards[x].center_y - 12.5))
@@ -90,12 +93,12 @@ class Deck_GUI(arcade.View):
         if button == arcade.MOUSE_BUTTON_LEFT:
 
             UI_clicked = arcade.get_sprites_at_point((x, y), self.other_UI_UI)
-            if len(UI_clicked):
+            if UI_clicked:
                 map_view = GUI.Map_View()
                 map_view.setup()
                 Static_Data.get_window().show_view(map_view)
         elif button == arcade.MOUSE_BUTTON_RIGHT:
             card_clicked = arcade.get_sprites_at_point((x, y), self.sprites_list_cards)
-            if len(card_clicked):
+            if card_clicked:
                 card_object = Static_Data.get_deck_list().content[self.sprites_list_cards.index(card_clicked[0])]
                 self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))

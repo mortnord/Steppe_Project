@@ -13,11 +13,11 @@ def take_Action():  # Dette skjer når en runde går.
 
 
 def milk():  # Man får 1 midlertidig mat per søya man har
-    for x in range(len(Static_Data.get_list_of_sheeps())):
-        if Static_Data.get_list_of_sheeps()[x].type_of_sheep == Enumerators.TypeOfSheep.Ewe:
+    for sheep in Static_Data.get_list_of_sheeps():
+        if sheep.type_of_sheep == Enumerators.TypeOfSheep.Ewe:
             Inventory.set_temporary_food_amount(1)
-    for x in range(
-            len(Static_Data.get_list_of_people())):  # men man spiser 2 temporary food, siden de ikke er like gode, versus 1 vanlig
+    for dwarf in Static_Data.get_list_of_people():  # men man spiser 2 temporary food, siden de ikke er like gode,
+        # versus 1 vanlig
         if Inventory.get_temporary_food_amount() > 0:
             Inventory.set_temporary_food_amount((-2))  # burde kanskje gjøre spising av food en annen plass...
         else:
@@ -25,7 +25,9 @@ def milk():  # Man får 1 midlertidig mat per søya man har
 
 
 def graze():
-    Static_Data.get_current_map().landscape.amount_of_grass -= Static_Data.get_Amount_of_Grass_eating_per_action()  # her spiser vi grass
-    if Static_Data.get_current_map().landscape.amount_of_grass < 0:  # Vis tomt for grass, så begynner de å spise fra silo-grass
+    Static_Data.get_current_map().landscape.amount_of_grass -= Static_Data.get_Amount_of_Grass_eating_per_action()
+    # her spiser vi grass
+    if Static_Data.get_current_map().landscape.amount_of_grass < 0:  # Vis tomt for grass, så begynner de å spise fra
+        # silo-grass
         Inventory.set_grass_amount(Static_Data.get_current_map().landscape.amount_of_grass)
         Static_Data.get_current_map().landscape.amount_of_grass = 0

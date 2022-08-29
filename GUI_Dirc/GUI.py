@@ -30,10 +30,11 @@ class Map_View(arcade.View):
         arcade.set_background_color(arcade.color.AMAZON)
         self.width, self.height = arcade.window_commands.get_display_size()
         self.camera_sprites = arcade.Camera(self.width, self.height)
-        self.camera_correction_x = 300
-        self.camera_correction_y = 300
+
         self.scaling_x = 1920 / self.width
         self.scaling_y = 1080 / self.height
+        self.camera_correction_x = 300
+        self.camera_correction_y = 300
 
     def draw_connections(self):
         for x in range(len(Static_Data.get_map_with_regions())):
@@ -64,25 +65,27 @@ class Map_View(arcade.View):
 
     def generate_region_map_sprites(self):
         self.region_list = arcade.SpriteList()
-        for x in range(len(Static_Data.get_map_with_regions())):
+        for map_region in Static_Data.get_map_with_regions():
             # Create the coin instance
             size = 0.15
-            if Static_Data.get_map_with_regions()[x].landscape.elite_difficulty:
+            if map_region.landscape.elite_difficulty:
                 size = 0.40
-            if Static_Data.get_map_with_regions()[x].landscape.type_of_landscape == Enumerators.Landscapes.Steppes:
+            if map_region.landscape.type_of_landscape == Enumerators.Landscapes.Steppes:
                 coin = arcade.Sprite(Enumerators.Landscapes_sprites.Steppes.value, size)
-            elif Static_Data.get_map_with_regions()[x].landscape.type_of_landscape == Enumerators.Landscapes.Wooded:
+            elif map_region.landscape.type_of_landscape == Enumerators.Landscapes.Wooded:
                 coin = arcade.Sprite(Enumerators.Landscapes_sprites.Wooded.value, size)
-            elif Static_Data.get_map_with_regions()[x].landscape.type_of_landscape == Enumerators.Landscapes.Hills:
+            elif map_region.landscape.type_of_landscape == Enumerators.Landscapes.Hills:
                 coin = arcade.Sprite(Enumerators.Landscapes_sprites.Hills.value, size)
             else:
                 coin = arcade.Sprite("Assets/coinGold_ul.png",
                                      0.25)
             # Position the coin
-            coin.center_x = Static_Data.get_map_with_regions()[x].x_position / self.scaling_x
 
-            coin.center_y = Static_Data.get_map_with_regions()[x].y_position / self.scaling_y
+            coin.center_x = map_region.x_position
+            coin.center_y = map_region.y_position
 
+            print(coin.center_y)
+            print(coin.center_x)
             # Add the coin to the lists
             self.region_list.append(coin)
 
@@ -100,10 +103,10 @@ class Map_View(arcade.View):
         self.sheep_list.draw()
         self.other_UI_UI.draw()
 
-        for x in range(len(self.list_of_items_UI)):
-            self.list_of_items_UI[x].draw()
-        for x in range(len(self.list_of_sheep_nr)):
-            self.list_of_sheep_nr[x].draw()
+        for items in self.list_of_items_UI:
+            items.draw()
+        for sheep in self.list_of_sheep_nr:
+            sheep.draw()
 
     def on_update(self, delta_time: float):
 
@@ -126,7 +129,7 @@ class Map_View(arcade.View):
         sheep_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.list_of_sheep_nr[1])
         rams_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.list_of_sheep_nr[0])
         UI_clicked = arcade.get_sprites_at_point((x - 300, y - 300), self.other_UI_UI)
-        if len(map_region_selected) > 0:
+        if map_region_selected:
             possible_areas = Migration.create_next_areas()
             if Static_Data.get_map_with_regions()[self.region_list.index(map_region_selected[0])] in possible_areas:
 
@@ -139,9 +142,9 @@ class Map_View(arcade.View):
                     combat_view.setup()
                     Static_Data.get_window().show_view(combat_view)
 
-        if len(button_clicked):
+        if button_clicked:
 
-            if Static_Data.get_Actions_Available() > 0:
+            if Static_Data.get_Actions_Available():
                 if button_clicked[0] == self.harvest_button[0]:
                     Harvest_Commands.harvest_grass(len(Static_Data.get_list_of_people()))
                 elif button_clicked[0] == self.harvest_button[1]:
@@ -153,16 +156,16 @@ class Map_View(arcade.View):
                 elif button_clicked[0] == self.harvest_button[4]:
                     Turn_And_Background_Actions.turn_action.take_Action()
                 Background_Calculations.background_info()
-        if len(milk_clicked):
-            if Static_Data.get_Actions_Available() > 0:
+        if milk_clicked:
+            if Static_Data.get_Actions_Available():
                 if milk_clicked[0] == self.food_list[1]:
                     Inventory_and_herd_management.conserve_food()
-        if len(sheep_clicked):
+        if sheep_clicked:
             Inventory_and_herd_management.slaughter_sheep(Enumerators.TypeOfSheep.Ewe, 1)
 
-        if len(rams_clicked):
+        if rams_clicked:
             Inventory_and_herd_management.slaughter_sheep(Enumerators.TypeOfSheep.Ram, 1)
-        if len(UI_clicked):
+        if UI_clicked:
             if UI_clicked[0] == self.other_UI_UI[0]:
                 deck_view = Deck_GUI.Deck_GUI()
                 deck_view.setup()
@@ -181,25 +184,25 @@ class Map_View(arcade.View):
         self.harvest_button.append(arcade.Sprite(Enumerators.Button_Sprites.Harvest_Stone.value, 0.50))
         self.harvest_button.append(arcade.Sprite(Enumerators.Button_Sprites.Harvest_Fish.value, 0.50))
         self.harvest_button.append(arcade.Sprite(Enumerators.Button_Sprites.Pass.value, 0.50))
-        for x in range(len(self.harvest_button)):
-            self.harvest_button[x].center_x = (400 + 55 * x) / self.scaling_x
-            self.harvest_button[x].center_y = 600 / self.scaling_y
+        for x, harvest_button in enumerate(self.harvest_button):
+            harvest_button.center_x = (400 + 55 * x) / self.scaling_x
+            harvest_button.center_y = 600 / self.scaling_y
 
         self.harvest_info.append(arcade.Sprite(Enumerators.Landscapes_sprites.Steppes.value, 0.15))
         self.harvest_info.append(arcade.Sprite(Enumerators.Landscapes_sprites.Wooded.value, 0.15))
         self.harvest_info.append(arcade.Sprite(Enumerators.Landscapes_sprites.Hills.value, 0.15))
-        for x in range(len(self.harvest_info)):
-            self.harvest_info[x].center_x = self.harvest_button[x].center_x
-            self.harvest_info[x].center_y = self.harvest_button[x].center_y + 50
+        for x, harvest_info in enumerate(self.harvest_info):
+            harvest_info.center_x = self.harvest_button[x].center_x
+            harvest_info.center_y = self.harvest_button[x].center_y + 50
 
     def generate_sheep_UI(self):
         self.sheep_list.clear()
 
         self.sheep_list.append(arcade.Sprite(Enumerators.Sprites.Sheep.value, 0.03))
         self.sheep_list.append(arcade.Sprite(Enumerators.Sprites.Lamb.value, 0.03))
-        for x in range(len(self.sheep_list)):
-            self.sheep_list[x].center_x = (1000 + x * 50) / self.scaling_x
-            self.sheep_list[x].center_y = 600 / self.scaling_y
+        for x, sheep in enumerate(self.sheep_list):
+            sheep.center_x = (1000 + x * 50) / self.scaling_x
+            sheep.center_y = 600 / self.scaling_y
         self.update_sheep_nr_slaughter()
 
     def generate_inventory_UI(self):
@@ -207,9 +210,9 @@ class Map_View(arcade.View):
 
         self.food_list.append(arcade.Sprite(Enumerators.Sprites.Meat.value, 0.20))
         self.food_list.append(arcade.Sprite(Enumerators.Sprites.Milk.value, 0.20))
-        for x in range(len(self.food_list)):
-            self.food_list[x].center_x = (250 + 55 * x) / self.scaling_x
-            self.food_list[x].center_y = 600 / self.scaling_y
+        for x, food in enumerate(self.food_list):
+            food.center_x = (250 + 55 * x) / self.scaling_x
+            food.center_y = 600 / self.scaling_y
 
     def update_number_sprites(self):
         self.actions_UI = GUI_Calculations.make_SpriteList_from_numbers(int(Static_Data.get_Actions_Available()),

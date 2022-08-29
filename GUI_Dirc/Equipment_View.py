@@ -35,8 +35,8 @@ class Equipment_View(arcade.View):
         self.clear()
         self.other_UI_UI.draw()
         self.sprite_dwarves.draw()
-        for x in range(len(self.sprite_equipment_dwarves_list)):
-            self.sprite_equipment_dwarves_list[x].draw()
+        for equipment in self.sprite_equipment_dwarves_list:
+            equipment.draw()
 
         self.equipment_sprites.draw()
         self.manager.draw()
@@ -52,47 +52,46 @@ class Equipment_View(arcade.View):
         self.manager.clear()
         if button == arcade.MOUSE_BUTTON_LEFT:
             UI_clicked = arcade.get_sprites_at_point((x, y), self.other_UI_UI)
-            if len(UI_clicked):
+            if UI_clicked:
                 map_view = GUI.Map_View()
                 map_view.setup()
                 Static_Data.get_window().show_view(map_view)
             equipment_clicked = arcade.get_sprites_at_point((x, y), self.equipment_sprites)
-            if len(equipment_clicked):
+            if equipment_clicked:
                 equip_click = equipment_clicked[-1]
                 self.held_item = [equip_click]
         elif button == arcade.MOUSE_BUTTON_RIGHT:
             item_clicked = arcade.get_sprites_at_point((x, y), self.equipment_sprites)
-            for z in range(len(self.sprite_equipment_dwarves_list)):
-                player_equipment_clicked = arcade.get_sprites_at_point((x, y), self.sprite_equipment_dwarves_list[z])
+            for dwarf in self.sprite_equipment_dwarves_list:
+                player_equipment_clicked = arcade.get_sprites_at_point((x, y), dwarf)
 
-                if len(player_equipment_clicked):
-                    nr = self.sprite_equipment_dwarves_list[z].index(player_equipment_clicked[0])
+                if player_equipment_clicked:
+                    nr = dwarf.index(player_equipment_clicked[0])
                     item_object = None
                     if nr == 0:
-                        item_object = Static_Data.get_list_of_people()[z].armor
+                        item_object = dwarf.armor
                     if nr == 1:
-                        item_object = Static_Data.get_list_of_people()[z].weapon
+                        item_object = dwarf.weapon
                     if nr == 2:
-                        item_object = Static_Data.get_list_of_people()[z].ring
+                        item_object = dwarf.ring
                     if nr == 3:
-                        item_object = Static_Data.get_list_of_people()[z].cloak
+                        item_object = dwarf.cloak
                     if item_object is not None:
                         self.manager.add(GUI_Calculations.make_panel_from_item(x, y, item_object))
 
-            if len(item_clicked):
+            if item_clicked:
                 item_object = Inventory.equipment[self.equipment_sprites.index(item_clicked[0])]
                 self.manager.add(GUI_Calculations.make_panel_from_item(x, y, item_object))
 
     def update_dwarves(self):
         self.sprite_dwarves.clear()
         self.sprite_equipment_dwarves_list.clear()
-        for x in range(len(Static_Data.get_list_of_people())):
-            self.sprite_dwarves.append(arcade.Sprite(Static_Data.get_list_of_people()[x].sprite, 0.10))
+        for dwarf in Static_Data.get_list_of_people():
+            self.sprite_dwarves.append(arcade.Sprite(dwarf.sprite, 0.10))
         length_divider = self.width / 4
         for x in range(len(self.sprite_dwarves)):
             self.sprite_dwarves[x].center_x = length_divider * (x + 1) / self.scaling_x
             self.sprite_dwarves[x].center_y = 700 / self.scaling_y
-        for x in range(len(self.sprite_dwarves)):
             self.sprite_equipment_dwarves_list.append(
                 GUI_Calculations.make_SpriteList_from_equipment_list(Static_Data.get_list_of_people()[x],
                                                                      self.sprite_dwarves[x], self.scaling_x, self.scaling_y))
@@ -138,14 +137,14 @@ class Equipment_View(arcade.View):
 
     def update_equipment(self):
         self.equipment_sprites.clear()
-        for x in range(len(Inventory.equipment)):
-            self.equipment_sprites.append(arcade.Sprite(Inventory.equipment[x].sprite, 0.20))
+        for equipment in Inventory.equipment:
+            self.equipment_sprites.append(arcade.Sprite(equipment.sprite, 0.20))
         cards_in_a_row = 0
         y_split = 0
         x_split = 0
-        for x in range(len(self.equipment_sprites)):
-            self.equipment_sprites[x].center_x = 150 + x_split / self.scaling_x
-            self.equipment_sprites[x].center_y = 300 + y_split / self.scaling_y
+        for equipment in self.equipment_sprites:
+            equipment.center_x = 150 + x_split / self.scaling_x
+            equipment.center_y = 300 + y_split / self.scaling_y
             x_split += 70
             cards_in_a_row += 1
             if cards_in_a_row > 9:

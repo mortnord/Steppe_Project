@@ -2,7 +2,6 @@ import random
 
 import Enumerators
 from Enemies.Basic_Enemy import Basic_Enemy
-from Static_Data import Static_Data
 
 
 class Slime(Basic_Enemy):

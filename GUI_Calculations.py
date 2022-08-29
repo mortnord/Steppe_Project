@@ -9,35 +9,36 @@ def make_SpriteList_from_numbers(number_inn, x_position_inn, y_position_inn):
     sprite_list_temporary = arcade.SpriteList()
     SIZE_CONSTANT = 0.30
     string_number = str(number_inn)
-    for x in range(len(string_number)):
-        if string_number[x] == "0":
+    for number in string_number:
+        if number == "0":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Zero.value, SIZE_CONSTANT))
-        elif string_number[x] == "1":
+        elif number == "1":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.One.value, SIZE_CONSTANT))
-        elif string_number[x] == "2":
+        elif number == "2":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Two.value, SIZE_CONSTANT))
-        elif string_number[x] == "3":
+        elif number == "3":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Three.value, SIZE_CONSTANT))
-        elif string_number[x] == "4":
+        elif number == "4":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Four.value, SIZE_CONSTANT))
-        elif string_number[x] == "5":
+        elif number == "5":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Five.value, SIZE_CONSTANT))
-        elif string_number[x] == "6":
+        elif number == "6":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Six.value, SIZE_CONSTANT))
-        elif string_number[x] == "7":
+        elif number == "7":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Seven.value, SIZE_CONSTANT))
-        elif string_number[x] == "8":
+        elif number == "8":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Eight.value, SIZE_CONSTANT))
-        elif string_number[x] == "9":
+        elif number == "9":
             sprite_list_temporary.append(arcade.Sprite(Enumerators.Numbers.Nine.value, SIZE_CONSTANT))
-    for x in range(len(sprite_list_temporary)):
-        sprite_list_temporary[x].center_x = x_position_inn + (x * 24)
-        sprite_list_temporary[x].center_y = y_position_inn
+    for x, temp_list in enumerate(sprite_list_temporary):
+        temp_list.center_x = x_position_inn + (x * 24)
+        temp_list.center_y = y_position_inn
     return sprite_list_temporary
 
-def create_card_indicators_from_backend():
 
+def create_card_indicators_from_backend():
     pass
+
 
 def make_SpriteList_from_equipment_list(dwarf_in_backend, dwarf_in_frontend, scaling_x, scaling_y):
     equipment_sprite_list = arcade.SpriteList()
@@ -45,9 +46,9 @@ def make_SpriteList_from_equipment_list(dwarf_in_backend, dwarf_in_frontend, sca
     equipment_sprite_list.append(arcade.Sprite(dwarf_in_backend.weapon.sprite, 0.20))
     equipment_sprite_list.append(arcade.Sprite(dwarf_in_backend.ring.sprite, 0.20))
     equipment_sprite_list.append(arcade.Sprite(dwarf_in_backend.cloak.sprite, 0.20))
-    for x in range(len(equipment_sprite_list)):
-        equipment_sprite_list[x].center_x = (dwarf_in_frontend.center_x + 50)/scaling_x
-        equipment_sprite_list[x].center_y = (dwarf_in_frontend.center_y - 75 + (50 * x))/scaling_y
+    for x, equipment in enumerate(equipment_sprite_list):
+        equipment.center_x = (dwarf_in_frontend.center_x + 50) / scaling_x
+        equipment.center_y = (dwarf_in_frontend.center_y - 75 + (50 * x)) / scaling_y
     return equipment_sprite_list
 
 

@@ -1,11 +1,11 @@
 import Enumerators
-from Commands_Dirc import Combat, Deck_management
+from Commands_Dirc import Deck_management
 from Events.Combat_Event import combat_event
 from Static_Data import Static_Data
 from Static_Data_Bools import Static_Data_Bools
 
 
-def handle_event(): #Vis vi er i en by, skip event
+def handle_event():  # Vis vi er i en by, skip event
     if Static_Data.get_current_map().landscape.type_of_landscape == Enumerators.Landscapes.City:
         pass
     else:
