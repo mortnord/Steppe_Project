@@ -10,6 +10,7 @@ class Card:
         self.one_time = False  # Kan brukes som flag senere for å indikere att kortet er one-time-use per kamp
         self.sprite = Enumerators.Sprites.Card.value
         self.indicator_sprite = None
+        self.indicator_sprite_secondary = None
 
     def usage_card_equipment(self, using_card, using_dwarf):
         using_dwarf.cloak.usage_card(using_card, using_dwarf)

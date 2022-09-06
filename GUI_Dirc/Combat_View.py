@@ -16,8 +16,13 @@ class Combat_View(arcade.View):
 
     def __init__(self):
         super().__init__()
-        self.indicator_text_label = []
-        self.info_text_label = []
+        self.list_of_reward_card_indicator_text = []
+        self.list_of_reward_card_text = []
+        self.list_of_card_sprite_lists = []
+        self.list_of_card_text = []
+        self.list_of_card_indicator_text = []
+
+        self.list_of_reward_cards = []
         self.random_item = None
         self.combat_class = Combat.Combat()
         self.active_dwarf = None
@@ -34,11 +39,6 @@ class Combat_View(arcade.View):
         self.list_of_dwarf_health = []
         self.sprites_list_dwarves = arcade.SpriteList()
 
-        self.sprites_list_cards = arcade.SpriteList()
-        self.sprites_list_cards_indicator = arcade.SpriteList()
-        self.sprites_list_cards_energy_indicator = arcade.SpriteList()
-        self.list_of_cards_text = []
-
         self.sprites_list_discard_pile = arcade.SpriteList()
         self.sprites_list_discard_pile_indicator = arcade.SpriteList()
         self.sprites_deck = arcade.SpriteList()
@@ -52,17 +52,12 @@ class Combat_View(arcade.View):
         self.list_of_enemy_indicator = []
         self.sprites_list_enemies = arcade.SpriteList()
 
-        self.held_card_indicator = []
-        self.held_card = []
-        self.held_card_energy_indicator = []
+        self.held_card = None
         self.held_info_text = None
-        self.held_indicator_text_label = None
+        self.held_box_of_text = None
+        self.held_card_nr = None
 
-        self.reward_cards = arcade.SpriteList()
-        self.reward_cards_indicator = arcade.SpriteList()
-        self.reward_cards_indicator_energy = arcade.SpriteList()
         self.reward_item = arcade.SpriteList()
-        self.list_of_reward_cards_text = []
 
         self.width, self.height = arcade.window_commands.get_display_size()
         self.scaling_x = 1920 / self.width
@@ -154,59 +149,50 @@ class Combat_View(arcade.View):
         self.end_turn[0].center_y = self.sprites_list_dwarves[0].center_y
 
     def update_cards(self):
-        self.sprites_list_cards.clear()
-        self.sprites_list_cards_indicator.clear()
-        self.sprites_list_cards_energy_indicator.clear()
-        self.list_of_cards_text = []
+
+        self.list_of_card_sprite_lists.clear()
+        self.list_of_card_text.clear()
+        self.list_of_card_indicator_text.clear()
+        self.text_manager = UIManager()
+        self.text_manager.enable()
 
         self.sprites_list_discard_pile.clear()
         self.sprites_list_discard_pile_indicator.clear()
         self.sprites_deck.clear()
         self.sprites_deck_indicator.clear()
 
-        self.indicator_text_label.clear()
-        self.text_manager.clear()
-
         for card in Static_Data.get_deck_list().hand:
-            self.sprites_list_cards.append(arcade.Sprite(card.sprite))
-            self.sprites_list_cards_indicator.append(
-                arcade.Sprite(card.indicator_sprite))
-            if card.energy_required == 1:
-                self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
-            elif card.energy_required == 2:
-                self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
-            else:
-                self.sprites_list_cards_energy_indicator.append(arcade.Sprite(Enumerators.Sprites.Free_Energy.value))
-        self.text_manager.clear()
-        for x in range(len(self.sprites_list_cards)):
-            self.sprites_list_cards[x].center_x = ((self.width / 3) + 250 * x) / self.scaling_x
-            self.sprites_list_cards[x].center_y = 150 / self.scaling_y
+            self.list_of_card_sprite_lists.append(GUI_Calculations.make_card_sprite_list_from_backend(card))
+        for x, sprite_lists in enumerate(self.list_of_card_sprite_lists):
+            sprite_lists[0].center_x = ((self.width / 3) + 250 * x) / self.scaling_x
+            sprite_lists[0].center_y = 150 / self.scaling_y
+            sprite_lists[1].center_x = sprite_lists[0].center_x - 70
+            sprite_lists[1].center_y = sprite_lists[0].center_y + 120.5
+            sprite_lists[2].center_x = sprite_lists[0].center_x - 23
+            sprite_lists[2].center_y = sprite_lists[0].center_y - 12.5
+            sprite_lists[3].center_x = sprite_lists[0].center_x + 66
+            sprite_lists[3].center_y = sprite_lists[0].center_y - 12.5
+            self.list_of_card_text.append(arcade.gui.UILabel(x=sprite_lists[0].center_x - 80,
+                                                             y=sprite_lists[0].center_y - 30,
+                                                             text=str(Static_Data.get_deck_list().hand[
+                                                                          x].value),
+                                                             width=50, height=50, font_size=24,
+                                                             font_name="Arial",
+                                                             text_color=arcade.color.BLACK))
 
-            self.sprites_list_cards_indicator[x].center_x = self.sprites_list_cards[x].center_x - 23
-            self.sprites_list_cards_indicator[x].center_y = self.sprites_list_cards[x].center_y - 12.5
-
-            self.sprites_list_cards_energy_indicator[x].center_x = self.sprites_list_cards[x].center_x - 70
-            self.sprites_list_cards_energy_indicator[x].center_y = self.sprites_list_cards[x].center_y + 120.5
-
-            self.indicator_text_label.append(arcade.gui.UITextArea(x=self.sprites_list_cards_indicator[x].center_x - 55,
-                                                                   y=self.sprites_list_cards_indicator[x].center_y - 20,
-                                                                   text=str(
-                                                                       Static_Data.get_deck_list().hand[x].value),
-                                                                   width=1, height=1, font_size=24,
-                                                                   font_name="Arial",
-                                                                   text_color=arcade.color.BLACK))
-            self.info_text_label.append(arcade.gui.UITextArea(x=self.sprites_list_cards_indicator[x].center_x - 50,
-                                                              y=self.sprites_list_cards_indicator[x].center_y - 50,
-                                                              text=GUI_Calculations.create_card_text_from_backend(
-                                                                  Static_Data.get_deck_list().hand[x]),
-                                                              width=1, height=1, font_size=10,
-                                                              font_name="Arial",
-                                                              text_color=arcade.color.BLACK))
-            self.indicator_text_label[x].fit_content()
-            self.info_text_label[x].fit_content()
-            self.text_manager.add(self.indicator_text_label[x])
-            self.text_manager.add(self.info_text_label[x])
-
+            self.list_of_card_indicator_text.append(arcade.gui.UILabel(x=sprite_lists[0].center_x - 80,
+                                                                       y=sprite_lists[0].center_y - 80,
+                                                                       text=GUI_Calculations.create_card_text_from_backend(
+                                                                           Static_Data.get_deck_list().hand[x]),
+                                                                       width=50, height=50, font_size=10,
+                                                                       font_name="Arial",
+                                                                       text_color=arcade.color.BLACK))
+        for text in self.list_of_card_text:
+            text.fit_content()
+            self.text_manager.add(text)
+        for text2 in self.list_of_card_indicator_text:
+            text2.fit_content()
+            self.text_manager.add(text2)
         self.sprites_deck.append(arcade.Sprite(Enumerators.Sprites.Card.value))
         self.sprites_deck[0].center_x = 100 / self.scaling_x
         self.sprites_deck[0].center_y = 150 / self.scaling_y
@@ -224,34 +210,41 @@ class Combat_View(arcade.View):
             self.sprites_list_discard_pile[0].center_y + 50)
 
     def update_rewards_card(self):
-        self.reward_cards.clear()
-        self.reward_cards_indicator.clear()
-        self.reward_cards_indicator_energy.clear()
-        self.list_of_reward_cards_text = []
         for card in Static_Data.get_deck_list().list_of_rewards_card:
-            self.reward_cards.append(arcade.Sprite(card.sprite))
-            self.reward_cards_indicator.append(arcade.Sprite(card.indicator_sprite))
-            if card.energy_required == 1:
-                self.reward_cards_indicator_energy.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
-            elif card.energy_required == 2:
-                self.reward_cards_indicator_energy.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
-            else:
-                self.reward_cards_indicator_energy.append(arcade.Sprite(Enumerators.Sprites.Free_Energy.value))
+            self.list_of_reward_cards.append(GUI_Calculations.make_card_sprite_list_from_backend(card))
         length_divider = self.width / 4
-        for x in range(len(self.reward_cards)):
-            self.reward_cards[x].center_x = length_divider * (x + 1) / self.scaling_x
-            self.reward_cards[x].center_y = 550 / self.scaling_y
+        for x, sprite_lists in enumerate(self.list_of_reward_cards):
+            sprite_lists[0].center_x = length_divider * (x + 1) / self.scaling_x
+            sprite_lists[0].center_y = 650 / self.scaling_y
+            sprite_lists[1].center_x = sprite_lists[0].center_x - 70
+            sprite_lists[1].center_y = sprite_lists[0].center_y + 120.5
+            sprite_lists[2].center_x = sprite_lists[0].center_x - 23
+            sprite_lists[2].center_y = sprite_lists[0].center_y - 12.5
+            sprite_lists[3].center_x = sprite_lists[0].center_x + 66
+            sprite_lists[3].center_y = sprite_lists[0].center_y - 12.5
+            self.list_of_reward_card_text.append(arcade.gui.UILabel(x=sprite_lists[0].center_x - 80,
+                                                                    y=sprite_lists[0].center_y - 30,
+                                                                    text=str(
+                                                                        Static_Data.get_deck_list().list_of_rewards_card[
+                                                                            x].value),
+                                                                    width=50, height=50, font_size=24,
+                                                                    font_name="Arial",
+                                                                    text_color=arcade.color.BLACK))
 
-            self.reward_cards_indicator[x].center_x = self.reward_cards[x].center_x - 23
-            self.reward_cards_indicator[x].center_y = self.reward_cards[x].center_y - 12.5
-
-            self.reward_cards_indicator_energy[x].center_x = self.reward_cards[x].center_x - 70
-            self.reward_cards_indicator_energy[x].center_y = self.reward_cards[x].center_y + 120.5
-
-            self.list_of_reward_cards_text.append(make_SpriteList_from_numbers(
-                Static_Data.get_deck_list().list_of_rewards_card[x].value,
-                self.reward_cards[x].center_x - 70,
-                self.reward_cards[x].center_y - 12.5))
+            self.list_of_reward_card_indicator_text.append(arcade.gui.UILabel(x=sprite_lists[0].center_x - 80,
+                                                                              y=sprite_lists[0].center_y - 80,
+                                                                              text=GUI_Calculations.create_card_text_from_backend(
+                                                                                  Static_Data.get_deck_list().list_of_rewards_card[
+                                                                                      x]),
+                                                                              width=50, height=50, font_size=10,
+                                                                              font_name="Arial",
+                                                                              text_color=arcade.color.BLACK))
+        for text in self.list_of_reward_card_text:
+            text.fit_content()
+            self.text_manager.add(text)
+        for text2 in self.list_of_reward_card_indicator_text:
+            text2.fit_content()
+            self.text_manager.add(text2)
 
     def update_enemies(self):
         self.sprites_list_enemies.clear()
@@ -300,19 +293,12 @@ class Combat_View(arcade.View):
         """ Draw this view """
 
         self.clear()
-
         self.sprites_list_enemies.draw()
-        self.sprites_list_cards.draw()
         self.sprites_deck.draw()
         self.sprites_deck_indicator.draw()
         self.sprites_list_discard_pile.draw()
         self.sprites_list_discard_pile_indicator.draw()
         self.sprites_list_dwarves.draw()
-
-        self.sprites_list_cards_indicator.draw()
-        self.sprites_list_cards_energy_indicator.draw()
-        for number in self.list_of_cards_text:
-            number.draw()
 
         self.sprites_list_enemies_indicator.draw()
         for number in self.list_of_enemy_indicator:
@@ -335,16 +321,15 @@ class Combat_View(arcade.View):
         for number in self.list_of_dwarf_energy:
             number.draw()
 
+        for sprite_list in self.list_of_card_sprite_lists:
+            sprite_list.draw()
         self.active_dwarf_pointer.draw()
         self.end_turn.draw()
         self.draw_text()
         self.reward_item.draw()
         if Static_Data_Bools.get_reward():
-            self.reward_cards.draw()
-            self.reward_cards_indicator.draw()
-            for number in self.list_of_reward_cards_text:
-                number.draw()
-        self.reward_cards_indicator_energy.draw()
+            for sprite_list in self.list_of_reward_cards:
+                sprite_list.draw()
 
         self.text_manager.draw()
         self.manager.draw()
@@ -376,27 +361,19 @@ class Combat_View(arcade.View):
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         self.manager.clear()
+
         if button == arcade.MOUSE_BUTTON_LEFT:
-            card = arcade.get_sprites_at_point((x, y), self.sprites_list_cards)
+            sprite_list_nr = 0
+            for sprite_list in self.list_of_card_sprite_lists:
 
-            if card:
-                primary_card = card[-1]
-                self.held_card = [primary_card]
-
-                indicator, distance = arcade.get_closest_sprite(self.held_card[0], self.sprites_list_cards_indicator)
-
-                self.held_card_indicator = [indicator]
-                self.closest_card_picking_up = 10000
-                for card in self.list_of_cards_text:
-                    text, distance = arcade.get_closest_sprite(self.held_card[0], card)
-                    if distance < self.closest_card_picking_up:
-                        self.held_card_text = [text]
-                        self.closest_card_picking_up = distance
-                energy_indicator, distance = arcade.get_closest_sprite(self.held_card[0],
-                                                                       self.sprites_list_cards_energy_indicator)
-                self.held_card_energy_indicator = [energy_indicator]
-                self.held_indicator_text_label = self.indicator_text_label[self.sprites_list_cards.index(card[0])]
-                self.held_info_text = self.info_text_label[self.sprites_list_cards.index(card[0])]
+                card_clicked = arcade.get_sprites_at_point((x, y), sprite_list)
+                if card_clicked:
+                    self.held_card = self.list_of_card_sprite_lists[sprite_list_nr]
+                    self.held_info_text = self.list_of_card_text[sprite_list_nr]
+                    self.held_box_of_text = self.list_of_card_indicator_text[sprite_list_nr]
+                    self.held_card_nr = sprite_list_nr
+                else:
+                    sprite_list_nr += 1
             end_turn = arcade.get_sprites_at_point((x, y), self.end_turn)
             if end_turn:
                 self.combat_class.end_player_turn()
@@ -406,39 +383,54 @@ class Combat_View(arcade.View):
                 self.active_dwarf = Static_Data.get_list_of_people()[nr_dwarf]
                 self.update_dwarves()
                 # set Active dwarf her
-            reward_card = arcade.get_sprites_at_point((x, y), self.reward_cards)
-            if reward_card:
-                Static_Data.get_deck_list().content.append(
-                    Static_Data.get_deck_list().list_of_rewards_card[self.reward_cards.index(reward_card[0])])
-                Static_Data.get_deck_list().list_of_rewards_card.clear()
-                Static_Data_Bools.set_took_reward(True)
+            sprite_list_nr = 0
+            for sprite_list in self.list_of_reward_cards:
+
+                card_clicked = arcade.get_sprites_at_point((x, y), sprite_list)
+                if card_clicked:
+                    Static_Data.get_deck_list().content.append(
+                        Static_Data.get_deck_list().list_of_rewards_card[sprite_list_nr])
+                    Static_Data.get_deck_list().list_of_rewards_card.clear()
+                    Static_Data_Bools.set_took_reward(True)
+                else:
+                    sprite_list_nr += 1
+
         elif button == arcade.MOUSE_BUTTON_RIGHT:
-            card_clicked = arcade.get_sprites_at_point((x, y), self.sprites_list_cards)
-            if card_clicked:
-                card_object = Static_Data.get_deck_list().hand[self.sprites_list_cards.index(card_clicked[0])]
-                self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))
-            reward_clicked = arcade.get_sprites_at_point((x, y), self.reward_cards)
-            if reward_clicked:
-                card_object = Static_Data.get_deck_list().list_of_rewards_card[
-                    self.reward_cards.index(reward_clicked[0])]
-                self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))
+            sprite_list_nr = 0
+            for sprite_list in self.list_of_card_sprite_lists:
+
+                card_clicked = arcade.get_sprites_at_point((x, y), sprite_list)
+                if card_clicked:
+                    card_object = Static_Data.get_deck_list().content[sprite_list_nr]
+                    self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))
+                else:
+                    sprite_list_nr += 1
+            sprite_list_nr = 0
+            for sprite_list in self.list_of_reward_cards:
+
+                card_clicked = arcade.get_sprites_at_point((x, y), sprite_list)
+                if card_clicked:
+                    card_object = Static_Data.get_deck_list().list_of_rewards_card[sprite_list_nr]
+                    self.manager.add(GUI_Calculations.make_panel_from_card(x, y, card_object))
+                else:
+                    sprite_list_nr += 1
             item_reward_clicked = arcade.get_sprites_at_point((x, y), self.reward_item)
             if item_reward_clicked:
                 item_object = Inventory.equipment[len(Inventory.equipment) - 1]
                 self.manager.add(GUI_Calculations.make_panel_from_item(x, y, item_object))
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
-
-        for card, indicator, energy_indicator, in zip(self.held_card, self.held_card_indicator,
-                                                      self.held_card_energy_indicator):
-            card.center_x += dx
-            card.center_y += dy
-            indicator.center_x += dx
-            indicator.center_y += dy
-            energy_indicator.center_x += dx
-            energy_indicator.center_y += dy
-        if self.held_indicator_text_label:
-            self.held_indicator_text_label.move(dx, dy)
+        if self.held_card:
+            self.held_card[0].center_x += dx
+            self.held_card[0].center_y += dy
+            self.held_card[1].center_x += dx
+            self.held_card[1].center_y += dy
+            self.held_card[2].center_x += dx
+            self.held_card[2].center_y += dy
+            self.held_card[3].center_x += dx
+            self.held_card[3].center_y += dy
+            self.held_info_text.move(dx, dy)
+            self.held_box_of_text.move(dx, dy)
 
     def on_mouse_release(self, x: int, y: int, button: int, modifiers: int):
 
@@ -449,33 +441,30 @@ class Combat_View(arcade.View):
         dwarfs, distance_dwarfs = arcade.get_closest_sprite(self.held_card[0], self.sprites_list_dwarves)
 
         if arcade.check_for_collision(self.held_card[0], enemies):
-            result = self.combat_class.player_use_card_round(self.sprites_list_cards.index(self.held_card[0]),
+            result = self.combat_class.player_use_card_round(self.held_card_nr,
                                                              self.sprites_list_enemies.index(enemies),
                                                              self.active_dwarf)
             if result:
                 self.change_active_dwarf()
-                self.update_cards()
                 self.update_enemies()
                 self.update_dwarves()
         if arcade.check_for_collision(self.held_card[0], dwarfs):
-            result = self.combat_class.player_use_card_round(self.sprites_list_cards.index(self.held_card[0]),
+            result = self.combat_class.player_use_card_round(self.held_card_nr,
                                                              self.sprites_list_dwarves.index(dwarfs),
                                                              self.active_dwarf)
             if result:
                 self.change_active_dwarf()
-                self.update_cards()
                 self.update_enemies()
                 self.update_dwarves()
 
-        # We are no longer holding cards
         self.held_card = []
-        self.held_card_indicator = []
-        self.held_indicator_text_label = None
+        self.held_box_of_text = []
+        self.held_info_text = []
         self.update_cards()
 
     def draw_rewards_item(self, random_item):
         self.random_item = random_item
         length_divider = self.width / 4
         self.reward_item.append(arcade.Sprite(random_item.value, 0.20))
-        self.reward_item[0].center_y = 700 / self.scaling_y
+        self.reward_item[0].center_y = 900 / self.scaling_y
         self.reward_item[0].center_x = (length_divider * 2) / self.scaling_x

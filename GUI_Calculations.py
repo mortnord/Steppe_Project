@@ -85,3 +85,24 @@ def make_panel_from_item(mouse_x, mouse_y, item_clicked_on):
     text_area = UITextArea(x=mouse_x, y=mouse_y, width=150, height=50, text=string_to_print, text_color=(0, 0, 0, 255))
     return UITexturePane(text_area.with_space_around(right=20), tex=Static_Data.get_bg_text_panel(),
                          padding=(10, 10, 10, 10))
+
+
+def make_card_sprite_list_from_backend(card):
+    sprite_list = arcade.SpriteList()
+    sprite_list.append(arcade.Sprite(card.sprite))
+    if card.energy_required == 0:
+        sprite_list.append(arcade.Sprite(Enumerators.Sprites.Free_Energy.value))
+    elif card.energy_required == 1:
+        sprite_list.append(arcade.Sprite(Enumerators.Sprites.One_Energy.value))
+    elif card.energy_required == 2:
+        sprite_list.append(arcade.Sprite(Enumerators.Sprites.Two_Energy.value))
+    if card.indicator_sprite is not None:
+        sprite_list.append(arcade.Sprite(card.indicator_sprite))
+    else:
+        sprite_list.append(arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Blank.value))
+    if card.indicator_sprite_secondary is not None:
+        sprite_list.append(arcade.Sprite(card.indicator_sprite_secondary))
+    else:
+        sprite_list.append(arcade.Sprite(Enumerators.Sprites_Of_Planned_Attack.Blank.value))
+    return sprite_list
+

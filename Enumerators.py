@@ -92,6 +92,7 @@ class Sprites_Of_Planned_Attack(Enum):
     Attack = "Assets/Card_Assets/Attack_Symbol.png"
     Defend = "Assets/Card_Assets/Defend_Symbol.png"
     Healing = "Assets/Card_Assets/Heart_Symbol.png"
+    Blank = "Assets/Card_Assets/Blank_Symbol.png"
 
 
 class Sprites(Enum):
