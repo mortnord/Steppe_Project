@@ -40,6 +40,14 @@ def create_card_indicators_from_backend():
     pass
 
 
+def create_card_text_from_backend(card_in):
+    string_to_return = ""
+    if card_in.one_time:
+        string_to_return += "One Time Use \n"
+    string_to_return += " "
+    return string_to_return
+
+
 def make_SpriteList_from_equipment_list(dwarf_in_backend, dwarf_in_frontend, scaling_x, scaling_y):
     equipment_sprite_list = arcade.SpriteList()
     equipment_sprite_list.append(arcade.Sprite(dwarf_in_backend.armor.sprite, 0.20))

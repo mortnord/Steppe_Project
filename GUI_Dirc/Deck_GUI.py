@@ -3,7 +3,6 @@ from arcade.gui import UIManager
 
 import Enumerators
 import GUI_Calculations
-from GUI_Calculations import make_SpriteList_from_numbers
 from Static_Data import Static_Data
 from GUI_Dirc import GUI
 
@@ -16,11 +15,15 @@ class Deck_GUI(arcade.View):
         self.sprites_list_cards_indicator = arcade.SpriteList()
         self.sprites_list_cards_energy_indicator = arcade.SpriteList()
         self.sprites_list_cards = arcade.SpriteList()
+        self.indicator_text_label = []
+        self.info_text_label = []
         self.width, self.height = arcade.window_commands.get_display_size()
         self.scaling_x = 1920 / self.width
         self.scaling_y = 1080 / self.height
         self.manager = UIManager()
         self.manager.enable()
+        self.text_manager = UIManager()
+        self.text_manager.enable()
 
     def setup(self):
         self.update_cards()
@@ -39,6 +42,8 @@ class Deck_GUI(arcade.View):
         self.sprites_list_cards_energy_indicator.draw()
         for card in self.list_of_cards_text:
             card.draw()
+        self.text_manager.draw()
+
         self.manager.draw()
 
     def update_cards(self):
@@ -59,6 +64,7 @@ class Deck_GUI(arcade.View):
         cards_in_a_row = 0
         y_split = 0
         x_split = 0
+
         for x in range(len(self.sprites_list_cards)):
 
             self.sprites_list_cards[x].center_x = 150 + x_split / self.scaling_x
@@ -70,10 +76,25 @@ class Deck_GUI(arcade.View):
             self.sprites_list_cards_energy_indicator[x].center_x = self.sprites_list_cards[x].center_x - 70
             self.sprites_list_cards_energy_indicator[x].center_y = self.sprites_list_cards[x].center_y + 120.5
 
-            self.list_of_cards_text.append(make_SpriteList_from_numbers(Static_Data.get_deck_list().content[x].value,
-                                                                        self.sprites_list_cards[x].center_x - 70,
-                                                                        self.sprites_list_cards[x].center_y - 12.5))
+            self.indicator_text_label.append(arcade.gui.UITextArea(x=self.sprites_list_cards_indicator[x].center_x - 55,
+                                                                   y=self.sprites_list_cards_indicator[x].center_y - 20,
+                                                                   text=str(
+                                                                       Static_Data.get_deck_list().content[x].value),
+                                                                   width=1, height=1, font_size=24,
+                                                                   font_name="Arial",
+                                                                   text_color=arcade.color.BLACK))
 
+            self.info_text_label.append(arcade.gui.UITextArea(x=self.sprites_list_cards_indicator[x].center_x - 50,
+                                                              y=self.sprites_list_cards_indicator[x].center_y - 50,
+                                                              text=GUI_Calculations.create_card_text_from_backend(
+                                                                  Static_Data.get_deck_list().content[x]),
+                                                              width=300, height=50, font_size=10,
+                                                              font_name="Arial",
+                                                              text_color=arcade.color.BLACK))
+            self.indicator_text_label[x].fit_content()
+            self.info_text_label[x].fit_content()
+            self.text_manager.add(self.indicator_text_label[x])
+            self.text_manager.add(self.info_text_label[x])
             x_split += 250
             cards_in_a_row += 1
             if cards_in_a_row > 6:

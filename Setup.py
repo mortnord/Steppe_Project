@@ -11,7 +11,8 @@ def setup():
     Background_Calculations.background_info()  # Background info som actions osv
     width, height = arcade.window_commands.get_display_size()
     window = arcade.Window(width, height, "TEST", fullscreen=True)
-
+    window.set_vsync(True)
+    window.set_update_rate(1/60)
     Static_Data.set_window(window)
     map_view = GUI.Map_View()
     Static_Data.get_window().show_view(map_view)

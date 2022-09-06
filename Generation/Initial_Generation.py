@@ -3,7 +3,7 @@ import random
 import Dwarfs_And_Deck.Deck
 import Dwarfs_And_Deck.Dwarfs
 
-from Cards import Attack, Defend
+from Cards import Attack, Defend, Heavy_Attack
 from Dwarfs_And_Deck import Sheeps
 from Equipment import Spear
 from Inventory import Inventory
@@ -30,6 +30,7 @@ def initial_Creation(dwarfs, male_sheeps, female_sheeps, male_lambs, female_lamb
         deck_list.content.append(Attack.Attack())
         deck_list.content.append(Defend.Defend())
     Inventory.equipment.append(Spear.Spear())
+    deck_list.content.append(Heavy_Attack.Heavy_Attack())
     for x in range(dwarfs):  # legg til ønsket mengde dwarfs
         list_of_people.append(Dwarfs_And_Deck.Dwarfs.Dwarf())
     for x in range(male_sheeps):  # Ønsket mengde sauer og sauetyper
